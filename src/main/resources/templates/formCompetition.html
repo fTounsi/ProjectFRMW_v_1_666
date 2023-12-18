@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.layout.net..nz/thymeleaf/layout"
+      layout:decorate="templateapp.html"
+>
+<head>
+  <title>FRMW APP - Nouvelle Competition</title>
+</head>
+<body class="hold-transition sidebar-mini">
+<div layout:fragment="content">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title"> Nouvelle Competition</h3>
+              <div class="card-tools">
+                <a type="button" class="btn btn-tool" title="Lister" data-widget="" th:href="@{/competition}">
+                  <h5><i class="fa-solid fa-rectangle-list"></i>&nbsp;&nbsp;Lister</h5>
+                </a>
+              </div>
+            </div>
+            <div th:text="${errorMessage}" th:if="${errorMessage}" class="alert alert-danger"></div>
+            <form th:action="@{/saveCompetition}" th:object="${comp}" class="form-horizontal" method="post">
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="card-body">
+                  <div class="form-group row">
+                    <label for="name" class="col-sm-2 col-form-label">Nom Competition</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="name" id="name" placeholder="Nom Competition" th:field="*{name}">
+                      <span class="text-danger" th:errors="${comp.name}"></span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="description" class="col-sm-2 col-form-label">Description</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="description" id="description" placeholder="Description" th:field="*{description}">
+                      <span class="text-danger" th:errors="${comp.description}"></span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Discipline</label>
+                    <div class="custom-control custom-radio col-sm-1">
+                      <input class="custom-control-input custom-control-input-info" value="SANDA" type="radio" id="SANDA" name="typeComp" th:field="*{typeComp}" checked>
+                      <label for="SANDA" class="custom-control-label">SANDA </label>
+                    </div>
+                    <div class="custom-control custom-radio col-sm-1">
+                      <input class="custom-control-input custom-control-input-danger" value="WUSHU" type="radio" id="WUSHU" name="typeComp" th:field="*{typeComp}">
+                      <label for="WUSHU" class="custom-control-label">WUSHU</label>
+                    </div>
+                    <div class="custom-control custom-radio col-sm-1">
+                      <input class="custom-control-input custom-control-input-danger" value="SANDAWUSHU" type="radio" id="SANDAWUSHU" name="typeComp" th:field="*{typeComp}">
+                      <label for="SANDAWUSHU" class="custom-control-label">SANDA & WUSHU</label>
+                    </div>
+                  </div>
+                 <!-- <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Date Debut</label>
+                    <div class="input-group col-sm-5">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                      </div>
+                      <input type="text" name="startDate" id="startDate" th:field="*{startDate}" class="form-control" data-target="startDate">
+                    </div>
+                    &lt;!&ndash; /.input group &ndash;&gt;
+                  </div>-->
+                  <div class="form-group row">
+                    <label for="place" class="col-sm-2 col-form-label">Lieu </label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="place" id="place" placeholder="Lieu Competition" th:field="*{place}">
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="input-group col-sm-5">
+                    <label for="startDate" class="col-form-label">Date Debut</label>
+                    <div class="input-group date" id="startDate" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" data-target="#startDate" name="startDate" th:field="*{startDate}" data-inputmask-inputformat="dd/MM/yyyy"/>
+                      <div class="input-group-append" data-target="#startDate" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="input-group col-sm-5">
+                    <label for="endingDate" class="col-form-label">Date Fin</label>
+                    <div class="input-group date" id="endingDate" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" data-target="#endingDate" name="endingDate" th:field="*{endingDate}" data-inputmask-inputformat="dd/MM/yyyy"/>
+                      <div class="input-group-append" data-target="#endingDate" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+
+                 <!-- <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Date Fin</label>
+                    <div class="input-group col-sm-5">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                      </div>
+                      <input type="text" name="endingDate" id="endingDate" th:field="*{endingDate}" class="form-control" data-target="endingDate">
+                    </div>
+                    &lt;!&ndash; /.input group &ndash;&gt;
+                  </div>-->
+
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <button type="submit" class="btn bg-gradient-info">Ajouter Competition</button>
+              <button type="reset" class="btn btn-default float-right">Annuler</button>
+            </div>
+            </form>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+</div>
+<!-- Page specific script -->
+</body>
+</html>

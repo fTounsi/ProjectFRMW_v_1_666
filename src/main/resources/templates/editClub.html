@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.layout.net..nz/thymeleaf/layout"
+      layout:decorate="templateapp.html"
+>
+<head>
+  <title>FRMW APP - Modifier Club</title>
+</head>
+<body class="hold-transition sidebar-mini">
+<div layout:fragment="content">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Modifier Club</h3>
+              <div class="card-tools">
+                <a type="button" class="btn btn-tool" title="Lister" data-widget="" th:href="@{/club}">
+                  <h5><i class="fa-solid fa-rectangle-list"></i>&nbsp;&nbsp;Lister</h5>
+                </a>
+              </div>
+            </div>
+            <form th:action="@{/saveClub}" class="form-horizontal" method="post">
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="card-body">
+                  <input type="hidden" class="form-control" name="club_id" id="club_id" th:value="${club.club_id}">
+                    <div class="form-group row">
+                      <label for="name" class="col-sm-2 col-form-label">Nom Club</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Nom Club" th:value="${club.name}">
+                        <span class="text-danger" th:errors="${club.name}"></span>
+                      </div>
+                    </div>
+                  <div class="form-group row">
+                    <label for="address" class="col-sm-2 col-form-label">Adresse Club</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="address" id="address" placeholder="Adresse Club" th:value="${club.address}">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="telephone" class="col-sm-2 col-form-label">Telephone Club</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="telephone" id="telephone" placeholder="Telephone Club" th:value="${club.telephone}">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="region" class="col-sm-2 col-form-label">Region Club</label>
+                    <div class="col-sm-10">
+                      <select class="form-control"id="region" name="region">
+                        <option  th:each="r:${listRegions}" th:value="${r.region_id}" th:text="${r.label}" th:selected="${r.region_id == club.region.region_id}"></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <button type="submit" class="btn btn-info">Modofier Club</button>
+              <button type="submit" class="btn btn-default float-right">Annuler</button>
+            </div>
+            </form>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+</div>
+<!-- Page specific script -->
+</body>
+</html>

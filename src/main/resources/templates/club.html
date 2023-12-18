@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.layout.net..nz/thymeleaf/layout"
+      layout:decorate="templateapp.html"
+>
+<head>
+  <title>FRMW APP - Clubs</title>
+</head>
+<body class="hold-transition sidebar-mini">
+<div layout:fragment="content">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Liste Clubs</h3>
+              <div class="card-tools">
+                <a type="button" class="btn btn-tool" title="Ajouter" data-widget="" th:href="@{/formClub}">
+                <h5><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Ajouter</h5>
+                </a>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div th:text="${successMessage}" th:if="${successMessage}" class="alert alert-success"></div>
+            <div class="card-body">
+              <table id="dataList" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Nom</th> <th>Adresse</th> <th>Telephone</th> <th>Region</th> <th>Date Creation</th> <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="c:${listClubs}">
+                  <!--<td th:text="${c.club_id}"></td>-->
+                  <td th:text="${c.name}"></td>
+                  <td th:text="${c.address}"></td>
+                  <td th:text="${c.telephone}"></td>
+                  <td th:text="${c.region.label}"></td>
+                  <td th:text="${#dates.format(c.createdDate, 'dd/MM/yyyy')}"></td>
+                  <td><div class="btn-group btn-group-sm"><a th:href="@{/editClub(id=${c.club_id})}" class="btn btn-info"><i class="fas fa-pen"></i></a></div>
+                    <div class="btn-group btn-group-sm"><a th:href="@{/detailClub(id=${c.club_id})}" class="btn btn-success"><i class="fas fa-eye"></i></a></div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+</div>
+<!-- Page specific script -->
+</body>
+</html>

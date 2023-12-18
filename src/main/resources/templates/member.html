@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.layout.net..nz/thymeleaf/layout"
+      layout:decorate="templateapp.html"
+>
+<head>
+    <title>FRMW APP - Adhérent</title>
+</head>
+<body class="hold-transition sidebar-mini">
+<div layout:fragment="content">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title">Liste Adhérents</h3>
+                            <div class="card-tools">
+                                <a type="button" class="btn btn-tool" title="Ajouet" data-widget="" th:href="@{/formMember}">
+                                   <h5><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Ajouter</h5>
+                                </a>
+                            </div>
+                        </div>
+
+                            <div th:text="${successMessage}" th:if="${successMessage}" class="alert alert-success"></div>
+
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="dataList" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Photo</th><th>Nom</th><th>Prenom</th><th>Sexe</th><th>Date naissance</th>
+                                    <th>Adresse</th> <th>Telephone</th><th>Email</th><th>Club</th>
+                                    </th><th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="m:${listMembers}">
+                                    <td>
+                                        <div class="user-block">
+                                            <img class="img-circle img-bordered-sm" th:src="@{/uploads/{filename}(filename=${m.photoPath})}" alt="Adherent Avatar" th:if="${m.photoPath != null and !m.photoPath.isEmpty()}"/>
+                                            <img class="img-circle img-bordered-sm" th:src="@{/dist/img/defaultAvatar.png}" alt="Adherent Avatar" th:if="${m.photoPath == null or m.photoPath.isEmpty()}"/>
+                                        </div>
+                                    </td>
+                                    <td th:text="${m.firstName}"></td>
+                                    <td th:text="${m.lastName}"></td>
+                                    <td> <span class="badge" th:text="${m.gender}" th:classappend="${m.gender == 'F' ? 'badge-danger' : 'badge-info'}"></span></td>
+                                    <td th:text="${#dates.format(m.birthDate, 'dd/MM/yyyy')}"></td>
+                                    <td th:text="${m.address}"></td>
+                                    <td th:text="${m.telephone}"></td>
+                                    <td th:text="${m.email}"></td>
+                                    <td> <span class="badge badge-warning" th:text="${m.club.name}"></span></td>
+                                    <td><div class="btn-group btn-group-sm"><a th:href="@{/editMember(id=${m.id})}" class="btn btn-info"><i class="fas fa-pen"></i></a></div>
+                                        <div class="btn-group btn-group-sm"><a th:href="@{/detailMember(id=${m.id})}" class="btn btn-success"><i class="fas fa-eye"></i></a></div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+</div>
+<!-- Page specific script -->
+</body>
+</html>

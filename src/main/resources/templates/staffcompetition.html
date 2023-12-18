@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.layout.net..nz/thymeleaf/layout"
+      layout:decorate="templateapp.html"
+>
+<head>
+    <title>FRMW APP - Competitions</title>
+</head>
+<body class="hold-transition sidebar-mini">
+<div layout:fragment="content">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title">Liste Competitions</h3>
+                            <!--<div class="card-tools">
+                                <a type="button" class="btn btn-tool" title="Ajouter" data-widget="" th:href="@{/formCompetition}">
+                                    <h5><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Ajouter</h5>
+                                </a>
+                            </div>-->
+                        </div>
+                        <!-- /.card-header  -->
+                        <div class="card-body" th:if="${myComp != null and !#lists.isEmpty(myComp)}" >
+                            <table id="dataList" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Nom</th><th>Description</th><th>Debut</th><th>Fin</th>
+                                    <th>Lieu</th> <th>Status</th></th><th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="comp:${myComp}">
+                                    <td><span class="badge badge-warning" th:text="${comp.name}"></span></td>
+                                    <td th:text="${comp.description}"></td>
+                                    <td th:text="${#dates.format(comp.startDate, 'dd/MM/yyyy')}"></td>
+                                    <td th:text="${#dates.format(comp.endingDate, 'dd/MM/yyyy')}"></td>
+                                    <td th:text="${comp.place}"></td>
+                                    <td><span class="badge badge-danger" th:text="${comp.status}"></span></td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm"><a th:href="@{/detailStaffCompetition(id=${comp.id})}" class="btn btn-success"><i class="fas fa-eye"></i></a></div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-body" th:unless="${myComp != null and !#lists.isEmpty(myComp)}">
+                            <div class="alert alet-info">
+                                Aucune competition affectée a ce club.
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+</div>
+<!-- Page specific script -->
+</body>
+</html>

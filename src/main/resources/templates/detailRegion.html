@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.layout.net..nz/thymeleaf/layout"
+      layout:decorate="templateapp.html"
+>
+<head>
+  <title>FRMW APP - Detail Region</title>
+</head>
+<body class="hold-transition sidebar-mini">
+<div layout:fragment="content">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-11 offset-1">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Detail Region</h3>
+              <div class="card-tools">
+                <a type="button" class="btn btn-tool" title="Lister" data-widget="" th:href="@{/region}">
+                  <i class="fa-solid fa-rectangle-list"></i>&nbsp;&nbsp;Lister</h5>
+                </a>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="card card-primary">
+                  <div class="card-header">
+                    <h3 class="card-title"></h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <strong><i class="fa fa-barcode"></i> Code </strong>
+                    <p class="text-muted" th:text="${region.code}"></p>
+                    <hr>
+                    <strong><i class="fas fa-map-marker-alt mr-1"></i> Region</strong>
+                    <p class="text-muted" th:text="${region.label}"></p>
+                    <hr>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+              </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+</div>
+<!-- Page specific script -->
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.layout.net..nz/thymeleaf/layout"
+      layout:decorate="templateapp.html"
+>
+<head>
+  <title>FRMW APP - Detail Club</title>
+</head>
+<body class="hold-transition sidebar-mini">
+<div layout:fragment="content">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-10">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Detail Club</h3>
+              <div class="card-tools">
+                <a type="button" class="btn btn-tool" title="Lister" data-widget="" th:href="@{/club}">
+                  <h5><i class="fa-solid fa-rectangle-list"></i>&nbsp;&nbsp;Lister</h5>
+                </a>
+              </div>
+            </div>
+            <div class="card-body">
+                <!-- About Me Box -->
+                <div class="card card-primary">
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <div class="text-center">
+                      <!--<img class="profile-user-img img-fluid img-circle"
+                           src="../../dist/img/user4-128x128.jpg"
+                           alt="User profile picture">-->
+
+                      <img class="profile-user-img img-fluid img-circle" th:src="@{/uploads/{filename}(filename=${club.logoPath})}" alt="User Avatar" th:if="${club.logoPath != null and !club.logoPath.isEmpty()}"/>
+                      <img class="profile-user-img img-fluid img-circle" th:src="@{/dist/img/defaultAvatar.png}" alt="User Avatar" th:if="${club.logoPath == null or club.logoPath.isEmpty()}"/>
+                    </div>
+                    <strong><i class="fas fa-university"></i> Nom</strong>
+                    <p class="text-muted" th:text="${club.name}"></p>
+                    <hr>
+                    <strong><i class="far fa-calendar-alt"></i> Date Creation</strong>
+                    <p class="text-muted" th:text="${#dates.format(club.createdDate, 'dd/MM/yyyy')}"></p>
+                    <hr>
+                    <strong><i class="fa fa-home"></i> Adresse</strong>
+                    <p class="text-muted" th:text="${club.address}"></p>
+                    <hr>
+                    <strong><i class="fas fa-map-marker-alt"></i> Region</strong>
+                    <p class="text-muted" th:text="${club.region.label}"></p>
+                    <hr>
+                    <strong><i class="fas fa-phone"></i> Telephone</strong>
+                    <p class="text-muted">
+                      <span class="tag tag-danger" th:text="${club.telephone}"></span>
+                    </p>
+                    <hr>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      <!--  <div class="row">
+          <div class="col-3">
+            <div class="card card-secondary">
+              <div class="card-header">
+                <h3 class="card-title">Detail Club</h3>
+                <div class="card-tools">
+                  <a type="button" class="btn btn-tool" title="Lister" data-widget="" th:href="@{/club}">
+                    <h5><i class="fa-solid fa-rectangle-list"></i>&nbsp;&nbsp;Lister</h5>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <table id="dataList" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th>Nom</th> <th>Adresse</th> <th>Telephone</th> <th>Region</th> <th>Date Creation</th> <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="m:${club.memberList}">
+                      &lt;!&ndash;<td th:text="${c.club_id}"></td>&ndash;&gt;
+                      <td th:text="${m.firstName + ' ' + lastName}"></td>
+                      <td th:text="${m.gender}"></td>
+                      <td th:text="${#dates.format(m.birthday, 'dd/MM/yyyy')}"></td>
+                      <td th:text="${m.telephone}"></td>
+                      <td th:text="${m.email}"></td>
+                      <td><div class="btn-group btn-group-sm"><a th:href="@{/editClub(id=${c.club_id})}" class="btn btn-info"><i class="fas fa-pen"></i></a></div>
+                        <div class="btn-group btn-group-sm"><a th:href="@{/detailClub(id=${c.club_id})}" class="btn btn-success"><i class="fas fa-eye"></i></a></div>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>-->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+</div>
+<!-- Page specific script -->
+</body>
+</html>

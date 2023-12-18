@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.layout.net..nz/thymeleaf/layout"
+      layout:decorate="templateapp.html"
+>˙
+<head>
+  <title>FRMW APP - Detail Adhérent</title>
+</head>
+<body class="hold-transition sidebar-mini">
+<div layout:fragment="content">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-10 offset-1">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Detail Adhérent</h3>
+              <div class="card-tools">
+                <a type="button" class="btn btn-tool" title="Lister" data-widget="" th:href="@{/member}">
+                 <h5> <i class="fa-solid fa-rectangle-list"></i>&nbsp;&nbsp;Lister</h5>
+                </a>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+              <div class="col">
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                  <div class="card-body box-profile">
+                    <div class="text-center">
+                      <!--<img class="profile-user-img img-fluid img-circle"
+                           src="../../dist/img/user4-128x128.jpg"
+                           alt="User profile picture">-->
+
+                      <img class="profile-user-img img-fluid img-circle" th:src="@{/uploads/{filename}(filename=${member.photoPath})}" alt="User Avatar" th:if="${member.photoPath != null and !member.photoPath.isEmpty()}"/>
+                      <img class="profile-user-img img-fluid img-circle" th:src="@{/dist/img/defaultAvatar.png}" alt="User Avatar" th:if="${member.photoPath == null or member.photoPath.isEmpty()}"/>
+                    </div>
+                    <h3 class="profile-username text-center" th:text="${member.firstName} + ' ' + ${member.lastName}"></h3>
+                    <p class="text-muted text-center"><span class=" badge badge-danger">Sanda Athlete</span></p>
+                    <ul class="list-group list-group-unbordered mb-3">
+                      <li class="list-group-item">
+                        <b>Club</b> <a class="float-right" th:text="${member.club.name}"></a>
+                      </li>
+                      <li class="list-group-item">
+                        <b>Taille</b> <a class="float-right" th:text="${member.height}"></a>
+                      </li>
+                      <li class="list-group-item">
+                        <b>Poids</b> <a class="float-right" th:text="${member.weight}"></a>
+                      </li>
+                      <li class="list-group-item">
+                        <b>Competitions</b> <a class="float-right">6</a>
+                      </li>
+                    </ul>
+                    <!--<a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>-->
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+              </div>
+              <div class="col">
+                <!-- About Me Box -->
+                <div class="card card-primary">
+                  <div class="card-header">
+                    <h3 class="card-title">Coordonnées</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <strong><i class="fas fa-university"></i> Club</strong>
+                    <p class="text-muted" th:text="${member.club.name}"></p>
+                    <hr>
+                    <strong><i class="fas fa-map-marker-alt mr-1"></i> Adresse</strong>
+                    <p class="text-muted" th:text="${member.address}"></p>
+                    <hr>
+                    <strong><i class="fas fa-phone"></i> Telephone</strong>
+                    <p class="text-muted">
+                      <span class="tag tag-danger" th:text="${member.telephone}"></span>
+                    </p>
+                    <hr>
+                    <strong><i class="fas fa-envelope"></i> Email</strong>
+                    <p class="text-muted" th:text="${member.email}"></p>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+              </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+</div>
+<!-- Page specific script -->
+</body>
+</html>

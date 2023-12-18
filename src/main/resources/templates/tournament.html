@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Tournament Bracket</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/2.1.48/go.js"></script>
+  <style>
+        /* Add your CSS styling here */
+        #myDiagramDiv {
+            width: 100%;
+            height: 600px;
+            border: 1px solid black;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="myDiagramDiv"></div>
+
+<script th:inline="javascript">
+        /*<![CDATA[*/
+        // Server-side data (Participants list) injected by Thymeleaf
+        //var participants = [[${participantsJson}]];
+
+          var participants = JSON.parse(/*[[${participantsJson}]]*/ '[]');
+
+        function init() {
+            var $ = go.GraphObject.make;
+            var myDiagram = $(go.Diagram, "myDiagramDiv", {
+                // Diagram configuration options
+            });
+
+            // Define the data for the bracket
+            var nodeDataArray = participants.map(function(p) {
+                return { key: p.id, firstName: p.lastName }; // Adjust according to your Participant class structure
+            });
+
+            myDiagram.model = new go.GraphLinksModel(nodeDataArray);
+
+            // Define how each node (participant) should look
+            myDiagram.nodeTemplate =
+                $(go.Node, "Auto",
+                    $(go.Shape, "Rectangle", { strokeWidth: 0 },
+                        new go.Binding("fill", "color")),
+                    $(go.TextBlock, { margin: 8 },
+                        new go.Binding("text", "name"))
+                );
+
+            // Define how links (brackets) should look
+            myDiagram.linkTemplate =
+                $(go.Link,
+                    $(go.Shape) // default link shape
+                );
+        }
+
+        init();
+        /*]]>*/
+    </script>
+</body>
+</html>

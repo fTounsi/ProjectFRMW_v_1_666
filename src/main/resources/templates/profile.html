@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.layout.net..nz/thymeleaf/layout"
+      layout:decorate="templateapp.html"
+>
+<head>
+  <title>FRMW APP - Detail Adhérent</title>
+</head>
+<body class="hold-transition sidebar-mini">
+<div layout:fragment="content">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-10 offset-1">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Detail Utilisateur</h3>
+              <div class="card-tools">
+                <a type="button" class="btn btn-tool" title="Lister" data-widget="" th:href="@{/user}">
+                  <h5> <i class="fa-solid fa-rectangle-list"></i>&nbsp;&nbsp;Lister</h5>
+                </a>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <!-- Profile Image -->
+                  <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                      <div class="text-center">
+
+                        <img class="profile-user-img img-fluid img-circle" th:src="@{/uploads/{filename}(filename=${utilisateur.photoPath})}" alt="User Avatar" th:if="${utilisateur.photoPath != null and !utilisateur.photoPath.isEmpty()}"/>
+                        <img class="profile-user-img img-fluid img-circle" th:src="@{/dist/img/defaultAvatar.png}" alt="User Avatar" th:if="${utilisateur.photoPath == null or utilisateur.photoPath.isEmpty()}"/>
+                      </div>
+                      <h3 class="profile-username text-center" th:text="${utilisateur.firstName}"></h3>
+                      <p class="text-muted text-center"><span class=" badge badge-danger" th:text="${#strings.listJoin(utilisateur.roles.![name], ', ')}">Role</span></p>
+                      <ul class="list-group list-group-unbordered mb-3">
+                        <li class="list-group-item">
+                          <b>Login</b> <a class="float-right" th:text="${utilisateur.login}"></a>
+                        </li>
+                        <li class="list-group-item">
+                          <b>Role</b> <a class="float-right" href="#" th:text="${#strings.listJoin(utilisateur.roles.![name], ', ')}"></a>
+                        </li>
+                        <li class="list-group-item">
+                          <b>Club</b> <a class="float-right" th:text="${utilisateur.club.name}"></a>
+                        </li>
+                      </ul>
+                      <!--<a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>-->
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <!-- /.card -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+</div>
+<!-- Page specific script -->
+</body>
+</html>

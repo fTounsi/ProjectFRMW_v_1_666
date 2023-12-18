@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.layout.net..nz/thymeleaf/layout"
+      layout:decorate="templateapp.html"
+>
+<head>
+  <title>FRMW APP - Modifier Region</title>
+</head>
+<body class="hold-transition sidebar-mini">
+<div layout:fragment="content">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Modeifier Region</h3>
+              <div class="card-tools">
+                <a type="button" class="btn btn-tool" title="Lister" data-widget="" th:href="@{/region}">
+                  <h5><i class="fa-solid fa-rectangle-list"></i>&nbsp;&nbsp;Lister</h5>
+                </a>
+              </div>
+            </div>
+            <form th:action="@{/saveRegion}" class="form-horizontal" method="post">
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="card-body">
+                  <input type="hidden" name="region_id" id="region_id" th:value="${region.region_id}">
+                  <div class="form-group row">
+                    <label for="code" class="col-sm-2 col-form-label">Code Region</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="code" id="code" placeholder="Code Region" th:value="${region.code}">
+                      <span class="text-danger" th:errors="${region.code}"></span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="label" class="col-sm-2 col-form-label">Nom Region</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="label" id="label" placeholder="Nom Region" th:value="${region.label}">
+                      <span class="text-danger" th:errors="${region.label}"></span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-info">Modifier Region</button>
+                  <button type="submit" class="btn btn-default float-right">Annuler</button>
+                </div>
+            <!-- /.card-body -->
+            </form>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+</div>
+<!-- Page specific script -->
+</body>
+</html>

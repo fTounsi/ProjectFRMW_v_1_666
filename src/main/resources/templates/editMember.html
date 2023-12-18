@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.layout.net..nz/thymeleaf/layout"
+      layout:decorate="templateapp.html"
+>˙
+<head>
+  <title>FRMW APP - Modifier Adhérent</title>
+</head>
+<body class="hold-transition sidebar-mini">
+<div layout:fragment="content">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-10 offset-1">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Modifier Adhérent</h3>
+              <div class="card-tools">
+                <a type="button" class="btn btn-tool" title="Lister" data-widget="" th:href="@{/member}">
+                  <h5><i class="fa-solid fa-rectangle-list"></i>&nbsp;&nbsp;Lister</h5>
+                </a>
+              </div>
+            </div>
+            <form th:action="@{/updateMember}" th:object="${member}" class="form-horizontal" enctype="multipart/form-data" method="post">
+            <!-- /.card-header -->
+              <input type="hidden" name="id" th:value="${member.id}">
+            <div class="card-body">
+                <div class="card-body">
+                  <div class="form-group row">
+                    <label for="cin" class="col-sm-2 col-form-label">CIN </label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="cin" id="cin" placeholder="CIN" th:value="${member.cin}">
+                      <span class="text-danger" th:errors="${member.cin}"></span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="lastName" class="col-sm-2 col-form-label">Nom Adhérent</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Nom Adhérent" th:value="${member.lastName}">
+                      <span class="text-danger" th:errors="${member.lastName}"></span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="firstName" class="col-sm-2 col-form-label">Prénom Adhérent</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="firstName" id="firstName" placeholder="Prénom Adhérent" th:value="${member.firstName}">
+                      <span class="text-danger" th:errors="${member.firstName}"></span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="M" class="col-sm-2 col-form-label">Sexe</label>
+                    <div class="custom-control custom-radio col-sm-1">
+                      <input class="custom-control-input custom-control-input-info" value="M" type="radio" id="M" name="gender" th:checked="${member.gender}">
+                      <label for="M" class="custom-control-label">Mâle </label>
+                    </div>
+                    <div class="custom-control custom-radio col-sm-1">
+                      <input class="custom-control-input custom-control-input-danger" value="F" type="radio" id="F" name="gender" th:checked="${member.gender}">
+                      <label for="F" class="custom-control-label">Femelle</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-4">
+                      <div class="form-group row">
+                        <div class="form-group">
+                          <label for="height" class="col-form-label">Date Naissance</label>
+                          <div class="input-group date" id="birthDate" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#birthDate" data-inputmask-inputformat="dd/mm/yyyy" name="birthDate" th:value="${member.birthDate}" />
+                            <div class="input-group-append" data-target="#birthDate" data-toggle="datetimepicker">
+                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <label for="height" class="col-sm-2 col-form-label">Taille</label>
+                      <div class="input-group col-5">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fa-solid fa-person"></i></span>
+                        </div>
+                        <input type="text" class="form-control" name="height" id="height" th:value="${member.height}">
+                        <span class="text-danger" th:errors="${member.height}"></span>
+                        <span class="ml-2">cm</span>
+                      </div>
+                      <!-- /.input group -->
+                    </div>
+                    <div class="col-4">
+                      <label for="weight" class="col-sm-2 col-form-label">Poids</label>
+                      <div class="input-group col-5">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fa-solid fa-weight-scale"></i></span>
+                        </div>
+                        <input type="text" class="form-control" name="weight" id="weight" th:value="${member.weight}">
+                        <span class="text-danger" th:errors="${member.weight}"></span>
+                        <span class="ml-2">kg</span>
+                      </div>
+                      <!-- /.input group -->
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="address" class="col-sm-2 col-form-label">Adresse</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                      </div>
+                      <input type="text" name="address" id="address" th:value="${member.address}" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label>Telephone</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                      </div>
+                      <input type="text" name="telephone" id="telephone" th:value="${member.telephone}" class="form-control"
+                             data-inputmask="'mask': ['99-9999-9999 [x99999]', '+09 99 99 9999[9]-9999']" data-mask>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                  <div class="form-group row">
+                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                      </div>
+                      <input type="text" name="email" id="email" th:value="${member.email}" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="club" class="col-sm-2 col-form-label">Club</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-university"></i></span>
+                      </div>
+                      <select class="form-control"id="club" name="club">
+                        <option  th:each="c:${listClubs}" th:value="${c.club_id}" th:text="${c.name}"></option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="picture" class="col-sm-2 col-form-label">Photo</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-image"></i></span>
+                      </div>
+                      <input type="file" id="picture" name="picture" accept="image/png, image/jpeg"/>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <div class="card-footer">
+                <button type="submit" class="btn btn-info">Modifier Adhérent</button>
+                <button type="submit" class="btn btn-default float-right">Annuler</button>
+              </div>
+            <!-- /.card-body -->
+            </form>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+</div>
+<!-- Page specific script -->
+</body>
+</html>

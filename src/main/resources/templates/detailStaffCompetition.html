@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.layout.net..nz/thymeleaf/layout"
+      layout:decorate="templateapp.html"
+>˙
+<head>
+    <title>FRMW APP - Detail Competition</title>
+</head>
+<body class="hold-transition sidebar-mini">
+<div layout:fragment="content">
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- About Me Box -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title"> Competition</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <strong><i class="fas fa-trophy"></i> Nom</strong>
+                            <p class="text-muted"  th:text="${currentComp.name}"></p>
+                            <hr>
+                            <strong><i class="far fa-file-alt mr-1"></i> Description</strong>
+                            <p class="text-muted" th:text="${currentComp.description}"></p>
+                            <hr>
+                            <div>
+                                <strong><i class="far fa-calendar-alt"></i> Debut le</strong>
+                                <p class="text-muted" th:text="${#dates.format(currentComp.startDate, 'dd/MM/yyyy')}"></p>
+                                <strong><i class="far fa-calendar-alt"></i> Fin le</strong>
+                                <p class="text-muted" th:text="${#dates.format(currentComp.endingDate, 'dd/MM/yyyy')}"></p>
+                            </div>
+                            <hr>
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Place</strong>
+                            <p class="text-muted" th:text="${currentComp.place}"></p>
+                            <hr>
+                            <strong><i class="fa-solid fa-bars-progress"></i> Status</strong>
+                            <p class="text-muted" th:text="${currentComp.status}"></p>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+                <!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <form class="form-horizontal" method="post">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <select multiple="multiple" size="16"  id="optionsbox"
+                                            class="form-control">
+                                        <option  th:each="p:${participated_members}" th:value="${p.id}" th:text="${p.firstName + ' ' + p.lastName + '  .......................   ' + p.cin}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary mt-3" th:onclick="'handleButtonClick(\'' + ${currentComp.id} + '\', event)'">Affecter</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <table th:if="${not #lists.isEmpty(currentComp.participatedMembers)}" id="dataList" class="table table-bordered hover">
+                                        <thead>
+                                        <tr>
+                                            <th>Nom</th> <th>Prenom</th> <th>CIN</th> <th>Date Naissance</th> <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="participant:${currentComp.participatedMembers}">
+                                            <!--<td th:text="${c.club_id}"></td>-->
+                                            <td th:text="${participant.lastName}"></td>
+                                            <td th:text="${participant.firstName}"></td>
+                                            <td th:text="${participant.cin}"></td>
+                                            <td th:text="${participant.birthDate}"></td>
+                                            <td>
+                                                <div class="btn-group btn-group-sm"><a class="btn btn-danger"><i class="fas fa-close"></i></a></div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <script>
+    function handleButtonClick(compId, event) {
+        var selectedValues = [];
+        var multiSelect = document.getElementById('optionsbox');
+
+        for (var i = 0; i < multiSelect.options.length; i++) {
+            if (multiSelect.options[i].selected) {
+                selectedValues.push(multiSelect.options[i].value);
+            }
+        }
+       event.preventDefault();
+        fetch('/addPntToComp/' + compId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ selectedValues: selectedValues }),
+        })
+        <!--.then(response => response.json())
+        .then(data => {
+            // Handle the response from the server if needed
+            console.log(data);
+            document.getElementById('dataList').innerHTML = data.tableHtml;
+
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+  </script>
+</div>
+<!-- Page specific script -->
+
+</body>
+</html>

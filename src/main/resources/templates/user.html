@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.layout.net..nz/thymeleaf/layout"
+      layout:decorate="templateapp.html"
+>
+<head>
+  <title>FRMW APP - Utilisateurs</title>
+</head>
+<body class="hold-transition sidebar-mini">
+<div layout:fragment="content">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Liste Utilisateurs</h3>
+              <div class="card-tools">
+                <a type="button" class="btn btn-tool" title="Ajouter" data-widget="" th:href="@{/formUser}">
+                <h5><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Ajouter</h5>
+                </a>
+              </div>
+            </div>
+            <!-- /.card-header -->
+              <div th:text="${successMessage}" th:if="${successMessage}" class="alert alert-success"></div>
+            <div class="card-body">
+              <table id="dataList" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Nom</th> <th>Login</th> <th>Role</th>  <th>Photo</th> <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="u:${listUsers}">
+                  <td th:text="${u.firstName}"></td>
+                  <td th:text="${u.login}"></td>
+                    <td><span class="badge badge-danger" th:text="${#strings.listJoin(u.roles.![name], ', ')}"></span></td>
+<!--                  <img th:src="@{${u.photoPath}}" alt="User Avatar"/>-->
+                  <td>
+<!--                    <img width="60" th:src="@{/uploads/{filename}(filename=${u.photoPath})}" alt="User Avatar"/>-->
+                    <img width="60" class="img-circle elevation-2" th:src="@{/uploads/{filename}(filename=${u.photoPath})}" alt="User Avatar" th:if="${u.photoPath != null and !u.photoPath.isEmpty()}"/>
+                    <img width="60" class="img-circle elevation-2" th:src="@{/dist/img/defaultAvatar.png}" alt="User Avatar" th:if="${u.photoPath == null or u.photoPath.isEmpty()}"/>
+
+                    <!--                    <img width="60" th:src="${u.photoPath != null  ? @{/uploads/{filename}(filename=${u.photoPath})} : @{/dist/img/defaultAvatar.png}}" alt="User Avatar"/>-->
+                  </td>
+                  <td><div class="btn-group btn-group-sm"><a th:href="@{/editUser(id=${u.id})}" class="btn btn-info"><i class="fas fa-pen"></i></a></div>
+                    <div class="btn-group btn-group-sm"><a th:href="@{/profile(id=${u.id})}" class="btn btn-success"><i class="fas fa-eye"></i></a></div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+</div>
+<!-- Page specific script -->
+</body>
+</html>
