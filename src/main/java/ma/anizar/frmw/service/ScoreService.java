@@ -1,15 +1,14 @@
 package ma.anizar.frmw.service;
 
-import ma.anizar.frmw.model.Match;
-import ma.anizar.frmw.model.Score;
+import ma.anizar.frmw.model.dto.MatchDTO;
+import ma.anizar.frmw.model.dto.ScoreDTO;
 
 public interface ScoreService {
+  MatchDTO getMatchById(Long matchId);
 
-    Match getMatchById(Long matchId);
-    
-    Match startMatchById(Long matchId);
+  MatchDTO startMatchById(Long matchId);
 
-    Match endMatchById(Long matchId);
+  MatchDTO endMatchById(Long matchId);
 
-    boolean updateScore(Score scoreDTO);
+  boolean updateScore(ScoreDTO scoreDTO);
 }

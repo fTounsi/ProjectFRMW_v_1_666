@@ -1,5 +1,6 @@
 package ma.anizar.frmw.service;
 
+import ma.anizar.frmw.model.Competition;
 import ma.anizar.frmw.model.Match;
 import ma.anizar.frmw.model.Member;
 import ma.anizar.frmw.model.Score;
@@ -24,7 +25,7 @@ public class CachedDataServiceImpl implements CachedDataService {
         matchData = Match.builder().match_id(Long.valueOf(123))
                 .bluePlayer(Member.builder().clubName("Club Karaté Bleu").firstName("Khalid").lastName("Laarich").build())
                 .redPlayer(Member.builder().clubName("Club Karaté Rouge").firstName("Fouad").lastName("Tounsi").build())
-                .competitionName("Wosho Championship regional Rabat")
+                .competition(Competition.builder().name("Wosho Championship regional Rabat").build())
                 .startTime(null)
                 .status(StatusMatch.PROGRAMME)
                 .build();
@@ -63,9 +64,9 @@ public class CachedDataServiceImpl implements CachedDataService {
     @Override
     public Match startMatch(Long matchId) {
         matchData = Match.builder().match_id(Long.valueOf(123))
-                .bluePlayer(Member.builder().clubName("Club Karaté Bleu").firstName("Khalid").lastName("Laarich").build())
+                .bluePlayer(Member.builder().clubName("Club Karaté Bleu").firstName("Khalid").lastName("Laariche").build())
                 .redPlayer(Member.builder().clubName("Club Karaté Rouge").firstName("Fouad").lastName("Tounsi").build())
-                .competitionName("Wosho Championship regional Rabat")
+                .competition(Competition.builder().name("Wosho Championship regional Rabat").build())
                 .startTime(LocalDateTime.now())
                 .endTime(LocalDateTime.now().plusMinutes(3))
                 .status(StatusMatch.EN_COURS)

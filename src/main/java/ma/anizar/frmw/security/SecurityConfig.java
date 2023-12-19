@@ -14,29 +14,39 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .csrf().disable()
-                .headers().frameOptions().disable() // this property should be given to show H2 console
-                .and()
-                .requestCache().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/api/match").permitAll() // Permit all requests to /api/match
-                .requestMatchers("/add/**", "/update/**", "/delete/**", "/save/**").hasAuthority("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic()
-                .and()
-                .formLogin().loginPage("/login").permitAll()
-                .and()
-                .logout().permitAll();
-        return httpSecurity.build();
-    }
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity)
+    throws Exception {
+    httpSecurity
+      .csrf()
+      .disable()
+      .headers()
+      .frameOptions()
+      .disable() // this property should be given to show H2 console
+      .and()
+      .requestCache()
+      .disable()
+      .authorizeHttpRequests()
+      .requestMatchers("/api/match/**")
+      .permitAll() // Permit all requests to /api/match
+      .requestMatchers("/add/**", "/update/**", "/delete/**", "/save/**")
+      .hasAuthority("ADMIN")
+      .anyRequest()
+      .authenticated()
+      .and()
+      .httpBasic()
+      .and()
+      .formLogin()
+      .loginPage("/login")
+      .permitAll()
+      .and()
+      .logout()
+      .permitAll();
+    return httpSecurity.build();
+  }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 }

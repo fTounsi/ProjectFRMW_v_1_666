@@ -40,7 +40,6 @@ public class Score {
 
     @Override
     public int hashCode() {
-        // Utilisez Objects.hash pour générer un code de hachage basé sur les attributs
         return Objects.hash(id, arbitreName,match.getMatch_id());
     }
 }

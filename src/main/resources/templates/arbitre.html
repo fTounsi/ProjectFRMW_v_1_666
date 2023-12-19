@@ -1,11 +1,11 @@
 <html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-  <title>Saisie du Score</title>
-  <style>
+    <title>Saisie du Score</title>
+    <style>
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         margin: 0;
@@ -123,53 +123,54 @@
         border-radius: 5px;
       }
     </style>
-</head>
-<body>
-<div class="container">
-  <div class="header-block">
-    <h1>Arbitre 1</h1>
-    <p class="countdown" id="countdown">03:00</p>
-    <p id="competitionName"></p>
-    <div class="status">MATCH EN COURS</div>
-  </div>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header-block">
+        <h1>Arbitre 1</h1>
+        <p class="countdown" id="countdown">03:00</p>
+        <p id="competitionName"></p>
+        <div class="status">MATCH EN COURS</div>
+      </div>
 
-  <div class="content">
-    <div class="block red-block">
-      <h2>Club</h2>
-      <p class="score" id="redScore">0</p>
-      <div class="button-container">
-        <button class="button button-red" onclick="changeScore('red', 1)">
-          +
-        </button>
-        <button class="button button-red" onclick="changeScore('red', -1)">
-          -
-        </button>
+      <div class="content">
+        <div class="block red-block">
+          <h2>Club</h2>
+          <p class="score" id="redScore">0</p>
+          <div class="button-container">
+            <button class="button button-red" onclick="changeScore('red', 1)">
+              +
+            </button>
+            <button class="button button-red" onclick="changeScore('red', -1)">
+              -
+            </button>
+          </div>
+        </div>
+
+        <div class="block blue-block">
+          <h2>Club</h2>
+          <p class="score" id="blueScore">0</p>
+          <div class="button-container">
+            <button class="button button-blue" onclick="changeScore('blue', 1)">
+              +
+            </button>
+            <button
+              class="button button-blue"
+              onclick="changeScore('blue', -1)"
+            >
+              -
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="block blue-block">
-      <h2>Club</h2>
-      <p class="score" id="blueScore">0</p>
-      <div class="button-container">
-        <button class="button button-blue" onclick="changeScore('blue', 1)">
-          +
-        </button>
-        <button
-                class="button button-blue"
-                onclick="changeScore('blue', -1)">
-          -
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-      var matchId = 123;
+    <script>
+      var matchId = 1;
       var arbitreName = "Arbitre1";
       var scoreId = 0;
-      var newBlueScore= 0;
-      var newRedScore= 0;
+      var newBlueScore = 0;
+      var newRedScore = 0;
 
       $(document).ready(function () {
         // Fonction pour mettre à jour le tableau de bord depuis l'API
@@ -223,14 +224,13 @@
         var currentScore = parseInt(scoreElement.text());
         var newScore = currentScore + value;
 
-
         if (newScore >= 0) {
           scoreElement.text(newScore);
-          newBlueScore = ((color == "blue") ? newScore : newBlueScore  );
-          newRedScore= ((color == "red") ? newScore: newRedScore  );
-          console.log("newRedScore "+newRedScore);
-          console.log("newblueScore "+newBlueScore);
-          updateScoreAPI( newBlueScore,newRedScore);
+          newBlueScore = color == "blue" ? newScore : newBlueScore;
+          newRedScore = color == "red" ? newScore : newRedScore;
+          console.log("newRedScore " + newRedScore);
+          console.log("newblueScore " + newBlueScore);
+          updateScoreAPI(newBlueScore, newRedScore);
         }
       }
       function differenceBetweenDates(dateString1, dateString2) {
@@ -254,12 +254,12 @@
       function updateScoreAPI(blueScore, redScore) {
         var apiUrl = "http://localhost:8096/api/match/updateScore";
         var data = {
-          "id": scoreId,
-          "arbitreName" : arbitreName,
-          "blueScore" : blueScore,
-          "redScore" : redScore,
-          "match": {
-            "id": matchId
+          id: scoreId,
+          arbitreName: arbitreName,
+          blueScore: blueScore,
+          redScore: redScore,
+          match: {
+            id: matchId,
           },
         };
 
@@ -277,5 +277,5 @@
         });
       }
     </script>
-</body>
+  </body>
 </html>
