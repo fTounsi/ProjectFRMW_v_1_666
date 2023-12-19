@@ -297,10 +297,10 @@
         updateDashboardFromAPI(matchId);
 
         // Mettre à jour le tableau de bord toutes les X secondes (par exemple, toutes les 60 secondes)
-        //setInterval(function () {
-        //  // Vous pouvez remplacer 123 par l'ID du match que vous souhaitez charger
-        //  updateDashboardFromAPI(matchId);
-        //}, 1000); // 60000 millisecondes = 60 secondes
+        setInterval(function () {
+          // Vous pouvez remplacer 123 par l'ID du match que vous souhaitez charger
+          updateDashboardFromAPI(matchId);
+        }, 1000); // 60000 millisecondes = 60 secondes
       });
       var countdownInterval;
       // Fonction pour démarrer le match
