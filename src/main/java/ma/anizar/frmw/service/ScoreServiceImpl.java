@@ -43,20 +43,23 @@ public class ScoreServiceImpl implements ScoreService {
 
   @Override
   public MatchDTO startMatchById(Long matchId) {
+    System.out.println(" Start MATCHE ::::::::::::::::::::::::::::::::");
+
     Match matchToSave = matchRepository.findById(matchId).get();
     matchToSave.setStartTime(LocalDateTime.now());
     matchToSave.setEndTime(LocalDateTime.now().plusMinutes(MATCH_DURATION));
     matchToSave.setStatus(StatusMatch.EN_COURS);
-
+    matchRepository.save(matchToSave);
     return matchToSave.toDTO();
   }
 
   @Override
   public MatchDTO endMatchById(Long matchId) {
+    System.out.println(" END MATCHE ::::::::::::::::::::::::::::::::");
     Match matchToSave = matchRepository.findById(matchId).get();
     matchToSave.setEndTime(LocalDateTime.now());
     matchToSave.setStatus(StatusMatch.TERMINE);
-
+    matchRepository.save(matchToSave);
     return matchToSave.toDTO();
   }
 }

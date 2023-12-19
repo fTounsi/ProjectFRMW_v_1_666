@@ -9,6 +9,5 @@ import lombok.*;
 public class ClubDTO {
 
   private Long club_id;
-  private Long code;
   private String name;
 }
