@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : database
--- Généré le : mar. 19 déc. 2023 à 10:38
--- Version du serveur : 10.6.4-MariaDB-1:10.6.4+maria~focal
--- Version de PHP : 8.2.8
+-- Host: database
+-- Generation Time: Dec 20, 2023 at 01:26 AM
+-- Server version: 10.6.4-MariaDB-1:10.6.4+maria~focal
+-- PHP Version: 8.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `frmwdbase`
+-- Database: `frmwdbase`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `club`
+-- Table structure for table `club`
 --
 
 CREATE TABLE `club` (
@@ -46,7 +46,7 @@ CREATE TABLE `club` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `club`
+-- Dumping data for table `club`
 --
 
 INSERT INTO `club` (`club_id`, `address`, `created_date`, `logo_path`, `name`, `telephone`, `region_id`, `cin_entraineur`, `cin_president`, `code`, `date_assembleeg`, `entraineur`, `president`, `tel_entraineur`, `tel_president`) VALUES
@@ -64,7 +64,7 @@ INSERT INTO `club` (`club_id`, `address`, `created_date`, `logo_path`, `name`, `
 -- --------------------------------------------------------
 
 --
--- Structure de la table `competition`
+-- Table structure for table `competition`
 --
 
 CREATE TABLE `competition` (
@@ -79,7 +79,7 @@ CREATE TABLE `competition` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `competition`
+-- Dumping data for table `competition`
 --
 
 INSERT INTO `competition` (`id`, `description`, `ending_date`, `name`, `place`, `start_date`, `status`, `type_comp`) VALUES
@@ -91,7 +91,7 @@ INSERT INTO `competition` (`id`, `description`, `ending_date`, `name`, `place`, 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `competition_matches`
+-- Table structure for table `competition_matches`
 --
 
 CREATE TABLE `competition_matches` (
@@ -102,7 +102,7 @@ CREATE TABLE `competition_matches` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `competition_participated_clubs`
+-- Table structure for table `competition_participated_clubs`
 --
 
 CREATE TABLE `competition_participated_clubs` (
@@ -111,7 +111,7 @@ CREATE TABLE `competition_participated_clubs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `competition_participated_clubs`
+-- Dumping data for table `competition_participated_clubs`
 --
 
 INSERT INTO `competition_participated_clubs` (`competitions_id`, `participated_clubs_club_id`) VALUES
@@ -135,7 +135,7 @@ INSERT INTO `competition_participated_clubs` (`competitions_id`, `participated_c
 -- --------------------------------------------------------
 
 --
--- Structure de la table `competition_participated_members`
+-- Table structure for table `competition_participated_members`
 --
 
 CREATE TABLE `competition_participated_members` (
@@ -144,26 +144,26 @@ CREATE TABLE `competition_participated_members` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `competition_participated_members`
+-- Dumping data for table `competition_participated_members`
 --
 
 INSERT INTO `competition_participated_members` (`competitions_id`, `participated_members_id`) VALUES
-(4, 1),
-(4, 4),
+(4, 20),
+(4, 17),
+(4, 24),
+(4, 25),
 (4, 9),
 (4, 14),
-(4, 17),
+(4, 4),
 (4, 18),
-(4, 19),
-(4, 20),
 (4, 22),
-(4, 24),
-(4, 25);
+(4, 1),
+(4, 19);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `matches`
+-- Table structure for table `matches`
 --
 
 CREATE TABLE `matches` (
@@ -177,17 +177,50 @@ CREATE TABLE `matches` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `matches`
+-- Dumping data for table `matches`
 --
 
 INSERT INTO `matches` (`match_id`, `end_time`, `start_time`, `status`, `blue_player_id`, `competition_id`, `red_player_id`) VALUES
-(1, '2023-12-19 00:00:00.000000', '2023-12-19 00:00:00.000000', 1, 1, 2, 3),
-(2, '2023-12-19 00:00:00.000000', '2023-12-19 00:00:00.000000', 1, 2, 2, 4);
+(67, NULL, NULL, 0, 18, 4, 22),
+(68, NULL, NULL, 0, 19, 4, 1),
+(69, NULL, NULL, 0, 25, 4, 20),
+(70, NULL, NULL, 0, 4, 4, 24),
+(71, NULL, NULL, 0, 9, 4, 14),
+(72, NULL, NULL, 0, 24, 4, 19),
+(73, NULL, NULL, 0, 4, 4, 1),
+(74, NULL, NULL, 0, 17, 4, 14),
+(75, NULL, NULL, 0, 22, 4, 25),
+(76, NULL, NULL, 0, 9, 4, 20),
+(77, NULL, NULL, 0, 1, 4, 17),
+(78, NULL, NULL, 0, 18, 4, 20),
+(79, NULL, NULL, 0, 25, 4, 19),
+(80, NULL, NULL, 0, 22, 4, 9),
+(81, NULL, NULL, 0, 4, 4, 14),
+(82, NULL, NULL, 0, 25, 4, 22),
+(83, NULL, NULL, 0, 4, 4, 24),
+(84, NULL, NULL, 0, 9, 4, 1),
+(85, NULL, NULL, 0, 18, 4, 19),
+(86, NULL, NULL, 0, 17, 4, 20),
+(87, NULL, NULL, 0, 9, 4, 25),
+(88, NULL, NULL, 0, 20, 4, 14),
+(89, NULL, NULL, 0, 18, 4, 17),
+(90, NULL, NULL, 0, 19, 4, 4),
+(91, NULL, NULL, 0, 22, 4, 24),
+(92, NULL, NULL, 0, 20, 4, 9),
+(93, NULL, NULL, 0, 4, 4, 18),
+(94, NULL, NULL, 0, 17, 4, 14),
+(95, NULL, NULL, 0, 24, 4, 1),
+(96, NULL, NULL, 0, 22, 4, 25),
+(97, NULL, NULL, 0, 20, 4, 17),
+(98, NULL, NULL, 0, 24, 4, 25),
+(99, NULL, NULL, 0, 9, 4, 14),
+(100, NULL, NULL, 0, 4, 4, 18),
+(101, NULL, NULL, 0, 22, 4, 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `member`
+-- Table structure for table `member`
 --
 
 CREATE TABLE `member` (
@@ -208,42 +241,42 @@ CREATE TABLE `member` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `member`
+-- Dumping data for table `member`
 --
 
 INSERT INTO `member` (`id`, `address`, `birth_date`, `cin`, `email`, `first_name`, `gender`, `height`, `last_name`, `photo_path`, `telephone`, `weight`, `club_id`, `club_name`) VALUES
-(1, 'Addressa 12, Rabat', '2023-11-14 00:00:00.000000', 'AA2773', 'aa@bb.cc', 'Amine', 'H', 0, 'Moussaoui', '', '+2127366477689', 0, 1, NULL),
+(1, 'Addressa 12, Rabat', '2023-11-14 00:00:00.000000', 'AA2773', 'aa@bb.cc', 'Amine', 'H', 0, 'Moussaoui', 'member2972.jpeg', '+2127366477689', 0, 1, NULL),
 (2, 'Addressa 12, Casa', '2023-11-14 00:00:00.000000', 'AA2778', 'aa@bb.cc', 'Rami', 'H', 0, 'Rez', '', '+212736882639', 0, 6, NULL),
-(3, 'Addressa 12, Tokio', '2023-11-14 00:00:00.000000', 'E66273', 'aa@bb.cc', 'Rock', 'H', 0, 'Lee', '', '+21266666689', 0, 6, NULL),
-(4, 'Addressa 12, Rabat', '2023-11-14 00:00:00.000000', 'GH88372', 'aa@bb.cc', 'Younes', 'H', 0, 'Samlali', '', '+21263222689', 0, 1, NULL),
+(3, 'Addressa 12, Tokio', '2023-11-14 00:00:00.000000', 'E66273', 'aa@bb.cc', 'Rock', 'H', 0, 'Lee', 'member2972.jpeg', '+21266666689', 0, 6, NULL),
+(4, 'Addressa 12, Rabat', '2023-11-14 00:00:00.000000', 'GH88372', 'aa@bb.cc', 'Younes', 'H', 0, 'Samlali', 'satoshi.png', '+21263222689', 0, 1, NULL),
 (5, 'Addressa 12, Casa', '2023-11-14 00:00:00.000000', 'D377438', 'aa@bb.cc', 'Aziza', 'F', 0, 'Mahiri', '', '+212655533689', 0, 5, NULL),
 (6, 'Addressa 12, Casa', '2023-11-14 00:00:00.000000', 'AB33252', 'aa@bb.cc', 'Wydad', 'F', 0, 'Tahiri', '', '+212622245389', 0, 5, NULL),
 (7, 'Addressa 12, Casa', '2023-11-14 00:00:00.000000', 'E55369', 'aa@bb.cc', 'Rajae', 'F', 0, 'Mirtab', '', '+2127366477689', 0, 4, NULL),
-(8, 'Addressa 12, Marrakech', '2023-11-14 00:00:00.000000', 'X883674', 'aa@bb.cc', 'Hicham', 'H', 0, 'Saleh', '', '+2126898989689', 0, 3, NULL),
-(9, 'Addressa 12, NY', '2023-11-14 00:00:00.000000', 'F66639', 'aa@bb.cc', 'Bruce', 'H', 0, 'Lee', '', '+2126332137689', 0, 1, NULL),
+(8, 'Addressa 12, Marrakech', '2023-11-14 00:00:00.000000', 'X883674', 'aa@bb.cc', 'Hicham', 'H', 0, 'Saleh', 'satoshi.png', '+2126898989689', 0, 3, NULL),
+(9, 'Addressa 12, NY', '2023-11-14 00:00:00.000000', 'F66639', 'aa@bb.cc', 'Bruce', 'H', 0, 'Lee', 'naziiiizz.png', '+2126332137689', 0, 1, NULL),
 (10, 'Addressa 12, Fes', '2023-11-14 00:00:00.000000', 'C5443677', 'aa@bb.cc', 'Karim', 'H', 0, 'Ghali', '', '+2127366477689', 0, 5, NULL),
 (11, 'Addressa 12, Rabat', '2023-11-14 00:00:00.000000', 'H7736', 'aa@bb.cc', 'Imad', 'H', 0, 'Kadiri', '', '+2127366477689', 0, 2, NULL),
-(12, 'Addressa 12, Rabat', '2023-11-14 00:00:00.000000', 'E44133', 'aa@bb.cc', 'Flan', 'H', 0, 'Fertelan', '', '+2126422444489', 0, 2, NULL),
-(13, 'Addressa 12, Rabat', '2023-11-14 00:00:00.000000', 'H77365', 'aa@bb.cc', 'Maha', 'F', 0, 'Naoum', '', '+2127366477689', 0, 2, NULL),
-(14, 'Maarif, bv Zreqtoni N 623', '2023-11-14 00:00:00.000000', 'AB55363', 'fouad.tounsi@gmail.com', 'WWWW', 'M', 177, 'WWWWW', 'IMG_1D317AF3CBFB-1.jpeg', '0671070673', 43, 1, NULL),
+(12, 'Addressa 12, Rabat', '2023-11-14 00:00:00.000000', 'E44133', 'aa@bb.cc', 'Flan', 'H', 0, 'Fertelan', 'satoshi.png', '+2126422444489', 0, 2, NULL),
+(13, 'Addressa 12, Rabat', '2023-11-14 00:00:00.000000', 'H77365', 'aa@bb.cc', 'Maha', 'F', 0, 'Naoum', 'naziiiizz.png', '+2127366477689', 0, 2, NULL),
+(14, 'Maarif, bv Zreqtoni N 623', '2023-11-14 00:00:00.000000', 'AB55363', 'fouad.tounsi@gmail.com', 'WWWW', 'M', 177, 'WWWWW', 'member2.jpeg', '0671070673', 43, 1, NULL),
 (15, 'Hay El Menzah N 1292 CYM', '1996-12-12 00:00:00.000000', 'AA9938', 'fouad.tounsi@gmail.com', 'AMRAOUI', 'M', 177, 'Hicham', 'member2.jpeg', '0671070673', 88, 5, NULL),
 (16, 'Maarif, bv Zreqtoni N 623', '1996-12-12 00:00:00.000000', 'K99590', 'fouad.tounsi@gmail.com', 'KKKKK', 'F', 153, 'KKKKK', 'image1696637810052.png', '0671070673', 54, 6, NULL),
 (17, 'Maarif, bv Zreqtoni N 623', '1996-12-12 00:00:00.000000', 'D9948', 'fouad.tounsi@gmail.com', 'NABIL', 'M', 0, 'IMRAN', '', '0671070673', 0, 1, NULL),
-(18, 'Maarif, bv Zreqtoni N 623', '1996-12-12 00:00:00.000000', 'R552367', 'fouad.tounsi@gmail.com', 'KJNK', 'M', 178, 'Oppp', '1666.png', '0671070673', 77, 1, NULL),
-(19, 'Maarif, bv Zreqtoni N 623', '2023-11-14 00:00:00.000000', 'J88461', 'fouad.tounsi@gmail.com', 'Fouad', 'M', 166, 'Tounsi', '1666.png', '0671070673', 66, 1, NULL),
-(20, 'Maarif, bv Zreqtoni N 623', '1996-12-12 00:00:00.000000', 'Z44353', 'fouad.tounsi@gmail.com', 'YYYYYYY_NNN', 'F', 155, 'HHHHHH_NNN', 'BTC8BIT.png', '0671070673', 56, 1, NULL),
-(21, 'Maarif, bv Zreqtoni N 623', '1996-12-12 00:00:00.000000', 'F6637', 'fouad.tounsi@gmail.com', 'XXXXX', 'M', 178, 'XXXXX', 'PsychedelicETH.png', '0671070673', 88, 4, NULL),
-(22, 'Maarif, bv Zreqtoni N 623', '1996-12-12 00:00:00.000000', 'KL9983', 'fouad.tounsi@gmail.com', 'YYYYYYDDDD', 'F', 167, 'YYYYYYYDDD', 'EMTweet.jpeg', '0671070673', 56, 1, NULL),
-(23, 'Hay El Menzah N 1292 CYM', '2020-08-01 00:00:00.000000', 'AD443553', 'rrrrrrrr@gmail.com', 'RRRRRRRRRR', 'F', 166, 'RRRRRRRRRR', '', '0671070673', 66, 11, NULL),
-(24, 'Maarif, bv Zreqtoni N 623', NULL, 'AB66647', 'fouad.tounsi@gmail.com', 'Fouad', NULL, 0, 'Tounsi', '', '0671070673', 0, 1, NULL),
-(25, 'Maarif, bv Zreqtoni N 623', '2023-02-12 00:00:00.000000', 'Q24324', 'fouad.tounsi@gmail.com', 'GGGGGG', NULL, 187, 'GGG', '', '0671070673', 88, 1, NULL),
-(26, 'Maarif, bv Zreqtoni N 623', NULL, 'A1234', 'fouad.tounsi@gmail.com', 'SSXXS', 'M', 1878, 'SSXXS', NULL, '0671070673', 1878, 1, NULL),
-(27, 'Hay El Menzah N 1292 CYM', NULL, 'A12345', 'fouad.tounsi@gmail.com', 'UYHBB', 'M', 167, 'MOUIOUE', NULL, '0671070673', 77, 10, NULL);
+(18, 'Maarif, bv Zreqtoni N 623', '1996-12-12 00:00:00.000000', 'R552367', 'fouad.tounsi@gmail.com', 'KJNK', 'M', 178, 'Oppp', 'satoshi.png', '0671070673', 77, 1, NULL),
+(19, 'Maarif, bv Zreqtoni N 623', '2023-11-14 00:00:00.000000', 'J88461', 'fouad.tounsi@gmail.com', 'Fouad', 'M', 166, 'Tounsi', 'member1.jpeg', '0671070673', 66, 1, NULL),
+(20, 'Maarif, bv Zreqtoni N 623', '1996-12-12 00:00:00.000000', 'Z44353', 'fouad.tounsi@gmail.com', 'Rock', 'F', 155, 'Lee', 'CRYPTOPUNK_a1.png', '0671070673', 56, 1, NULL),
+(21, 'Maarif, bv Zreqtoni N 623', '1996-12-12 00:00:00.000000', 'F6637', 'fouad.tounsi@gmail.com', 'XXXXX', 'M', 178, 'XXXXX', 'naziiiizz.png', '0671070673', 88, 4, NULL),
+(22, 'Maarif, bv Zreqtoni N 623', '1996-12-12 00:00:00.000000', 'KL9983', 'fouad.tounsi@gmail.com', 'Lee', 'F', 167, 'Yun', 'member1.jpeg', '0671070673', 56, 1, NULL),
+(23, 'Hay El Menzah N 1292 CYM', '2020-08-01 00:00:00.000000', 'AD443553', 'rrrrrrrr@gmail.com', 'Hicham', 'F', 166, 'RRRRRRRRRR', 'naziiiizz.png', '0671070673', 66, 11, NULL),
+(24, 'Maarif, bv Zreqtoni N 623', NULL, 'AB66647', 'fouad.tounsi@gmail.com', 'Fouad', 'M', 0, 'Tounsi', '', '0671070673', 0, 1, NULL),
+(25, 'Maarif, bv Zreqtoni N 623', '2023-02-12 00:00:00.000000', 'Q24324', 'fouad.tounsi@gmail.com', 'Khalid', 'M', 187, 'Khalid', '', '0671070673', 88, 1, NULL),
+(26, 'Maarif, bv Zreqtoni N 623', NULL, 'A1234', 'fouad.tounsi@gmail.com', 'Will', 'M', 1878, 'TREX', NULL, '0671070673', 1878, 1, NULL),
+(27, 'Hay El Menzah N 1292 CYM', NULL, 'A12345', 'fouad.tounsi@gmail.com', 'UYHBB', 'M', 167, 'MOUIOUE', 'member1.jpeg', '0671070673', 77, 10, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `member_registrations`
+-- Table structure for table `member_registrations`
 --
 
 CREATE TABLE `member_registrations` (
@@ -254,7 +287,7 @@ CREATE TABLE `member_registrations` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `region`
+-- Table structure for table `region`
 --
 
 CREATE TABLE `region` (
@@ -271,7 +304,7 @@ CREATE TABLE `region` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `region`
+-- Dumping data for table `region`
 --
 
 INSERT INTO `region` (`region_id`, `code`, `label`, `date_assembleeg`, `president`, `secretaireg`, `siege_adresse`, `tel_president`, `tel_secretaireg`, `telephone`) VALUES
@@ -302,7 +335,7 @@ INSERT INTO `region` (`region_id`, `code`, `label`, `date_assembleeg`, `presiden
 -- --------------------------------------------------------
 
 --
--- Structure de la table `registration`
+-- Table structure for table `registration`
 --
 
 CREATE TABLE `registration` (
@@ -315,7 +348,7 @@ CREATE TABLE `registration` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `registration_competitions`
+-- Table structure for table `registration_competitions`
 --
 
 CREATE TABLE `registration_competitions` (
@@ -326,7 +359,7 @@ CREATE TABLE `registration_competitions` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `roles`
+-- Table structure for table `roles`
 --
 
 CREATE TABLE `roles` (
@@ -335,7 +368,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `roles`
+-- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`id`, `name`) VALUES
@@ -346,7 +379,7 @@ INSERT INTO `roles` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `score`
+-- Table structure for table `score`
 --
 
 CREATE TABLE `score` (
@@ -358,20 +391,190 @@ CREATE TABLE `score` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `score`
+-- Dumping data for table `score`
 --
 
 INSERT INTO `score` (`id`, `arbitre_name`, `blue_score`, `red_score`, `match_id`) VALUES
-(1, 'Arbitre1', 0, 0, 1),
-(2, 'Arbitre2', 0, 0, 1),
-(3, 'Arbitre3', 0, 0, 1),
-(4, 'Arbitre4', 0, 0, 1),
-(5, 'Arbitre5', 0, 0, 1);
+(326, 'Arbitre1', 0, 0, NULL),
+(327, 'Arbitre2', 0, 0, NULL),
+(328, 'Arbitre3', 0, 0, NULL),
+(329, 'Arbitre4', 0, 0, NULL),
+(330, 'Arbitre5', 0, 0, NULL),
+(331, 'Arbitre1', 0, 0, NULL),
+(332, 'Arbitre2', 0, 0, NULL),
+(333, 'Arbitre3', 0, 0, NULL),
+(334, 'Arbitre4', 0, 0, NULL),
+(335, 'Arbitre5', 0, 0, NULL),
+(336, 'Arbitre1', 0, 0, NULL),
+(337, 'Arbitre2', 0, 0, NULL),
+(338, 'Arbitre3', 0, 0, NULL),
+(339, 'Arbitre4', 0, 0, NULL),
+(340, 'Arbitre5', 0, 0, NULL),
+(341, 'Arbitre1', 0, 0, NULL),
+(342, 'Arbitre2', 0, 0, NULL),
+(343, 'Arbitre3', 0, 0, NULL),
+(344, 'Arbitre4', 0, 0, NULL),
+(345, 'Arbitre5', 0, 0, NULL),
+(346, 'Arbitre1', 0, 0, NULL),
+(347, 'Arbitre2', 0, 0, NULL),
+(348, 'Arbitre3', 0, 0, NULL),
+(349, 'Arbitre4', 0, 0, NULL),
+(350, 'Arbitre5', 0, 0, NULL),
+(351, 'Arbitre1', 0, 0, NULL),
+(352, 'Arbitre2', 0, 0, NULL),
+(353, 'Arbitre3', 0, 0, NULL),
+(354, 'Arbitre4', 0, 0, NULL),
+(355, 'Arbitre5', 0, 0, NULL),
+(356, 'Arbitre1', 0, 0, NULL),
+(357, 'Arbitre2', 0, 0, NULL),
+(358, 'Arbitre3', 0, 0, NULL),
+(359, 'Arbitre4', 0, 0, NULL),
+(360, 'Arbitre5', 0, 0, NULL),
+(361, 'Arbitre1', 0, 0, NULL),
+(362, 'Arbitre2', 0, 0, NULL),
+(363, 'Arbitre3', 0, 0, NULL),
+(364, 'Arbitre4', 0, 0, NULL),
+(365, 'Arbitre5', 0, 0, NULL),
+(366, 'Arbitre1', 0, 0, NULL),
+(367, 'Arbitre2', 0, 0, NULL),
+(368, 'Arbitre3', 0, 0, NULL),
+(369, 'Arbitre4', 0, 0, NULL),
+(370, 'Arbitre5', 0, 0, NULL),
+(371, 'Arbitre1', 0, 0, NULL),
+(372, 'Arbitre2', 0, 0, NULL),
+(373, 'Arbitre3', 0, 0, NULL),
+(374, 'Arbitre4', 0, 0, NULL),
+(375, 'Arbitre5', 0, 0, NULL),
+(376, 'Arbitre1', 0, 0, NULL),
+(377, 'Arbitre2', 0, 0, NULL),
+(378, 'Arbitre3', 0, 0, NULL),
+(379, 'Arbitre4', 0, 0, NULL),
+(380, 'Arbitre5', 0, 0, NULL),
+(381, 'Arbitre1', 0, 0, NULL),
+(382, 'Arbitre2', 0, 0, NULL),
+(383, 'Arbitre3', 0, 0, NULL),
+(384, 'Arbitre4', 0, 0, NULL),
+(385, 'Arbitre5', 0, 0, NULL),
+(386, 'Arbitre1', 0, 0, NULL),
+(387, 'Arbitre2', 0, 0, NULL),
+(388, 'Arbitre3', 0, 0, NULL),
+(389, 'Arbitre4', 0, 0, NULL),
+(390, 'Arbitre5', 0, 0, NULL),
+(391, 'Arbitre1', 0, 0, NULL),
+(392, 'Arbitre2', 0, 0, NULL),
+(393, 'Arbitre3', 0, 0, NULL),
+(394, 'Arbitre4', 0, 0, NULL),
+(395, 'Arbitre5', 0, 0, NULL),
+(396, 'Arbitre1', 0, 0, NULL),
+(397, 'Arbitre2', 0, 0, NULL),
+(398, 'Arbitre3', 0, 0, NULL),
+(399, 'Arbitre4', 0, 0, NULL),
+(400, 'Arbitre5', 0, 0, NULL),
+(401, 'Arbitre1', 0, 0, NULL),
+(402, 'Arbitre2', 0, 0, NULL),
+(403, 'Arbitre3', 0, 0, NULL),
+(404, 'Arbitre4', 0, 0, NULL),
+(405, 'Arbitre5', 0, 0, NULL),
+(406, 'Arbitre1', 0, 0, NULL),
+(407, 'Arbitre2', 0, 0, NULL),
+(408, 'Arbitre3', 0, 0, NULL),
+(409, 'Arbitre4', 0, 0, NULL),
+(410, 'Arbitre5', 0, 0, NULL),
+(411, 'Arbitre1', 0, 0, NULL),
+(412, 'Arbitre2', 0, 0, NULL),
+(413, 'Arbitre3', 0, 0, NULL),
+(414, 'Arbitre4', 0, 0, NULL),
+(415, 'Arbitre5', 0, 0, NULL),
+(416, 'Arbitre1', 0, 0, NULL),
+(417, 'Arbitre2', 0, 0, NULL),
+(418, 'Arbitre3', 0, 0, NULL),
+(419, 'Arbitre4', 0, 0, NULL),
+(420, 'Arbitre5', 0, 0, NULL),
+(421, 'Arbitre1', 0, 0, NULL),
+(422, 'Arbitre2', 0, 0, NULL),
+(423, 'Arbitre3', 0, 0, NULL),
+(424, 'Arbitre4', 0, 0, NULL),
+(425, 'Arbitre5', 0, 0, NULL),
+(426, 'Arbitre1', 0, 0, NULL),
+(427, 'Arbitre2', 0, 0, NULL),
+(428, 'Arbitre3', 0, 0, NULL),
+(429, 'Arbitre4', 0, 0, NULL),
+(430, 'Arbitre5', 0, 0, NULL),
+(431, 'Arbitre1', 0, 0, NULL),
+(432, 'Arbitre2', 0, 0, NULL),
+(433, 'Arbitre3', 0, 0, NULL),
+(434, 'Arbitre4', 0, 0, NULL),
+(435, 'Arbitre5', 0, 0, NULL),
+(436, 'Arbitre1', 0, 0, NULL),
+(437, 'Arbitre2', 0, 0, NULL),
+(438, 'Arbitre3', 0, 0, NULL),
+(439, 'Arbitre4', 0, 0, NULL),
+(440, 'Arbitre5', 0, 0, NULL),
+(441, 'Arbitre1', 0, 0, NULL),
+(442, 'Arbitre2', 0, 0, NULL),
+(443, 'Arbitre3', 0, 0, NULL),
+(444, 'Arbitre4', 0, 0, NULL),
+(445, 'Arbitre5', 0, 0, NULL),
+(446, 'Arbitre1', 0, 0, NULL),
+(447, 'Arbitre2', 0, 0, NULL),
+(448, 'Arbitre3', 0, 0, NULL),
+(449, 'Arbitre4', 0, 0, NULL),
+(450, 'Arbitre5', 0, 0, NULL),
+(451, 'Arbitre1', 0, 0, NULL),
+(452, 'Arbitre2', 0, 0, NULL),
+(453, 'Arbitre3', 0, 0, NULL),
+(454, 'Arbitre4', 0, 0, NULL),
+(455, 'Arbitre5', 0, 0, NULL),
+(456, 'Arbitre1', 0, 0, NULL),
+(457, 'Arbitre2', 0, 0, NULL),
+(458, 'Arbitre3', 0, 0, NULL),
+(459, 'Arbitre4', 0, 0, NULL),
+(460, 'Arbitre5', 0, 0, NULL),
+(461, 'Arbitre1', 0, 0, NULL),
+(462, 'Arbitre2', 0, 0, NULL),
+(463, 'Arbitre3', 0, 0, NULL),
+(464, 'Arbitre4', 0, 0, NULL),
+(465, 'Arbitre5', 0, 0, NULL),
+(466, 'Arbitre1', 0, 0, NULL),
+(467, 'Arbitre2', 0, 0, NULL),
+(468, 'Arbitre3', 0, 0, NULL),
+(469, 'Arbitre4', 0, 0, NULL),
+(470, 'Arbitre5', 0, 0, NULL),
+(471, 'Arbitre1', 0, 0, NULL),
+(472, 'Arbitre2', 0, 0, NULL),
+(473, 'Arbitre3', 0, 0, NULL),
+(474, 'Arbitre4', 0, 0, NULL),
+(475, 'Arbitre5', 0, 0, NULL),
+(476, 'Arbitre1', 0, 0, NULL),
+(477, 'Arbitre2', 0, 0, NULL),
+(478, 'Arbitre3', 0, 0, NULL),
+(479, 'Arbitre4', 0, 0, NULL),
+(480, 'Arbitre5', 0, 0, NULL),
+(481, 'Arbitre1', 0, 0, NULL),
+(482, 'Arbitre2', 0, 0, NULL),
+(483, 'Arbitre3', 0, 0, NULL),
+(484, 'Arbitre4', 0, 0, NULL),
+(485, 'Arbitre5', 0, 0, NULL),
+(486, 'Arbitre1', 0, 0, NULL),
+(487, 'Arbitre2', 0, 0, NULL),
+(488, 'Arbitre3', 0, 0, NULL),
+(489, 'Arbitre4', 0, 0, NULL),
+(490, 'Arbitre5', 0, 0, NULL),
+(491, 'Arbitre1', 0, 0, NULL),
+(492, 'Arbitre2', 0, 0, NULL),
+(493, 'Arbitre3', 0, 0, NULL),
+(494, 'Arbitre4', 0, 0, NULL),
+(495, 'Arbitre5', 0, 0, NULL),
+(496, 'Arbitre1', 0, 0, NULL),
+(497, 'Arbitre2', 0, 0, NULL),
+(498, 'Arbitre3', 0, 0, NULL),
+(499, 'Arbitre4', 0, 0, NULL),
+(500, 'Arbitre5', 0, 0, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user_roles`
+-- Table structure for table `user_roles`
 --
 
 CREATE TABLE `user_roles` (
@@ -380,7 +583,7 @@ CREATE TABLE `user_roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `user_roles`
+-- Dumping data for table `user_roles`
 --
 
 INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
@@ -394,7 +597,7 @@ INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `utilisateur`
+-- Table structure for table `utilisateur`
 --
 
 CREATE TABLE `utilisateur` (
@@ -409,7 +612,7 @@ CREATE TABLE `utilisateur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `utilisateur`
+-- Dumping data for table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`id`, `enabled`, `first_name`, `last_name`, `login`, `password`, `photo_path`, `club_id`) VALUES
@@ -419,45 +622,45 @@ INSERT INTO `utilisateur` (`id`, `enabled`, `first_name`, `last_name`, `login`, 
 (18, b'0', 'Lariche Khalid', NULL, 'khalid', '$2a$10$bRK51ru8PaNGgZ63CBplHeUkSntdD24Jh1fXqqltepduNFFpgPAb.', 'avatar4_8afb7734-084e-4db7-afc6-360294e2e9da.png', 1);
 
 --
--- Index pour les tables déchargées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `club`
+-- Indexes for table `club`
 --
 ALTER TABLE `club`
   ADD PRIMARY KEY (`club_id`),
   ADD KEY `FKamx0dxm0l2fexpj6enmdclaw7` (`region_id`);
 
 --
--- Index pour la table `competition`
+-- Indexes for table `competition`
 --
 ALTER TABLE `competition`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `competition_matches`
+-- Indexes for table `competition_matches`
 --
 ALTER TABLE `competition_matches`
   ADD KEY `FKqgn3fc5m5hmwqurtt08eo68up` (`competition_id`),
   ADD KEY `FK8pnsf6a6h9bm5r7kyg5o6xusa` (`matches_match_id`);
 
 --
--- Index pour la table `competition_participated_clubs`
+-- Indexes for table `competition_participated_clubs`
 --
 ALTER TABLE `competition_participated_clubs`
   ADD KEY `FKn1wvjkdiam7d8vudtthao9s35` (`participated_clubs_club_id`),
   ADD KEY `FKrs9s542i0a7nen8f9vfheehv9` (`competitions_id`);
 
 --
--- Index pour la table `competition_participated_members`
+-- Indexes for table `competition_participated_members`
 --
 ALTER TABLE `competition_participated_members`
   ADD KEY `FKt9g3gnyxv4kjkvpm2g578xavx` (`participated_members_id`),
   ADD KEY `FKriw5jwrl0i9bj57vdkp8us4o7` (`competitions_id`);
 
 --
--- Index pour la table `matches`
+-- Indexes for table `matches`
 --
 ALTER TABLE `matches`
   ADD PRIMARY KEY (`match_id`),
@@ -466,27 +669,27 @@ ALTER TABLE `matches`
   ADD KEY `FK5g9ub0a63rlx0ubh77i3gt2jr` (`red_player_id`);
 
 --
--- Index pour la table `member`
+-- Indexes for table `member`
 --
 ALTER TABLE `member`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKlb5erj72ba5omm5wpkrfwvngr` (`club_id`);
 
 --
--- Index pour la table `member_registrations`
+-- Indexes for table `member_registrations`
 --
 ALTER TABLE `member_registrations`
   ADD UNIQUE KEY `UK_lo6uhvx8v4al7i1jy8g6flcbp` (`registrations_id`),
   ADD KEY `FKj4o3eplhvmfr97wratm8jrxxq` (`member_id`);
 
 --
--- Index pour la table `region`
+-- Indexes for table `region`
 --
 ALTER TABLE `region`
   ADD PRIMARY KEY (`region_id`);
 
 --
--- Index pour la table `registration`
+-- Indexes for table `registration`
 --
 ALTER TABLE `registration`
   ADD PRIMARY KEY (`id`),
@@ -494,130 +697,130 @@ ALTER TABLE `registration`
   ADD KEY `FKgjv7ylejhs7by5b81rq3dlruo` (`participant_id`);
 
 --
--- Index pour la table `registration_competitions`
+-- Indexes for table `registration_competitions`
 --
 ALTER TABLE `registration_competitions`
   ADD KEY `FKkxpngxeiiidronei15f8bg14n` (`competitions_id`),
   ADD KEY `FKd0vfph3i287i74k240i3tor5k` (`registrations_id`);
 
 --
--- Index pour la table `roles`
+-- Indexes for table `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `score`
+-- Indexes for table `score`
 --
 ALTER TABLE `score`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKaiirupk5aado87ee3p64d63tg` (`match_id`);
 
 --
--- Index pour la table `user_roles`
+-- Indexes for table `user_roles`
 --
 ALTER TABLE `user_roles`
   ADD KEY `FKh8ciramu9cc9q3qcqiv4ue8a6` (`role_id`),
   ADD KEY `FKfhg6g8mbl6gcwupy69tajpvjm` (`user_id`);
 
 --
--- Index pour la table `utilisateur`
+-- Indexes for table `utilisateur`
 --
 ALTER TABLE `utilisateur`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKbaw4yx3a33io4q601i88bqpkv` (`club_id`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `club`
+-- AUTO_INCREMENT for table `club`
 --
 ALTER TABLE `club`
   MODIFY `club_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT pour la table `competition`
+-- AUTO_INCREMENT for table `competition`
 --
 ALTER TABLE `competition`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT pour la table `matches`
+-- AUTO_INCREMENT for table `matches`
 --
 ALTER TABLE `matches`
-  MODIFY `match_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `match_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
--- AUTO_INCREMENT pour la table `member`
+-- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT pour la table `region`
+-- AUTO_INCREMENT for table `region`
 --
 ALTER TABLE `region`
   MODIFY `region_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
--- AUTO_INCREMENT pour la table `registration`
+-- AUTO_INCREMENT for table `registration`
 --
 ALTER TABLE `registration`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `roles`
+-- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT pour la table `score`
+-- AUTO_INCREMENT for table `score`
 --
 ALTER TABLE `score`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=501;
 
 --
--- AUTO_INCREMENT pour la table `utilisateur`
+-- AUTO_INCREMENT for table `utilisateur`
 --
 ALTER TABLE `utilisateur`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- Contraintes pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `club`
+-- Constraints for table `club`
 --
 ALTER TABLE `club`
   ADD CONSTRAINT `FKamx0dxm0l2fexpj6enmdclaw7` FOREIGN KEY (`region_id`) REFERENCES `region` (`region_id`);
 
 --
--- Contraintes pour la table `competition_matches`
+-- Constraints for table `competition_matches`
 --
 ALTER TABLE `competition_matches`
   ADD CONSTRAINT `FK8pnsf6a6h9bm5r7kyg5o6xusa` FOREIGN KEY (`matches_match_id`) REFERENCES `matches` (`match_id`),
   ADD CONSTRAINT `FKqgn3fc5m5hmwqurtt08eo68up` FOREIGN KEY (`competition_id`) REFERENCES `competition` (`id`);
 
 --
--- Contraintes pour la table `competition_participated_clubs`
+-- Constraints for table `competition_participated_clubs`
 --
 ALTER TABLE `competition_participated_clubs`
   ADD CONSTRAINT `FKn1wvjkdiam7d8vudtthao9s35` FOREIGN KEY (`participated_clubs_club_id`) REFERENCES `club` (`club_id`),
   ADD CONSTRAINT `FKrs9s542i0a7nen8f9vfheehv9` FOREIGN KEY (`competitions_id`) REFERENCES `competition` (`id`);
 
 --
--- Contraintes pour la table `competition_participated_members`
+-- Constraints for table `competition_participated_members`
 --
 ALTER TABLE `competition_participated_members`
   ADD CONSTRAINT `FKriw5jwrl0i9bj57vdkp8us4o7` FOREIGN KEY (`competitions_id`) REFERENCES `competition` (`id`),
   ADD CONSTRAINT `FKt9g3gnyxv4kjkvpm2g578xavx` FOREIGN KEY (`participated_members_id`) REFERENCES `member` (`id`);
 
 --
--- Contraintes pour la table `matches`
+-- Constraints for table `matches`
 --
 ALTER TABLE `matches`
   ADD CONSTRAINT `FK5g9ub0a63rlx0ubh77i3gt2jr` FOREIGN KEY (`red_player_id`) REFERENCES `member` (`id`),
@@ -625,47 +828,47 @@ ALTER TABLE `matches`
   ADD CONSTRAINT `FKqdsihqr13n8mhhci86rvjnken` FOREIGN KEY (`competition_id`) REFERENCES `competition` (`id`);
 
 --
--- Contraintes pour la table `member`
+-- Constraints for table `member`
 --
 ALTER TABLE `member`
   ADD CONSTRAINT `FKlb5erj72ba5omm5wpkrfwvngr` FOREIGN KEY (`club_id`) REFERENCES `club` (`club_id`);
 
 --
--- Contraintes pour la table `member_registrations`
+-- Constraints for table `member_registrations`
 --
 ALTER TABLE `member_registrations`
   ADD CONSTRAINT `FKj4o3eplhvmfr97wratm8jrxxq` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`),
   ADD CONSTRAINT `FKnfeyrtsdmatb50f9uo7mx4b4o` FOREIGN KEY (`registrations_id`) REFERENCES `registration` (`id`);
 
 --
--- Contraintes pour la table `registration`
+-- Constraints for table `registration`
 --
 ALTER TABLE `registration`
   ADD CONSTRAINT `FK9fk3n3ncmwvguy8ex9y46ymud` FOREIGN KEY (`competition_id`) REFERENCES `competition` (`id`),
   ADD CONSTRAINT `FKgjv7ylejhs7by5b81rq3dlruo` FOREIGN KEY (`participant_id`) REFERENCES `member` (`id`);
 
 --
--- Contraintes pour la table `registration_competitions`
+-- Constraints for table `registration_competitions`
 --
 ALTER TABLE `registration_competitions`
   ADD CONSTRAINT `FKd0vfph3i287i74k240i3tor5k` FOREIGN KEY (`registrations_id`) REFERENCES `registration` (`id`),
   ADD CONSTRAINT `FKkxpngxeiiidronei15f8bg14n` FOREIGN KEY (`competitions_id`) REFERENCES `competition` (`id`);
 
 --
--- Contraintes pour la table `score`
+-- Constraints for table `score`
 --
 ALTER TABLE `score`
   ADD CONSTRAINT `FKaiirupk5aado87ee3p64d63tg` FOREIGN KEY (`match_id`) REFERENCES `matches` (`match_id`);
 
 --
--- Contraintes pour la table `user_roles`
+-- Constraints for table `user_roles`
 --
 ALTER TABLE `user_roles`
   ADD CONSTRAINT `FKfhg6g8mbl6gcwupy69tajpvjm` FOREIGN KEY (`user_id`) REFERENCES `utilisateur` (`id`),
   ADD CONSTRAINT `FKh8ciramu9cc9q3qcqiv4ue8a6` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
 
 --
--- Contraintes pour la table `utilisateur`
+-- Constraints for table `utilisateur`
 --
 ALTER TABLE `utilisateur`
   ADD CONSTRAINT `FKbaw4yx3a33io4q601i88bqpkv` FOREIGN KEY (`club_id`) REFERENCES `club` (`club_id`);
