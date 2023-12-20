@@ -13,6 +13,6 @@ public class MemberDTO {
   private Long id;
   private String firstName;
   private String lastName;
-  private String clubName;
-  //private ClubDTO club;
+  //private String clubName;
+  private ClubDTO club;
 }

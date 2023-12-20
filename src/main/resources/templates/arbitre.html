@@ -168,7 +168,7 @@
     <script>
       var matchId = 1;
       var arbitreName = "Arbitre1";
-      var scoreId = 0;
+      var scoreId = 1;
       var newBlueScore = 0;
       var newRedScore = 0;
 
@@ -193,7 +193,7 @@
           });
         }
 
-        updateDashboardFromAPI(matchId);
+        //updateDashboardFromAPI(matchId);
 
         setInterval(function () {
           updateDashboardFromAPI(matchId);
@@ -201,10 +201,10 @@
 
         function updateInfoWithData(data) {
           $(".red-block h2 ").html(
-            data.redPlayer.clubName + " - " + data.redPlayer.name
+            data.redPlayer.club.name + " - " + data.redPlayer.firstName + " - " + data.redPlayer.lastName
           );
           $(".blue-block h2").html(
-            data.bluePlayer.clubName + " - " + data.bluePlayer.name
+            data.bluePlayer.club.name + " - " + data.bluePlayer.firstName + " - " + data.bluePlayer.lastName
           );
           $(".status").html(data.status);
           $("#competitionName").html(data.competitionName);

@@ -3,11 +3,10 @@ package ma.anizar.frmw.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
-import ma.anizar.frmw.model.Club;
-import ma.anizar.frmw.model.Competition;
-import ma.anizar.frmw.model.Member;
+import ma.anizar.frmw.model.*;
 import ma.anizar.frmw.repository.ClubRepository;
 import ma.anizar.frmw.repository.CompetitionRepository;
+import ma.anizar.frmw.repository.MatchRepository;
 import ma.anizar.frmw.repository.MemberRepository;
 import ma.anizar.frmw.service.CompetitionService;
 import org.springframework.stereotype.Controller;
@@ -15,10 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @AllArgsConstructor
@@ -27,6 +23,7 @@ public class CompetitionController {
     private MemberRepository memberRepository;
     private ClubRepository clubRepository;
     private final CompetitionService competitionService;
+    private MatchRepository matchRepository;
 
     @GetMapping("/competition")
     public String competition(Model model){
@@ -136,4 +133,45 @@ public class CompetitionController {
 //        return "tournament";
         return "matches";
     }
+
+    @GetMapping("/pairMatches")
+    public String matchPair(@RequestParam("idcomp") Long id,Model model) {
+
+        Competition competition= competitionRepository.findById(id).get();
+        List<Member> players = new ArrayList<>();
+        players=competition.getParticipatedMembers();
+        System.out.println("PARTICIPANTS LIST SIZE: @######## =======>>>>>>>>    " + players.size());
+
+
+        Collections.shuffle(players);
+
+        List<Match> matches = new ArrayList<>();
+        for (int i = 0; i < players.size(); i += 2) {
+            // Check if there's an odd player out
+            if (i == players.size() - 1) {
+                System.out.println("Player without match: " + players.get(i).getFirstName());
+                break;
+            }
+
+           Match pair = Match.builder().startTime(null).endTime(null).bluePlayer(players.get(i)).redPlayer(players.get(i+1)).status(StatusMatch.PROGRAMME).competition(competition)
+                    .build();
+            List<Score> scores = new ArrayList<>();
+            for (int j = 0; j < 5; j++) {
+                scores.add(Score.builder().arbitreName("Arbitre"+(j+1))
+                        .blueScore(0)
+                        .redScore(0)
+                        //.id(Long.valueOf(j))
+                        //.match(Match.builder().match_id(Long.valueOf(123)).build())
+                        .build());
+            }
+            pair.setScores(scores);
+            matchRepository.save(pair);
+            matches.add(pair);
+        }
+
+        model.addAttribute("matches", matches);
+        return "versus";
+    }
+
+
 }

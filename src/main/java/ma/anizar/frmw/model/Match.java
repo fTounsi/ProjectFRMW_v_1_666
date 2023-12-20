@@ -85,4 +85,13 @@ public class Match {
       .status(this.getStatus())
       .build();
   }
+
+  public Match(Competition competition, Member redPlayer, Member bluePlayer, StatusMatch status, LocalDateTime startTime) {
+    this.competition = competition;
+    this.redPlayer = redPlayer;
+    this.bluePlayer = bluePlayer;
+    this.status = status;
+    this.startTime = startTime;
+  }
+
 }

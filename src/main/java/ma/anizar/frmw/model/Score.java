@@ -38,8 +38,8 @@ public class Score {
         return  id == other.id && arbitreName == other.arbitreName && match.getMatch_id() == other.match.getMatch_id();
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, arbitreName,match.getMatch_id());
-    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id, arbitreName,match.getMatch_id());
+//    }
 }
