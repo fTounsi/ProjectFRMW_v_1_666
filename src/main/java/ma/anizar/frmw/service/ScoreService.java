@@ -8,7 +8,7 @@ public interface ScoreService {
 
   MatchDTO startMatchById(Long matchId);
 
-  MatchDTO endMatchById(Long matchId);
+  MatchDTO restartMatchById(Long matchId);
 
   boolean updateScore(ScoreDTO scoreDTO);
 }

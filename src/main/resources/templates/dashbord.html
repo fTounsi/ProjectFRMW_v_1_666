@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tableau de Bord - Scores en Temps Réel</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
 
     <style>
       body {
@@ -12,6 +16,7 @@
         margin: 0;
         padding: 0;
         background-color: #ecf0f1;
+        overflow: hidden; /* Empêcher le défilement lorsque la boîte de dialogue est affichée */
       }
 
       .container {
@@ -158,7 +163,7 @@
         background-color: #ccc;
         cursor: not-allowed;
       }
-      #stopMatch {
+      #restartMatch {
         background-color: #e74c3c;
         color: #fff;
         padding: 20px;
@@ -169,9 +174,118 @@
         font-weight: bolder;
       }
 
-      #stopMatch:disabled {
+      #LinkArbitres {
+        color: #1f0e0e;
+        padding: 20px;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        font-size: 17px;
+        font-weight: bolder;
+        background: url(/dist/img/arbitre.png);
+        background-color: white;
+        background-repeat: no-repeat;
+        width: 225px;
+        text-align: left;
+        background-size: 48px;
+        background-position: right;
+        background-position-y: center;
+      }
+
+      #restartMatch:disabled {
         background-color: #ccc;
         cursor: not-allowed;
+      }
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Fond gris semi-transparent */
+        z-index: 1;
+      }
+      .confirmation-box {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        max-width: 80%;
+        width: 300px; /* Taille de la boîte de dialogue pour les écrans plus larges */
+        padding: 20px;
+        text-align: center;
+        z-index: 2;
+      }
+      .confirmation-box p {
+        margin: 0 0 15px;
+      }
+      .confirmation-box i {
+        font-size: 2em;
+        color: #ffc107; /* Jaune */
+        display: block;
+        margin-bottom: 15px;
+      }
+      .confirmation-box ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .confirmation-box li {
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .confirmation-box a {
+        color: #3498db; /* Bleu */
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease-in-out;
+      }
+      .confirmation-box a:hover {
+        color: #e74c3c; /* Rouge en survol */
+      }
+      .confirmation-box button.copy-button {
+        background-color: #3498db;
+        border: none;
+        color: #fff;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 12px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      .confirmation-box button.copy-button:hover {
+        background-color: #154b6f;
+      }
+      .confirmation-box button {
+        background-color: #4caf50;
+        border: none;
+        color: #fff;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 5px;
+        border-radius: 4px;
+      }
+      .confirmation-box button.cancel {
+        background-color: #ccc;
+      }
+
+      /* Styles responsifs */
+      @media only screen and (max-width: 600px) {
+        .confirmation-box {
+          max-width: 90%;
+        }
       }
     </style>
   </head>
@@ -191,13 +305,20 @@
             <div class="vs-text">VS</div>
             <div class="club-box blue-club" id="blue-club"></div>
           </div>
-          <div class="countdown" id="countdown">Temps restant : 03:00</div>
+          <div class="countdown" id="countdown">.....</div>
           <div class="match-controls">
             <button id="startMatch" onclick="startMatch()">
               Démarrer le match
             </button>
-            <button id="stopMatch" onclick="stopMatch()" disabled>
-              Arrêter le match
+            <button
+              id="restartMatch"
+              onclick="afficherConfirmationRestartMatch()"
+              disabled
+            >
+              Réinitialiser le Matche
+            </button>
+            <button id="LinkArbitres" onclick="listLinkArbitres()">
+              Liens des arbitres
             </button>
           </div>
         </div>
@@ -205,6 +326,25 @@
 
       <div class="dashboard" id="dashboard">
         <!-- Les scores des arbitres seront affichés ici -->
+      </div>
+      <div id="overlay" class="overlay"></div>
+
+      <div id="confirmationBox" class="confirmation-box">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>Attention ! Les données seront réinitialisées. Continuer ?</p>
+        <button onclick="restartMatch()">OK</button>
+        <button class="cancel" onclick="cacherConfirmation()">Annuler</button>
+      </div>
+
+      <div id="confirmationBoxArbitre" class="confirmation-box">
+        <img
+          style="max-height: 80px"
+          src="/dist/img/arbitre.png"
+          alt="arbitre Logo"
+        />
+        <p>Liens vers les ! Les données seront réinitialisées. Continuer ?</p>
+        <ul id="listeLiens"></ul>
+        <button onclick="cacherArbitreLink()">Fermer</button>
       </div>
     </div>
 
@@ -244,30 +384,33 @@
           );
 
           var dashboardElement = document.getElementById("dashboard");
+          var listeLiens = document.getElementById("listeLiens");
+          listeLiens.innerHTML = "";
           dashboardElement.innerHTML = "";
-          $("#startMatch").prop("disabled", data.status == "EN_COURS");
-          $("#stopMatch").prop("disabled", data.status !== "EN_COURS");
+
+          $("#startMatch").prop("disabled", data.status !== "PROGRAMME");
+          $("#restartMatch").prop("disabled", data.status !== "TERMINE");
           $("#countdown").html(
             data.status == "EN_COURS"
               ? differenceBetweenDates(data.endTime, new Date())
               : "00:00"
           );
 
-          data.scores.forEach(function (arbitre) {
+          data.scores.forEach(function (score) {
             var arbitreBox = document.createElement("div");
             arbitreBox.classList.add("arbitre-box");
 
             // Mise à jour de la couleur du fond en fonction du score
             arbitreBox.style.backgroundColor =
-              arbitre.redScore > arbitre.blueScore
+              score.redScore > score.blueScore
                 ? "#ffada5"
-                : arbitre.redScore < arbitre.blueScore
+                : score.redScore < score.blueScore
                 ? "#a3daff"
                 : "#fff";
 
             var arbitreName = document.createElement("div");
             arbitreName.classList.add("arbitre-name");
-            arbitreName.textContent = arbitre.arbitreName;
+            arbitreName.textContent = score.arbitreName;
 
             var scoreBlock = document.createElement("div");
             scoreBlock.classList.add("score-block");
@@ -275,12 +418,12 @@
             var redScore = document.createElement("p");
             redScore.classList.add("score", "red-score");
             redScore.textContent =
-              data.redPlayer.firstName + " : " + arbitre.redScore;
+              data.redPlayer.firstName + " : " + score.redScore;
 
             var blueScore = document.createElement("p");
             blueScore.classList.add("score", "blue-score");
             blueScore.textContent =
-              data.bluePlayer.firstName + " : " + arbitre.blueScore;
+              data.bluePlayer.firstName + " : " + score.blueScore;
 
             scoreBlock.appendChild(redScore);
             scoreBlock.appendChild(blueScore);
@@ -289,6 +432,32 @@
             arbitreBox.appendChild(scoreBlock);
 
             dashboardElement.appendChild(arbitreBox);
+
+            var li = document.createElement("li");
+            var span = document.createElement("span");
+            var a = document.createElement("a");
+            var lienArbitre =
+              "http://localhost:8096/match/arbitre?matchId=" +
+              matchId +
+              "&scoreId=" +
+              score.id;
+            a.href = lienArbitre;
+            a.target = "_blank";
+            a.textContent = score.arbitreName;
+
+            span.appendChild(a);
+            li.appendChild(span);
+
+            var boutonCopier = document.createElement("button");
+            boutonCopier.className = "copy-button";
+            boutonCopier.textContent = "Copier !";
+            boutonCopier.onclick = function () {
+              copierDansPressePapier(lienArbitre);
+            };
+
+            li.appendChild(boutonCopier);
+
+            listeLiens.appendChild(li);
           });
         }
 
@@ -302,6 +471,7 @@
           updateDashboardFromAPI(matchId);
         }, 1000); // 60000 millisecondes = 60 secondes
       });
+
       var countdownInterval;
       // Fonction pour démarrer le match
       function startMatch() {
@@ -311,7 +481,7 @@
           type: "GET", // ou 'PUT' selon votre API
           success: function () {
             $("#startMatch").prop("disabled", true);
-            $("#stopMatch").prop("disabled", false);
+            $("#restartMatch").prop("disabled", false);
           },
           error: function (error) {
             console.error("Erreur lors du démarrage du match:", error);
@@ -320,14 +490,13 @@
       }
 
       // Fonction pour arrêter le match
-      function stopMatch() {
+      function restartMatch() {
         // Appel à l'API REST pour arrêter le match
         $.ajax({
-          url: "http://localhost:8096/api/match/stop/" + matchId,
+          url: "http://localhost:8096/api/match/restart/" + matchId,
           type: "GET",
           success: function () {
-            $("#startMatch").prop("disabled", false);
-            $("#stopMatch").prop("disabled", true);
+            cacherConfirmation();
           },
           error: function (error) {
             console.error("Erreur lors de l'arrêt du match:", error);
@@ -350,6 +519,46 @@
       }
       function pad(num) {
         return num < 10 ? `0${num}` : `${num}`;
+      }
+
+      function afficherConfirmationRestartMatch() {
+        var overlay = document.getElementById("overlay");
+        var confirmationBox = document.getElementById("confirmationBox");
+
+        overlay.style.display = "block";
+        confirmationBox.style.display = "block";
+      }
+
+      function cacherConfirmation() {
+        var overlay = document.getElementById("overlay");
+        var confirmationBox = document.getElementById("confirmationBox");
+
+        overlay.style.display = "none";
+        confirmationBox.style.display = "none";
+      }
+      function listLinkArbitres() {
+        var overlay = document.getElementById("overlay");
+        var confirmationBox = document.getElementById("confirmationBoxArbitre");
+
+        overlay.style.display = "block";
+        confirmationBox.style.display = "block";
+      }
+      function cacherArbitreLink() {
+        var overlay = document.getElementById("overlay");
+        var confirmationBox = document.getElementById("confirmationBoxArbitre");
+
+        overlay.style.display = "none";
+        confirmationBox.style.display = "none";
+      }
+      function copierDansPressePapier(texte) {
+        var texteTemporaire = document.createElement("textarea");
+        texteTemporaire.value = texte;
+        document.body.appendChild(texteTemporaire);
+        texteTemporaire.select();
+        document.execCommand("copy");
+        document.body.removeChild(texteTemporaire);
+        var boutonCopier = event.target;
+        boutonCopier.innerHTML = "Copié";
       }
     </script>
   </body>

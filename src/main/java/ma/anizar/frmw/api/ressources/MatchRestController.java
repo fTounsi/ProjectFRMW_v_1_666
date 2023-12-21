@@ -49,10 +49,10 @@ public class MatchRestController {
   }
 
   // Méthode GET pour demarer un match par son ID
-  @GetMapping("stop/{matchId}")
+  @GetMapping("restart/{matchId}")
   public ResponseEntity<MatchDTO> endMatchById(@PathVariable Long matchId) {
     // Utilisez le service pour récupérer les informations du match par son ID
-    MatchDTO match = scoreService.endMatchById(matchId);
+    MatchDTO match = scoreService.restartMatchById(matchId);
 
     // Vérifiez si le match a été trouvé
     if (match != null) {

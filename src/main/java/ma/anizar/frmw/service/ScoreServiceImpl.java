@@ -9,6 +9,7 @@ import ma.anizar.frmw.model.dto.ScoreDTO;
 import ma.anizar.frmw.repository.MatchRepository;
 import ma.anizar.frmw.repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.YamlProcessor.MatchStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,7 +29,14 @@ public class ScoreServiceImpl implements ScoreService {
   @Override
   public MatchDTO getMatchById(Long matchId) {
     Match matchToSave = matchRepository.findById(matchId).get();
-
+    if (
+      matchToSave.getEndTime() != null &&
+      matchToSave.getStatus().equals(StatusMatch.EN_COURS) &&
+      matchToSave.getEndTime().isBefore(LocalDateTime.now())
+    ) {
+      matchToSave.setStatus(StatusMatch.TERMINE);
+    }
+    matchRepository.save(matchToSave);
     return matchToSave.toDTO();
   }
 
@@ -43,22 +51,34 @@ public class ScoreServiceImpl implements ScoreService {
 
   @Override
   public MatchDTO startMatchById(Long matchId) {
-    System.out.println(" Start MATCHE ::::::::::::::::::::::::::::::::");
-
     Match matchToSave = matchRepository.findById(matchId).get();
     matchToSave.setStartTime(LocalDateTime.now());
-    matchToSave.setEndTime(LocalDateTime.now().plusMinutes(MATCH_DURATION));
+    matchToSave.setEndTime(LocalDateTime.now().plusSeconds(MATCH_DURATION));
     matchToSave.setStatus(StatusMatch.EN_COURS);
+    matchToSave
+      .getScores()
+      .stream()
+      .forEach(s -> {
+        s.setRedScore(0);
+        s.setBlueScore(0);
+      });
     matchRepository.save(matchToSave);
     return matchToSave.toDTO();
   }
 
   @Override
-  public MatchDTO endMatchById(Long matchId) {
-    System.out.println(" END MATCHE ::::::::::::::::::::::::::::::::");
+  public MatchDTO restartMatchById(Long matchId) {
     Match matchToSave = matchRepository.findById(matchId).get();
-    matchToSave.setEndTime(LocalDateTime.now());
-    matchToSave.setStatus(StatusMatch.TERMINE);
+    matchToSave.setStartTime(null);
+    matchToSave.setEndTime(null);
+    matchToSave.setStatus(StatusMatch.PROGRAMME);
+    matchToSave
+      .getScores()
+      .stream()
+      .forEach(s -> {
+        s.setRedScore(0);
+        s.setBlueScore(0);
+      });
     matchRepository.save(matchToSave);
     return matchToSave.toDTO();
   }

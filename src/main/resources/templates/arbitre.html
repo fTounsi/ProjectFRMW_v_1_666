@@ -122,41 +122,96 @@
         background-color: #659d49;
         border-radius: 5px;
       }
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Fond gris semi-transparent */
+        z-index: 1;
+      }
+      .confirmation-box {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        max-width: 80%;
+        width: 300px; /* Taille de la boîte de dialogue pour les écrans plus larges */
+        padding: 20px;
+        text-align: center;
+        z-index: 2;
+      }
+      .confirmation-box p {
+        margin: 0 0 15px;
+      }
+
+      /* Styles responsifs */
+      @media only screen and (max-width: 600px) {
+        .confirmation-box {
+          max-width: 90%;
+        }
+      }
     </style>
   </head>
   <body>
+    <div id="overlay" class="overlay"></div>
+
+    <div id="confirmationBox" class="confirmation-box">
+      <i class="fas fa-exclamation-triangle"></i>
+      <p>Chargement en Cours</p>
+    </div>
+
     <div class="container">
       <div class="header-block">
-        <h1>Arbitre 1</h1>
-        <p class="countdown" id="countdown">03:00</p>
+        <h1 id="arbitreName"></h1>
+        <p class="countdown" id="countdown">....</p>
         <p id="competitionName"></p>
-        <div class="status">MATCH EN COURS</div>
+        <div class="status">...</div>
       </div>
 
       <div class="content">
         <div class="block red-block">
-          <h2>Club</h2>
+          <h2>....</h2>
           <p class="score" id="redScore">0</p>
           <div class="button-container">
-            <button class="button button-red" onclick="changeScore('red', 1)">
+            <button
+              class="button button-red"
+              onclick="changeScore('red', 1)"
+              disabled
+            >
               +
             </button>
-            <button class="button button-red" onclick="changeScore('red', -1)">
+            <button
+              class="button button-red"
+              onclick="changeScore('red', -1)"
+              disabled
+            >
               -
             </button>
           </div>
         </div>
 
         <div class="block blue-block">
-          <h2>Club</h2>
+          <h2>....</h2>
           <p class="score" id="blueScore">0</p>
           <div class="button-container">
-            <button class="button button-blue" onclick="changeScore('blue', 1)">
+            <button
+              class="button button-blue"
+              onclick="changeScore('blue', 1)"
+              disabled
+            >
               +
             </button>
             <button
               class="button button-blue"
               onclick="changeScore('blue', -1)"
+              disabled
             >
               -
             </button>
@@ -166,13 +221,20 @@
     </div>
 
     <script>
-      var matchId = 1;
-      var arbitreName = "Arbitre1";
-      var scoreId = 1;
+      // Get the URL parameters
+      var urlParams = new URLSearchParams(window.location.search);
+
+      var matchId = urlParams.get("matchId");
+      var scoreId = urlParams.get("scoreId");
+
+      console.log("Value of matchId:", matchId);
+      console.log("Value of scoreId:", scoreId);
+
       var newBlueScore = 0;
       var newRedScore = 0;
 
       $(document).ready(function () {
+        showOverlay();
         // Fonction pour mettre à jour le tableau de bord depuis l'API
         function updateDashboardFromAPI(matchId) {
           // Faites une requête AJAX à votre API avec le matchId
@@ -183,6 +245,7 @@
             success: function (data) {
               // Mise à jour du tableau de bord avec les données de l'API
               updateInfoWithData(data);
+              hideOverlay();
             },
             error: function (error) {
               console.error(
@@ -192,30 +255,35 @@
             },
           });
         }
-
-        //updateDashboardFromAPI(matchId);
+        updateDashboardFromAPI(matchId);
 
         setInterval(function () {
           updateDashboardFromAPI(matchId);
         }, 1000); // 60000 millisecondes = 60 secondes
 
         function updateInfoWithData(data) {
+          // console.log(arbitreName);
           $(".red-block h2 ").html(
-            data.redPlayer.club.name + " - " + data.redPlayer.firstName + " - " + data.redPlayer.lastName
+            data.redPlayer.firstName + " - " + data.redPlayer.lastName
           );
           $(".blue-block h2").html(
-            data.bluePlayer.club.name + " - " + data.bluePlayer.firstName + " - " + data.bluePlayer.lastName
+            data.bluePlayer.firstName + " - " + data.bluePlayer.lastName
           );
           $(".status").html(data.status);
           $("#competitionName").html(data.competitionName);
+          var time = differenceBetweenDates(data.endTime, new Date());
           $(".button-blue").prop("disabled", data.status !== "EN_COURS");
           $(".button-red").prop("disabled", data.status !== "EN_COURS");
 
-          $("#countdown").html(
-            data.status == "EN_COURS"
-              ? differenceBetweenDates(data.endTime, new Date())
-              : "00:00"
-          );
+          $("#countdown").html(data.status == "EN_COURS" ? time : "00:00");
+          arbitreName = getArbitreNameById(data.scores, parseInt(scoreId));
+          $("#arbitreName").html(arbitreName);
+        }
+        function getArbitreNameById(array, targetId) {
+          var resultObject = array.find(function (obj) {
+            return obj.id === targetId;
+          });
+          return resultObject ? resultObject.arbitreName : null;
         }
       });
 
@@ -236,7 +304,9 @@
       function differenceBetweenDates(dateString1, dateString2) {
         const date1 = new Date(dateString1);
         const date2 = new Date(dateString2);
-
+        if (date2 - date1 > 0) {
+          return "00:00";
+        }
         const timeDifference = Math.abs(date2 - date1);
 
         const hours = Math.floor(timeDifference / 3600000);
@@ -255,7 +325,6 @@
         var apiUrl = "http://localhost:8096/api/match/updateScore";
         var data = {
           id: scoreId,
-          arbitreName: arbitreName,
           blueScore: blueScore,
           redScore: redScore,
           match: {
@@ -275,6 +344,16 @@
             console.error("Erreur lors de la mise à jour du score:", error);
           },
         });
+      }
+
+      function showOverlay() {
+        $("#overlay").fadeIn();
+        $("#confirmationBox").fadeIn();
+      }
+
+      function hideOverlay() {
+        $("#overlay").fadeOut();
+        $("#confirmationBox").fadeOut();
       }
     </script>
   </body>
