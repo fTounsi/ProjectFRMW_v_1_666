@@ -160,15 +160,16 @@ public class CompetitionController {
                 scores.add(Score.builder().arbitreName("Arbitre"+(j+1))
                         .blueScore(0)
                         .redScore(0)
+                        .match(pair)
                         //.id(Long.valueOf(j))
                         //.match(Match.builder().match_id(Long.valueOf(123)).build())
                         .build());
             }
             pair.setScores(scores);
-            matchRepository.save(pair);
+//            matchRepository.save(pair);
             matches.add(pair);
         }
-
+        matchRepository.saveAll(matches);
         model.addAttribute("matches", matches);
         return "versus";
     }

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player Matchups</title>
-<!--    <link rel="stylesheet" href="dist/css/styles.css">-->
+    <!--    <link rel="stylesheet" href="dist/css/styles.css">-->
     <style>
         body {
     font-family: 'Arial', sans-serif;
@@ -16,6 +16,24 @@
     align-items: center;
     height: 100vh;
     margin: 0;
+}
+
+.return-button {
+    position: fixed; /* Use fixed to position relative to the viewport */
+    top: 20px;       /* Distance from the top of the viewport */
+    right: 20px;     /* Distance from the right of the viewport */
+    background-color: #28a745; /* Green background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.return-button:hover {
+    background-color: #218838; /* Darker green on hover */
 }
 
 .match-container {
@@ -82,6 +100,7 @@
 </head>
 <body>
 <div class="match-container">
+    <button class="return-button">Return</button>
     <!-- Example of one match, repeat this structure for each match -->
     <div class="match" th:each="m:${matches}">
         <div class="player blue">
@@ -104,5 +123,10 @@
     </div>
     <!-- Repeat for other matches -->
 </div>
+<script>
+    document.querySelector('.return-button').addEventListener('click', function() {
+        window.history.back();
+    });
+</script>
 </body>
 </html>
