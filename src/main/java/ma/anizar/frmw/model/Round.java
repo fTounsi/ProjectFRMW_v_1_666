@@ -32,7 +32,14 @@ public class  Round {
             mappedBy = "round",
             cascade = CascadeType.ALL
     )
-     List<Score> scores = new ArrayList<>();
+    List<Score> scores = new ArrayList<>();
+
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "round",
+            cascade = CascadeType.ALL
+    )
+    List<Sanction> sanctions = new ArrayList<>();
 
 
 }
