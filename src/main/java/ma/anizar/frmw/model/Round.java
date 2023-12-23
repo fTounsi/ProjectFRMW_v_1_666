@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import ma.anizar.frmw.model.enums.StatusRound;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,7 @@ public class  Round {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private int order;
+    private int roud_order;
     private StatusRound status;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -31,7 +32,7 @@ public class  Round {
             mappedBy = "round",
             cascade = CascadeType.ALL
     )
-    private List<Score> scores;
+     List<Score> scores = new ArrayList<>();
 
 
 }

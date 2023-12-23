@@ -21,8 +21,8 @@ public class Score {
     private String arbitreName ;
     private int redScore;
     private int blueScore;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "round_id")
+    @ManyToOne
+    @JoinColumn(name = "round_id", referencedColumnName = "id")
     private Round round;
 
     @Override

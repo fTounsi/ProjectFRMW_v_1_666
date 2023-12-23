@@ -161,12 +161,12 @@ public class CompetitionController {
                 scores.add(Score.builder().arbitreName("Arbitre"+(j+1))
                         .blueScore(0)
                         .redScore(0)
-                        .match(pair)
+//                        .match(pair)
                         //.id(Long.valueOf(j))
                         //.match(Match.builder().match_id(Long.valueOf(123)).build())
                         .build());
             }
-            pair.setScores(scores);
+//            pair.setScores(scores);
 //            matchRepository.save(pair);
             matches.add(pair);
         }

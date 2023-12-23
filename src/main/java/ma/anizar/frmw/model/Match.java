@@ -53,7 +53,7 @@ public class Match {
                                     .id(r.getId())
                                     .name(r.getName())
                                     .status(r.getStatus())
-                                    .order(r.getOrder())
+                                    .order(r.getRoud_order())
                                     .match(
                                             MatchDTO.builder().match_id(r.getMatch().getMatch_id()).build()
                                     )

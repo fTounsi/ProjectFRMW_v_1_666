@@ -54,13 +54,13 @@ public class ScoreServiceImpl implements ScoreService {
     matchToSave.setStartTime(LocalDateTime.now());
     matchToSave.setEndTime(LocalDateTime.now().plusSeconds(MATCH_DURATION));
     matchToSave.setStatus(StatusMatch.EN_COURS);
-    matchToSave
-      .getScores()
-      .stream()
-      .forEach(s -> {
-        s.setRedScore(0);
-        s.setBlueScore(0);
-      });
+//    matchToSave
+//      .getScores()
+//      .stream()
+//      .forEach(s -> {
+//        s.setRedScore(0);
+//        s.setBlueScore(0);
+//      });
     matchRepository.save(matchToSave);
     return matchToSave.toDTO();
   }
@@ -71,13 +71,13 @@ public class ScoreServiceImpl implements ScoreService {
     matchToSave.setStartTime(null);
     matchToSave.setEndTime(null);
     matchToSave.setStatus(StatusMatch.PROGRAMME);
-    matchToSave
-      .getScores()
-      .stream()
-      .forEach(s -> {
-        s.setRedScore(0);
-        s.setBlueScore(0);
-      });
+//    matchToSave
+//      .getScores()
+//      .stream()
+//      .forEach(s -> {
+//        s.setRedScore(0);
+//        s.setBlueScore(0);
+//      });
     matchRepository.save(matchToSave);
     return matchToSave.toDTO();
   }

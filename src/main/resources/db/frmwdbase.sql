@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: database
--- Generation Time: Dec 20, 2023 at 01:26 AM
+-- Generation Time: Dec 23, 2023 at 02:35 AM
 -- Server version: 10.6.4-MariaDB-1:10.6.4+maria~focal
 -- PHP Version: 8.2.8
 
@@ -83,10 +83,10 @@ CREATE TABLE `competition` (
 --
 
 INSERT INTO `competition` (`id`, `description`, `ending_date`, `name`, `place`, `start_date`, `status`, `type_comp`) VALUES
-(1, 'The 15th World Wushu Championships بطولة العالم للووشو المقامة في شنغهاي ما بين 16 و 26 اكتوبر 2019 ؛ البطولة التي يشارك فيها أكثر من ثمانون منتخبا من كل أنحاء العالم في مختلف أسابيب الووشو إضافة الى مشاركة منتخب المغرب', '2023-12-01 00:00:00.000000', 'The 15th World Wushu Championships', 'Temara', '2023-11-26 00:00:00.000000', 'EN COURS', NULL),
-(2, 'Championnat National Sanda des Enfants et Adultes', '2023-12-03 00:00:00.000000', 'Championnat National Sanda des Enfants et Adultes', 'Casablanca', '2023-11-29 00:00:00.000000', 'EN COURS', NULL),
-(3, 'Passage de Grade Ceinture Noire', '2023-12-01 00:00:00.000000', 'Passage de Grade Ceinture Noire', 'Rabat', '2023-11-26 00:00:00.000000', 'EN COURS', NULL),
-(4, 'Championnat Africaine de Taolu Wushu ', '2023-12-01 00:00:00.000000', 'Championnat Africaine de Taolu Wushu ', 'Complexe Mly Abdellah, Rabat', '2023-11-26 00:00:00.000000', 'EN COURS', NULL);
+(1, 'The 15th World Wushu Championships بطولة العالم للووشو المقامة في شنغهاي ما بين 16 و 26 اكتوبر 2019 ؛ البطولة التي يشارك فيها أكثر من ثمانون منتخبا من كل أنحاء العالم في مختلف أسابيب الووشو إضافة الى مشاركة منتخب المغرب', '2023-12-01 00:00:00.000000', 'The 15th World Wushu Championships', 'Temara', '2023-11-26 00:00:00.000000', 'EN COURS', 'Sanda'),
+(2, 'Championnat National Sanda des Enfants et Adultes', '2023-12-03 00:00:00.000000', 'Championnat National Sanda des Enfants et Adultes', 'Casablanca', '2023-11-29 00:00:00.000000', 'EN COURS', 'Sanda'),
+(3, 'Passage de Grade Ceinture Noire', '2023-12-01 00:00:00.000000', 'Passage de Grade Ceinture Noire', 'Rabat', '2023-11-26 00:00:00.000000', 'EN COURS', 'Sanda'),
+(4, 'Championnat Africaine de Taolu Wushu ', '2023-12-01 00:00:00.000000', 'Championnat Africaine de Taolu Wushu ', 'Complexe Mly Abdellah, Rabat', '2023-11-26 00:00:00.000000', 'EN COURS', 'Sanda');
 
 -- --------------------------------------------------------
 
@@ -148,16 +148,16 @@ CREATE TABLE `competition_participated_members` (
 --
 
 INSERT INTO `competition_participated_members` (`competitions_id`, `participated_members_id`) VALUES
-(4, 20),
-(4, 17),
+(4, 14),
 (4, 24),
 (4, 25),
+(4, 12),
+(4, 11),
+(4, 13),
 (4, 9),
-(4, 14),
-(4, 4),
 (4, 18),
+(4, 20),
 (4, 22),
-(4, 1),
 (4, 19);
 
 -- --------------------------------------------------------
@@ -175,47 +175,6 @@ CREATE TABLE `matches` (
   `competition_id` bigint(20) DEFAULT NULL,
   `red_player_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `matches`
---
-
-INSERT INTO `matches` (`match_id`, `end_time`, `start_time`, `status`, `blue_player_id`, `competition_id`, `red_player_id`) VALUES
-(67, NULL, NULL, 0, 18, 4, 22),
-(68, NULL, NULL, 0, 19, 4, 1),
-(69, NULL, NULL, 0, 25, 4, 20),
-(70, NULL, NULL, 0, 4, 4, 24),
-(71, NULL, NULL, 0, 9, 4, 14),
-(72, NULL, NULL, 0, 24, 4, 19),
-(73, NULL, NULL, 0, 4, 4, 1),
-(74, NULL, NULL, 0, 17, 4, 14),
-(75, NULL, NULL, 0, 22, 4, 25),
-(76, NULL, NULL, 0, 9, 4, 20),
-(77, NULL, NULL, 0, 1, 4, 17),
-(78, NULL, NULL, 0, 18, 4, 20),
-(79, NULL, NULL, 0, 25, 4, 19),
-(80, NULL, NULL, 0, 22, 4, 9),
-(81, NULL, NULL, 0, 4, 4, 14),
-(82, NULL, NULL, 0, 25, 4, 22),
-(83, NULL, NULL, 0, 4, 4, 24),
-(84, NULL, NULL, 0, 9, 4, 1),
-(85, NULL, NULL, 0, 18, 4, 19),
-(86, NULL, NULL, 0, 17, 4, 20),
-(87, NULL, NULL, 0, 9, 4, 25),
-(88, NULL, NULL, 0, 20, 4, 14),
-(89, NULL, NULL, 0, 18, 4, 17),
-(90, NULL, NULL, 0, 19, 4, 4),
-(91, NULL, NULL, 0, 22, 4, 24),
-(92, NULL, NULL, 0, 20, 4, 9),
-(93, NULL, NULL, 0, 4, 4, 18),
-(94, NULL, NULL, 0, 17, 4, 14),
-(95, NULL, NULL, 0, 24, 4, 1),
-(96, NULL, NULL, 0, 22, 4, 25),
-(97, NULL, NULL, 0, 20, 4, 17),
-(98, NULL, NULL, 0, 24, 4, 25),
-(99, NULL, NULL, 0, 9, 4, 14),
-(100, NULL, NULL, 0, 4, 4, 18),
-(101, NULL, NULL, 0, 22, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -258,7 +217,7 @@ INSERT INTO `member` (`id`, `address`, `birth_date`, `cin`, `email`, `first_name
 (11, 'Addressa 12, Rabat', '2023-11-14 00:00:00.000000', 'H7736', 'aa@bb.cc', 'Imad', 'H', 0, 'Kadiri', '', '+2127366477689', 0, 2, NULL),
 (12, 'Addressa 12, Rabat', '2023-11-14 00:00:00.000000', 'E44133', 'aa@bb.cc', 'Flan', 'H', 0, 'Fertelan', 'satoshi.png', '+2126422444489', 0, 2, NULL),
 (13, 'Addressa 12, Rabat', '2023-11-14 00:00:00.000000', 'H77365', 'aa@bb.cc', 'Maha', 'F', 0, 'Naoum', 'naziiiizz.png', '+2127366477689', 0, 2, NULL),
-(14, 'Maarif, bv Zreqtoni N 623', '2023-11-14 00:00:00.000000', 'AB55363', 'fouad.tounsi@gmail.com', 'WWWW', 'M', 177, 'WWWWW', 'member2.jpeg', '0671070673', 43, 1, NULL),
+(14, 'Maarif, bv Zreqtoni N 623', '2023-11-14 00:00:00.000000', 'AB55363', 'fouad.tounsi@gmail.com', 'Mencef', 'M', 177, 'Khlifi', 'member2.jpeg', '0671070673', 43, 1, NULL),
 (15, 'Hay El Menzah N 1292 CYM', '1996-12-12 00:00:00.000000', 'AA9938', 'fouad.tounsi@gmail.com', 'AMRAOUI', 'M', 177, 'Hicham', 'member2.jpeg', '0671070673', 88, 5, NULL),
 (16, 'Maarif, bv Zreqtoni N 623', '1996-12-12 00:00:00.000000', 'K99590', 'fouad.tounsi@gmail.com', 'KKKKK', 'F', 153, 'KKKKK', 'image1696637810052.png', '0671070673', 54, 6, NULL),
 (17, 'Maarif, bv Zreqtoni N 623', '1996-12-12 00:00:00.000000', 'D9948', 'fouad.tounsi@gmail.com', 'NABIL', 'M', 0, 'IMRAN', '', '0671070673', 0, 1, NULL),
@@ -300,37 +259,39 @@ CREATE TABLE `region` (
   `siege_adresse` varchar(255) DEFAULT NULL,
   `tel_president` varchar(255) DEFAULT NULL,
   `tel_secretaireg` varchar(255) DEFAULT NULL,
-  `telephone` varchar(255) DEFAULT NULL
+  `telephone` varchar(255) DEFAULT NULL,
+  `cin_president` varchar(255) DEFAULT NULL,
+  `cin_secretaireg` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `region`
 --
 
-INSERT INTO `region` (`region_id`, `code`, `label`, `date_assembleeg`, `president`, `secretaireg`, `siege_adresse`, `tel_president`, `tel_secretaireg`, `telephone`) VALUES
-(1, '01', 'Chaouia-Ouardighaaaaaaa', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, '02', 'Doukkala-Abda', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, '03', 'Fès-Boulemane', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, '04', 'Gharb-Chrarda-Beni Hssen', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, '05', 'Grand Casablanca', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(6, '06', 'Guelmim-Es Semara', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(7, '07', 'Laâyoune-Boujdour-Sakia el Hamr', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8, '08', 'Marrakech-Tensift-Al Haouz', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, '09', 'Meknès-Tafilalet', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, '10', 'L\'Oriental', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, '11', 'Oued ed Dahab-Lagouira', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, '12', 'Rabat-Salé-Zemmour-Zaër', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(13, '13', 'Tadla-Azilal', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(14, '14', 'Tanger-Tétouan', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(15, '15', 'Souss-Massa-Drâa', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(16, '16', 'Taza-Al Hoceïma-Taounate', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(28, '16', 'NEWREGION', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(29, '27', 'KKAJJDSN', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(31, 'NRI', 'OLDREGION', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(32, '27', 'KKAJJDSNTTTTTTTT', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(35, '1212', 'CHAMAL', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(36, '877310', 'SSSSSSS', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(37, 'll', 'NEWREGIONklkl', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `region` (`region_id`, `code`, `label`, `date_assembleeg`, `president`, `secretaireg`, `siege_adresse`, `tel_president`, `tel_secretaireg`, `telephone`, `cin_president`, `cin_secretaireg`) VALUES
+(1, '01', 'Chaouia-Ouardighaaaaaaa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, '02', 'Doukkala-Abda', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, '03', 'Fès-Boulemane', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, '04', 'Gharb-Chrarda-Beni Hssen', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, '05', 'Grand Casablanca', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, '06', 'Guelmim-Es Semara', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, '07', 'Laâyoune-Boujdour-Sakia el Hamr', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, '08', 'Marrakech-Tensift-Al Haouz', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, '09', 'Meknès-Tafilalet', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, '10', 'L\'Oriental', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, '11', 'Oued ed Dahab-Lagouira', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, '12', 'Rabat-Salé-Zemmour-Zaër', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, '13', 'Tadla-Azilal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, '14', 'Tanger-Tétouan', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, '15', 'Souss-Massa-Drâa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, '16', 'Taza-Al Hoceïma-Taounate', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(28, '16', 'NEWREGION', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(29, '27', 'KKAJJDSN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(31, 'NRI', 'OLDREGION', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(32, '27', 'KKAJJDSNTTTTTTTT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(35, '1212', 'CHAMAL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(36, '877310', 'SSSSSSS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(37, 'll', 'NEWREGIONklkl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -379,6 +340,20 @@ INSERT INTO `roles` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `round`
+--
+
+CREATE TABLE `round` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `roud_order` int(11) NOT NULL,
+  `status` tinyint(4) DEFAULT NULL CHECK (`status` between 0 and 2),
+  `match_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `score`
 --
 
@@ -387,189 +362,8 @@ CREATE TABLE `score` (
   `arbitre_name` varchar(255) DEFAULT NULL,
   `blue_score` int(11) NOT NULL,
   `red_score` int(11) NOT NULL,
-  `match_id` bigint(20) DEFAULT NULL
+  `round_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `score`
---
-
-INSERT INTO `score` (`id`, `arbitre_name`, `blue_score`, `red_score`, `match_id`) VALUES
-(326, 'Arbitre1', 0, 0, NULL),
-(327, 'Arbitre2', 0, 0, NULL),
-(328, 'Arbitre3', 0, 0, NULL),
-(329, 'Arbitre4', 0, 0, NULL),
-(330, 'Arbitre5', 0, 0, NULL),
-(331, 'Arbitre1', 0, 0, NULL),
-(332, 'Arbitre2', 0, 0, NULL),
-(333, 'Arbitre3', 0, 0, NULL),
-(334, 'Arbitre4', 0, 0, NULL),
-(335, 'Arbitre5', 0, 0, NULL),
-(336, 'Arbitre1', 0, 0, NULL),
-(337, 'Arbitre2', 0, 0, NULL),
-(338, 'Arbitre3', 0, 0, NULL),
-(339, 'Arbitre4', 0, 0, NULL),
-(340, 'Arbitre5', 0, 0, NULL),
-(341, 'Arbitre1', 0, 0, NULL),
-(342, 'Arbitre2', 0, 0, NULL),
-(343, 'Arbitre3', 0, 0, NULL),
-(344, 'Arbitre4', 0, 0, NULL),
-(345, 'Arbitre5', 0, 0, NULL),
-(346, 'Arbitre1', 0, 0, NULL),
-(347, 'Arbitre2', 0, 0, NULL),
-(348, 'Arbitre3', 0, 0, NULL),
-(349, 'Arbitre4', 0, 0, NULL),
-(350, 'Arbitre5', 0, 0, NULL),
-(351, 'Arbitre1', 0, 0, NULL),
-(352, 'Arbitre2', 0, 0, NULL),
-(353, 'Arbitre3', 0, 0, NULL),
-(354, 'Arbitre4', 0, 0, NULL),
-(355, 'Arbitre5', 0, 0, NULL),
-(356, 'Arbitre1', 0, 0, NULL),
-(357, 'Arbitre2', 0, 0, NULL),
-(358, 'Arbitre3', 0, 0, NULL),
-(359, 'Arbitre4', 0, 0, NULL),
-(360, 'Arbitre5', 0, 0, NULL),
-(361, 'Arbitre1', 0, 0, NULL),
-(362, 'Arbitre2', 0, 0, NULL),
-(363, 'Arbitre3', 0, 0, NULL),
-(364, 'Arbitre4', 0, 0, NULL),
-(365, 'Arbitre5', 0, 0, NULL),
-(366, 'Arbitre1', 0, 0, NULL),
-(367, 'Arbitre2', 0, 0, NULL),
-(368, 'Arbitre3', 0, 0, NULL),
-(369, 'Arbitre4', 0, 0, NULL),
-(370, 'Arbitre5', 0, 0, NULL),
-(371, 'Arbitre1', 0, 0, NULL),
-(372, 'Arbitre2', 0, 0, NULL),
-(373, 'Arbitre3', 0, 0, NULL),
-(374, 'Arbitre4', 0, 0, NULL),
-(375, 'Arbitre5', 0, 0, NULL),
-(376, 'Arbitre1', 0, 0, NULL),
-(377, 'Arbitre2', 0, 0, NULL),
-(378, 'Arbitre3', 0, 0, NULL),
-(379, 'Arbitre4', 0, 0, NULL),
-(380, 'Arbitre5', 0, 0, NULL),
-(381, 'Arbitre1', 0, 0, NULL),
-(382, 'Arbitre2', 0, 0, NULL),
-(383, 'Arbitre3', 0, 0, NULL),
-(384, 'Arbitre4', 0, 0, NULL),
-(385, 'Arbitre5', 0, 0, NULL),
-(386, 'Arbitre1', 0, 0, NULL),
-(387, 'Arbitre2', 0, 0, NULL),
-(388, 'Arbitre3', 0, 0, NULL),
-(389, 'Arbitre4', 0, 0, NULL),
-(390, 'Arbitre5', 0, 0, NULL),
-(391, 'Arbitre1', 0, 0, NULL),
-(392, 'Arbitre2', 0, 0, NULL),
-(393, 'Arbitre3', 0, 0, NULL),
-(394, 'Arbitre4', 0, 0, NULL),
-(395, 'Arbitre5', 0, 0, NULL),
-(396, 'Arbitre1', 0, 0, NULL),
-(397, 'Arbitre2', 0, 0, NULL),
-(398, 'Arbitre3', 0, 0, NULL),
-(399, 'Arbitre4', 0, 0, NULL),
-(400, 'Arbitre5', 0, 0, NULL),
-(401, 'Arbitre1', 0, 0, NULL),
-(402, 'Arbitre2', 0, 0, NULL),
-(403, 'Arbitre3', 0, 0, NULL),
-(404, 'Arbitre4', 0, 0, NULL),
-(405, 'Arbitre5', 0, 0, NULL),
-(406, 'Arbitre1', 0, 0, NULL),
-(407, 'Arbitre2', 0, 0, NULL),
-(408, 'Arbitre3', 0, 0, NULL),
-(409, 'Arbitre4', 0, 0, NULL),
-(410, 'Arbitre5', 0, 0, NULL),
-(411, 'Arbitre1', 0, 0, NULL),
-(412, 'Arbitre2', 0, 0, NULL),
-(413, 'Arbitre3', 0, 0, NULL),
-(414, 'Arbitre4', 0, 0, NULL),
-(415, 'Arbitre5', 0, 0, NULL),
-(416, 'Arbitre1', 0, 0, NULL),
-(417, 'Arbitre2', 0, 0, NULL),
-(418, 'Arbitre3', 0, 0, NULL),
-(419, 'Arbitre4', 0, 0, NULL),
-(420, 'Arbitre5', 0, 0, NULL),
-(421, 'Arbitre1', 0, 0, NULL),
-(422, 'Arbitre2', 0, 0, NULL),
-(423, 'Arbitre3', 0, 0, NULL),
-(424, 'Arbitre4', 0, 0, NULL),
-(425, 'Arbitre5', 0, 0, NULL),
-(426, 'Arbitre1', 0, 0, NULL),
-(427, 'Arbitre2', 0, 0, NULL),
-(428, 'Arbitre3', 0, 0, NULL),
-(429, 'Arbitre4', 0, 0, NULL),
-(430, 'Arbitre5', 0, 0, NULL),
-(431, 'Arbitre1', 0, 0, NULL),
-(432, 'Arbitre2', 0, 0, NULL),
-(433, 'Arbitre3', 0, 0, NULL),
-(434, 'Arbitre4', 0, 0, NULL),
-(435, 'Arbitre5', 0, 0, NULL),
-(436, 'Arbitre1', 0, 0, NULL),
-(437, 'Arbitre2', 0, 0, NULL),
-(438, 'Arbitre3', 0, 0, NULL),
-(439, 'Arbitre4', 0, 0, NULL),
-(440, 'Arbitre5', 0, 0, NULL),
-(441, 'Arbitre1', 0, 0, NULL),
-(442, 'Arbitre2', 0, 0, NULL),
-(443, 'Arbitre3', 0, 0, NULL),
-(444, 'Arbitre4', 0, 0, NULL),
-(445, 'Arbitre5', 0, 0, NULL),
-(446, 'Arbitre1', 0, 0, NULL),
-(447, 'Arbitre2', 0, 0, NULL),
-(448, 'Arbitre3', 0, 0, NULL),
-(449, 'Arbitre4', 0, 0, NULL),
-(450, 'Arbitre5', 0, 0, NULL),
-(451, 'Arbitre1', 0, 0, NULL),
-(452, 'Arbitre2', 0, 0, NULL),
-(453, 'Arbitre3', 0, 0, NULL),
-(454, 'Arbitre4', 0, 0, NULL),
-(455, 'Arbitre5', 0, 0, NULL),
-(456, 'Arbitre1', 0, 0, NULL),
-(457, 'Arbitre2', 0, 0, NULL),
-(458, 'Arbitre3', 0, 0, NULL),
-(459, 'Arbitre4', 0, 0, NULL),
-(460, 'Arbitre5', 0, 0, NULL),
-(461, 'Arbitre1', 0, 0, NULL),
-(462, 'Arbitre2', 0, 0, NULL),
-(463, 'Arbitre3', 0, 0, NULL),
-(464, 'Arbitre4', 0, 0, NULL),
-(465, 'Arbitre5', 0, 0, NULL),
-(466, 'Arbitre1', 0, 0, NULL),
-(467, 'Arbitre2', 0, 0, NULL),
-(468, 'Arbitre3', 0, 0, NULL),
-(469, 'Arbitre4', 0, 0, NULL),
-(470, 'Arbitre5', 0, 0, NULL),
-(471, 'Arbitre1', 0, 0, NULL),
-(472, 'Arbitre2', 0, 0, NULL),
-(473, 'Arbitre3', 0, 0, NULL),
-(474, 'Arbitre4', 0, 0, NULL),
-(475, 'Arbitre5', 0, 0, NULL),
-(476, 'Arbitre1', 0, 0, NULL),
-(477, 'Arbitre2', 0, 0, NULL),
-(478, 'Arbitre3', 0, 0, NULL),
-(479, 'Arbitre4', 0, 0, NULL),
-(480, 'Arbitre5', 0, 0, NULL),
-(481, 'Arbitre1', 0, 0, NULL),
-(482, 'Arbitre2', 0, 0, NULL),
-(483, 'Arbitre3', 0, 0, NULL),
-(484, 'Arbitre4', 0, 0, NULL),
-(485, 'Arbitre5', 0, 0, NULL),
-(486, 'Arbitre1', 0, 0, NULL),
-(487, 'Arbitre2', 0, 0, NULL),
-(488, 'Arbitre3', 0, 0, NULL),
-(489, 'Arbitre4', 0, 0, NULL),
-(490, 'Arbitre5', 0, 0, NULL),
-(491, 'Arbitre1', 0, 0, NULL),
-(492, 'Arbitre2', 0, 0, NULL),
-(493, 'Arbitre3', 0, 0, NULL),
-(494, 'Arbitre4', 0, 0, NULL),
-(495, 'Arbitre5', 0, 0, NULL),
-(496, 'Arbitre1', 0, 0, NULL),
-(497, 'Arbitre2', 0, 0, NULL),
-(498, 'Arbitre3', 0, 0, NULL),
-(499, 'Arbitre4', 0, 0, NULL),
-(500, 'Arbitre5', 0, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -618,8 +412,8 @@ CREATE TABLE `utilisateur` (
 INSERT INTO `utilisateur` (`id`, `enabled`, `first_name`, `last_name`, `login`, `password`, `photo_path`, `club_id`) VALUES
 (1, b'0', 'Fouad Tounsi', '', 'fouad', '$2a$10$GNuGG/.Zz8xYWK0OzHIlL.Vv1tLwV1qUVS4aGrgMTubuyX4HtwT.i', 'member1.jpeg', NULL),
 (2, b'0', 'Esannaghi Abderrahmane', 'User', 'admin', '$2a$10$GNuGG/.Zz8xYWK0OzHIlL.Vv1tLwV1qUVS4aGrgMTubuyX4HtwT.i', ' Esannaghi-Avatar.jpeg', NULL),
-(17, b'0', 'Ali Anizar', NULL, 'anizar', '$2a$10$k2lvLqLKBABddVAogp4Tze8BcHyUBAxAgKZDziTrgmBKAsblQp6nu', 'avatar5_be12d662-aa8a-4233-ae55-be2c26565b6d_b2e9cd96-1542-4bd6-bff4-ad91c8ac23c5.png', NULL),
-(18, b'0', 'Lariche Khalid', NULL, 'khalid', '$2a$10$bRK51ru8PaNGgZ63CBplHeUkSntdD24Jh1fXqqltepduNFFpgPAb.', 'avatar4_8afb7734-084e-4db7-afc6-360294e2e9da.png', 1);
+(17, b'0', 'Ali Anizar', NULL, 'anizar', '$2a$10$k2lvLqLKBABddVAogp4Tze8BcHyUBAxAgKZDziTrgmBKAsblQp6nu', 'avatar5_be12d662-aa8a-4233-ae55-be2c26565b6d_b2e9cd96-1542-4bd6-bff4-ad91c8ac23c5.png', 2),
+(18, b'0', 'Achraf Achraf', NULL, 'achraf', '$2a$10$GNuGG/.Zz8xYWK0OzHIlL.Vv1tLwV1qUVS4aGrgMTubuyX4HtwT.i', 'avatar4_8afb7734-084e-4db7-afc6-360294e2e9da.png', 1);
 
 --
 -- Indexes for dumped tables
@@ -710,11 +504,18 @@ ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `round`
+--
+ALTER TABLE `round`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK3iae81a1e63i7clqi5fdkmwf3` (`match_id`);
+
+--
 -- Indexes for table `score`
 --
 ALTER TABLE `score`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `FKaiirupk5aado87ee3p64d63tg` (`match_id`);
+  ADD KEY `FKpp6i5qd5su7jye4dgrw2ot213` (`round_id`);
 
 --
 -- Indexes for table `user_roles`
@@ -750,7 +551,7 @@ ALTER TABLE `competition`
 -- AUTO_INCREMENT for table `matches`
 --
 ALTER TABLE `matches`
-  MODIFY `match_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `match_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=182;
 
 --
 -- AUTO_INCREMENT for table `member`
@@ -777,10 +578,16 @@ ALTER TABLE `roles`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `round`
+--
+ALTER TABLE `round`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `score`
 --
 ALTER TABLE `score`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=501;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `utilisateur`
@@ -855,10 +662,16 @@ ALTER TABLE `registration_competitions`
   ADD CONSTRAINT `FKkxpngxeiiidronei15f8bg14n` FOREIGN KEY (`competitions_id`) REFERENCES `competition` (`id`);
 
 --
+-- Constraints for table `round`
+--
+ALTER TABLE `round`
+  ADD CONSTRAINT `FK3iae81a1e63i7clqi5fdkmwf3` FOREIGN KEY (`match_id`) REFERENCES `matches` (`match_id`);
+
+--
 -- Constraints for table `score`
 --
 ALTER TABLE `score`
-  ADD CONSTRAINT `FKaiirupk5aado87ee3p64d63tg` FOREIGN KEY (`match_id`) REFERENCES `matches` (`match_id`);
+  ADD CONSTRAINT `FKpp6i5qd5su7jye4dgrw2ot213` FOREIGN KEY (`round_id`) REFERENCES `round` (`id`);
 
 --
 -- Constraints for table `user_roles`

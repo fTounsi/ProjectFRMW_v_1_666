@@ -34,10 +34,10 @@ public class CachedDataServiceImpl implements CachedDataService {
                     .blueScore(0)
                     .redScore(0)
                     .id(Long.valueOf(i))
-                    .match(Match.builder().match_id(Long.valueOf(123)).build())
+                   // .match(Match.builder().match_id(Long.valueOf(123)).build())
                     .build());
         }
-        matchData.setScores(scores);
+       // matchData.setScores(scores);
 
     }
     @Override
@@ -48,13 +48,13 @@ public class CachedDataServiceImpl implements CachedDataService {
     @Override
     public boolean updateLiveScoreData(Score score) {
         if(score != null) {
-            matchData.getScores().stream()
-                    .filter(item-> item.equals(score))
-                    .forEachOrdered(a ->{
-                        a.setRedScore(score.getRedScore());
-                        a.setBlueScore(score.getBlueScore());
-                        log.info("Matche Updated OK ");
-                    });
+//            matchData.getScores().stream()
+//                    .filter(item-> item.equals(score))
+//                    .forEachOrdered(a ->{
+//                        a.setRedScore(score.getRedScore());
+//                        a.setBlueScore(score.getBlueScore());
+//                        log.info("Matche Updated OK ");
+//                    });
             return true;
         }else{
             return false;
@@ -76,10 +76,10 @@ public class CachedDataServiceImpl implements CachedDataService {
                     .blueScore(0)
                     .redScore(0)
                     .id(Long.valueOf(i))
-                    .match(Match.builder().match_id(Long.valueOf(123)).build())
+                   // .match(Match.builder().match_id(Long.valueOf(123)).build())
                     .build());
         }
-        matchData.setScores(scores);
+       // matchData.setScores(scores);
         return matchData;
 
     }
