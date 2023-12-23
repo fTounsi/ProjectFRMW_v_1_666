@@ -1,13 +1,13 @@
-package ma.anizar.frmw.model;
+package ma.anizar.frmw.model.enums;
 
-public enum StatusMatch {
+public enum StatusRound {
     PROGRAMME("Programmé"),
     EN_COURS("En cours"),
     TERMINE("Terminé");
 
     private final String label;
 
-    StatusMatch(String label) {
+    StatusRound(String label) {
         this.label = label;
     }
     public String getLabel() {

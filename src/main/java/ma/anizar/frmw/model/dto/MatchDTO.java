@@ -1,12 +1,12 @@
 package ma.anizar.frmw.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.*;
-import ma.anizar.frmw.model.StatusMatch;
+import ma.anizar.frmw.model.enums.StatusMatch;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
@@ -27,5 +27,5 @@ public class MatchDTO {
   private LocalDateTime startTime;
   private LocalDateTime endTime;
 
-  List<ScoreDTO> scores = new ArrayList();
+  List<RoundDTO> rounds = new ArrayList();
 }

@@ -4,9 +4,8 @@ import ma.anizar.frmw.model.Competition;
 import ma.anizar.frmw.model.Match;
 import ma.anizar.frmw.model.Member;
 import ma.anizar.frmw.model.Score;
-import ma.anizar.frmw.model.StatusMatch;
+import ma.anizar.frmw.model.enums.StatusMatch;
 import org.slf4j.LoggerFactory;
-import org.springframework.format.datetime.standard.DateTimeContext;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

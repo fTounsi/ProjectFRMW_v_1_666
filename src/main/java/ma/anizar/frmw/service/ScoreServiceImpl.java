@@ -3,13 +3,12 @@ package ma.anizar.frmw.service;
 import java.time.LocalDateTime;
 import ma.anizar.frmw.model.Match;
 import ma.anizar.frmw.model.Score;
-import ma.anizar.frmw.model.StatusMatch;
 import ma.anizar.frmw.model.dto.MatchDTO;
 import ma.anizar.frmw.model.dto.ScoreDTO;
+import ma.anizar.frmw.model.enums.StatusMatch;
 import ma.anizar.frmw.repository.MatchRepository;
 import ma.anizar.frmw.repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.YamlProcessor.MatchStatus;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import ma.anizar.frmw.model.*;
+import ma.anizar.frmw.model.enums.StatusMatch;
 import ma.anizar.frmw.repository.ClubRepository;
 import ma.anizar.frmw.repository.CompetitionRepository;
 import ma.anizar.frmw.repository.MatchRepository;

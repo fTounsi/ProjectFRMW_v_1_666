@@ -22,8 +22,8 @@ public class Score {
     private int redScore;
     private int blueScore;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "match_id")
-    private Match match;
+    @JoinColumn(name = "round_id")
+    private Round round;
 
     @Override
     public boolean equals(Object obj) {
@@ -35,7 +35,7 @@ public class Score {
         }
 
         Score other = (Score) obj;
-        return  id == other.id && arbitreName == other.arbitreName && match.getMatch_id() == other.match.getMatch_id();
+        return  id == other.id && arbitreName == other.arbitreName && round.getId() == other.round.getId();
     }
 
 //    @Override

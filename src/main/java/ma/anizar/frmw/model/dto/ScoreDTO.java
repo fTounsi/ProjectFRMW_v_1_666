@@ -20,7 +20,7 @@ public class ScoreDTO {
   private String arbitreName;
   private int redScore;
   private int blueScore;
-  private MatchDTO match;
+  private RoundDTO round;
 
   @Override
   public boolean equals(Object obj) {
@@ -35,12 +35,12 @@ public class ScoreDTO {
     return (
       id == other.id &&
       arbitreName == other.arbitreName &&
-      match.getMatch_id() == other.match.getMatch_id()
+      round.getId() == other.round.getId()
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, arbitreName, match.getMatch_id());
+    return Objects.hash(id, arbitreName, round.getId());
   }
 }
