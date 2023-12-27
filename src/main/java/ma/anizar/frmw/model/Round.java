@@ -25,6 +25,20 @@ public class Round {
   @JoinColumn(name = "orderRound")
   private int orderRound;
 
+  @OneToMany(
+    fetch = FetchType.LAZY,
+    mappedBy = "round",
+    cascade = CascadeType.ALL
+  )
+  List<Score> scores = new ArrayList<>();
+
+  @OneToMany(
+    fetch = FetchType.LAZY,
+    mappedBy = "round",
+    cascade = CascadeType.ALL
+  )
+  List<Sanction> sanctions = new ArrayList<>();
+
   @JoinColumn(name = "status")
   private StatusRound status;
 

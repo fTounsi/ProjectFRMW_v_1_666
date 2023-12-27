@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: database
--- Generation Time: Dec 23, 2023 at 02:35 AM
+-- Generation Time: Dec 23, 2023 at 02:55 PM
 -- Server version: 10.6.4-MariaDB-1:10.6.4+maria~focal
 -- PHP Version: 8.2.8
 
@@ -354,6 +354,19 @@ CREATE TABLE `round` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sanction`
+--
+
+CREATE TABLE `sanction` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `type_sanction` tinyint(4) DEFAULT NULL CHECK (`type_sanction` between 0 and 3),
+  `round_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `score`
 --
 
@@ -511,6 +524,13 @@ ALTER TABLE `round`
   ADD KEY `FK3iae81a1e63i7clqi5fdkmwf3` (`match_id`);
 
 --
+-- Indexes for table `sanction`
+--
+ALTER TABLE `sanction`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKb3cbe6mcw9t332wjc7e06kv09` (`round_id`);
+
+--
 -- Indexes for table `score`
 --
 ALTER TABLE `score`
@@ -581,6 +601,12 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `round`
 --
 ALTER TABLE `round`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sanction`
+--
+ALTER TABLE `sanction`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
@@ -666,6 +692,12 @@ ALTER TABLE `registration_competitions`
 --
 ALTER TABLE `round`
   ADD CONSTRAINT `FK3iae81a1e63i7clqi5fdkmwf3` FOREIGN KEY (`match_id`) REFERENCES `matches` (`match_id`);
+
+--
+-- Constraints for table `sanction`
+--
+ALTER TABLE `sanction`
+  ADD CONSTRAINT `FKb3cbe6mcw9t332wjc7e06kv09` FOREIGN KEY (`round_id`) REFERENCES `round` (`id`);
 
 --
 -- Constraints for table `score`
