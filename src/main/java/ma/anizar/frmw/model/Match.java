@@ -55,6 +55,18 @@ public class Match {
           .endTime(r.getEndTime())
           .startTime(r.getStartTime())
           .build();
+        List<SanctionDTO> sanctionDTOs = new ArrayList<>();
+        r.sanctions
+          .stream()
+          .forEach(sanction -> {
+            SanctionDTO
+              .builder()
+              .idRound(r.getId())
+              .name(sanction.getName())
+              .typeSanction(sanction.getTypeSanction())
+              .build();
+          });
+        roundDTO.setSanctions(sanctionDTOs);
         List<ScoreDTO> scoresDto = new ArrayList();
         r.scores
           .stream()

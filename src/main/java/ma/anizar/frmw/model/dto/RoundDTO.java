@@ -26,4 +26,5 @@ public class RoundDTO {
   private LocalDateTime startTime;
   private LocalDateTime endTime;
   List<ScoreDTO> scores = new ArrayList<>();
+  List<SanctionDTO> sanctions = new ArrayList<>();
 }

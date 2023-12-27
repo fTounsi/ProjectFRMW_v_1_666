@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: database
--- Generation Time: Dec 23, 2023 at 02:55 PM
--- Server version: 10.6.4-MariaDB-1:10.6.4+maria~focal
--- PHP Version: 8.2.8
+-- Hôte : database
+-- Généré le : mer. 27 déc. 2023 à 20:02
+-- Version du serveur : 10.6.4-MariaDB-1:10.6.4+maria~focal
+-- Version de PHP : 8.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `frmwdbase`
+-- Base de données : `frmwdbase`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `club`
+-- Structure de la table `club`
 --
 
 CREATE TABLE `club` (
@@ -46,7 +46,7 @@ CREATE TABLE `club` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `club`
+-- Déchargement des données de la table `club`
 --
 
 INSERT INTO `club` (`club_id`, `address`, `created_date`, `logo_path`, `name`, `telephone`, `region_id`, `cin_entraineur`, `cin_president`, `code`, `date_assembleeg`, `entraineur`, `president`, `tel_entraineur`, `tel_president`) VALUES
@@ -64,7 +64,7 @@ INSERT INTO `club` (`club_id`, `address`, `created_date`, `logo_path`, `name`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `competition`
+-- Structure de la table `competition`
 --
 
 CREATE TABLE `competition` (
@@ -79,7 +79,7 @@ CREATE TABLE `competition` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `competition`
+-- Déchargement des données de la table `competition`
 --
 
 INSERT INTO `competition` (`id`, `description`, `ending_date`, `name`, `place`, `start_date`, `status`, `type_comp`) VALUES
@@ -91,18 +91,7 @@ INSERT INTO `competition` (`id`, `description`, `ending_date`, `name`, `place`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `competition_matches`
---
-
-CREATE TABLE `competition_matches` (
-  `competition_id` bigint(20) NOT NULL,
-  `matches_match_id` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `competition_participated_clubs`
+-- Structure de la table `competition_participated_clubs`
 --
 
 CREATE TABLE `competition_participated_clubs` (
@@ -111,7 +100,7 @@ CREATE TABLE `competition_participated_clubs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `competition_participated_clubs`
+-- Déchargement des données de la table `competition_participated_clubs`
 --
 
 INSERT INTO `competition_participated_clubs` (`competitions_id`, `participated_clubs_club_id`) VALUES
@@ -135,7 +124,7 @@ INSERT INTO `competition_participated_clubs` (`competitions_id`, `participated_c
 -- --------------------------------------------------------
 
 --
--- Table structure for table `competition_participated_members`
+-- Structure de la table `competition_participated_members`
 --
 
 CREATE TABLE `competition_participated_members` (
@@ -144,7 +133,7 @@ CREATE TABLE `competition_participated_members` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `competition_participated_members`
+-- Déchargement des données de la table `competition_participated_members`
 --
 
 INSERT INTO `competition_participated_members` (`competitions_id`, `participated_members_id`) VALUES
@@ -163,23 +152,28 @@ INSERT INTO `competition_participated_members` (`competitions_id`, `participated
 -- --------------------------------------------------------
 
 --
--- Table structure for table `matches`
+-- Structure de la table `matches`
 --
 
 CREATE TABLE `matches` (
   `match_id` bigint(20) NOT NULL,
-  `end_time` datetime(6) DEFAULT NULL,
-  `start_time` datetime(6) DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL CHECK (`status` between 0 and 2),
   `blue_player_id` bigint(20) DEFAULT NULL,
   `competition_id` bigint(20) DEFAULT NULL,
   `red_player_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `matches`
+--
+
+INSERT INTO `matches` (`match_id`, `status`, `blue_player_id`, `competition_id`, `red_player_id`) VALUES
+(1, 0, 1, 1, 2);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `member`
+-- Structure de la table `member`
 --
 
 CREATE TABLE `member` (
@@ -200,7 +194,7 @@ CREATE TABLE `member` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `member`
+-- Déchargement des données de la table `member`
 --
 
 INSERT INTO `member` (`id`, `address`, `birth_date`, `cin`, `email`, `first_name`, `gender`, `height`, `last_name`, `photo_path`, `telephone`, `weight`, `club_id`, `club_name`) VALUES
@@ -235,7 +229,7 @@ INSERT INTO `member` (`id`, `address`, `birth_date`, `cin`, `email`, `first_name
 -- --------------------------------------------------------
 
 --
--- Table structure for table `member_registrations`
+-- Structure de la table `member_registrations`
 --
 
 CREATE TABLE `member_registrations` (
@@ -246,7 +240,7 @@ CREATE TABLE `member_registrations` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `region`
+-- Structure de la table `region`
 --
 
 CREATE TABLE `region` (
@@ -265,7 +259,7 @@ CREATE TABLE `region` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `region`
+-- Déchargement des données de la table `region`
 --
 
 INSERT INTO `region` (`region_id`, `code`, `label`, `date_assembleeg`, `president`, `secretaireg`, `siege_adresse`, `tel_president`, `tel_secretaireg`, `telephone`, `cin_president`, `cin_secretaireg`) VALUES
@@ -296,7 +290,7 @@ INSERT INTO `region` (`region_id`, `code`, `label`, `date_assembleeg`, `presiden
 -- --------------------------------------------------------
 
 --
--- Table structure for table `registration`
+-- Structure de la table `registration`
 --
 
 CREATE TABLE `registration` (
@@ -309,7 +303,7 @@ CREATE TABLE `registration` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `registration_competitions`
+-- Structure de la table `registration_competitions`
 --
 
 CREATE TABLE `registration_competitions` (
@@ -320,7 +314,7 @@ CREATE TABLE `registration_competitions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Structure de la table `roles`
 --
 
 CREATE TABLE `roles` (
@@ -329,7 +323,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `roles`
+-- Déchargement des données de la table `roles`
 --
 
 INSERT INTO `roles` (`id`, `name`) VALUES
@@ -340,21 +334,32 @@ INSERT INTO `roles` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `round`
+-- Structure de la table `round`
 --
 
 CREATE TABLE `round` (
   `id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `roud_order` int(11) NOT NULL,
+  `order_round` int(11) NOT NULL,
   `status` tinyint(4) DEFAULT NULL CHECK (`status` between 0 and 2),
+  `start_time` datetime(6) DEFAULT NULL,
+  `end_time` datetime(6) DEFAULT NULL,
   `match_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `round`
+--
+
+INSERT INTO `round` (`id`, `name`, `order_round`, `status`, `start_time`, `end_time`, `match_id`) VALUES
+(1, 'ROUND #1', 1, 0, NULL, NULL, 1),
+(2, 'ROUND #2', 2, 0, NULL, NULL, 1),
+(3, 'ROUND #3', 3, 0, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sanction`
+-- Structure de la table `sanction`
 --
 
 CREATE TABLE `sanction` (
@@ -367,7 +372,7 @@ CREATE TABLE `sanction` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `score`
+-- Structure de la table `score`
 --
 
 CREATE TABLE `score` (
@@ -378,10 +383,31 @@ CREATE TABLE `score` (
   `round_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `score`
+--
+
+INSERT INTO `score` (`id`, `arbitre_name`, `blue_score`, `red_score`, `round_id`) VALUES
+(1, 'Arbitre1', 0, 0, 1),
+(2, 'Arbitre2', 0, 0, 1),
+(3, 'Arbitre3', 0, 0, 1),
+(4, 'Arbitre4', 0, 0, 1),
+(5, 'Arbitre5', 0, 0, 1),
+(6, 'Arbitre1', 0, 0, 2),
+(7, 'Arbitre2', 0, 0, 2),
+(8, 'Arbitre3', 0, 0, 2),
+(9, 'Arbitre4', 0, 0, 2),
+(10, 'Arbitre5', 0, 0, 2),
+(11, 'Arbitre1', 0, 0, 3),
+(12, 'Arbitre2', 0, 0, 3),
+(13, 'Arbitre3', 0, 0, 3),
+(14, 'Arbitre4', 0, 0, 3),
+(15, 'Arbitre5', 0, 0, 3);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_roles`
+-- Structure de la table `user_roles`
 --
 
 CREATE TABLE `user_roles` (
@@ -390,7 +416,7 @@ CREATE TABLE `user_roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `user_roles`
+-- Déchargement des données de la table `user_roles`
 --
 
 INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
@@ -404,7 +430,7 @@ INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `utilisateur`
+-- Structure de la table `utilisateur`
 --
 
 CREATE TABLE `utilisateur` (
@@ -419,7 +445,7 @@ CREATE TABLE `utilisateur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `utilisateur`
+-- Déchargement des données de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`id`, `enabled`, `first_name`, `last_name`, `login`, `password`, `photo_path`, `club_id`) VALUES
@@ -429,45 +455,38 @@ INSERT INTO `utilisateur` (`id`, `enabled`, `first_name`, `last_name`, `login`, 
 (18, b'0', 'Achraf Achraf', NULL, 'achraf', '$2a$10$GNuGG/.Zz8xYWK0OzHIlL.Vv1tLwV1qUVS4aGrgMTubuyX4HtwT.i', 'avatar4_8afb7734-084e-4db7-afc6-360294e2e9da.png', 1);
 
 --
--- Indexes for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Indexes for table `club`
+-- Index pour la table `club`
 --
 ALTER TABLE `club`
   ADD PRIMARY KEY (`club_id`),
   ADD KEY `FKamx0dxm0l2fexpj6enmdclaw7` (`region_id`);
 
 --
--- Indexes for table `competition`
+-- Index pour la table `competition`
 --
 ALTER TABLE `competition`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `competition_matches`
---
-ALTER TABLE `competition_matches`
-  ADD KEY `FKqgn3fc5m5hmwqurtt08eo68up` (`competition_id`),
-  ADD KEY `FK8pnsf6a6h9bm5r7kyg5o6xusa` (`matches_match_id`);
-
---
--- Indexes for table `competition_participated_clubs`
+-- Index pour la table `competition_participated_clubs`
 --
 ALTER TABLE `competition_participated_clubs`
   ADD KEY `FKn1wvjkdiam7d8vudtthao9s35` (`participated_clubs_club_id`),
   ADD KEY `FKrs9s542i0a7nen8f9vfheehv9` (`competitions_id`);
 
 --
--- Indexes for table `competition_participated_members`
+-- Index pour la table `competition_participated_members`
 --
 ALTER TABLE `competition_participated_members`
   ADD KEY `FKt9g3gnyxv4kjkvpm2g578xavx` (`participated_members_id`),
   ADD KEY `FKriw5jwrl0i9bj57vdkp8us4o7` (`competitions_id`);
 
 --
--- Indexes for table `matches`
+-- Index pour la table `matches`
 --
 ALTER TABLE `matches`
   ADD PRIMARY KEY (`match_id`),
@@ -476,27 +495,27 @@ ALTER TABLE `matches`
   ADD KEY `FK5g9ub0a63rlx0ubh77i3gt2jr` (`red_player_id`);
 
 --
--- Indexes for table `member`
+-- Index pour la table `member`
 --
 ALTER TABLE `member`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKlb5erj72ba5omm5wpkrfwvngr` (`club_id`);
 
 --
--- Indexes for table `member_registrations`
+-- Index pour la table `member_registrations`
 --
 ALTER TABLE `member_registrations`
   ADD UNIQUE KEY `UK_lo6uhvx8v4al7i1jy8g6flcbp` (`registrations_id`),
   ADD KEY `FKj4o3eplhvmfr97wratm8jrxxq` (`member_id`);
 
 --
--- Indexes for table `region`
+-- Index pour la table `region`
 --
 ALTER TABLE `region`
   ADD PRIMARY KEY (`region_id`);
 
 --
--- Indexes for table `registration`
+-- Index pour la table `registration`
 --
 ALTER TABLE `registration`
   ADD PRIMARY KEY (`id`),
@@ -504,156 +523,149 @@ ALTER TABLE `registration`
   ADD KEY `FKgjv7ylejhs7by5b81rq3dlruo` (`participant_id`);
 
 --
--- Indexes for table `registration_competitions`
+-- Index pour la table `registration_competitions`
 --
 ALTER TABLE `registration_competitions`
   ADD KEY `FKkxpngxeiiidronei15f8bg14n` (`competitions_id`),
   ADD KEY `FKd0vfph3i287i74k240i3tor5k` (`registrations_id`);
 
 --
--- Indexes for table `roles`
+-- Index pour la table `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `round`
+-- Index pour la table `round`
 --
 ALTER TABLE `round`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK3iae81a1e63i7clqi5fdkmwf3` (`match_id`);
 
 --
--- Indexes for table `sanction`
+-- Index pour la table `sanction`
 --
 ALTER TABLE `sanction`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKb3cbe6mcw9t332wjc7e06kv09` (`round_id`);
 
 --
--- Indexes for table `score`
+-- Index pour la table `score`
 --
 ALTER TABLE `score`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKpp6i5qd5su7jye4dgrw2ot213` (`round_id`);
 
 --
--- Indexes for table `user_roles`
+-- Index pour la table `user_roles`
 --
 ALTER TABLE `user_roles`
   ADD KEY `FKh8ciramu9cc9q3qcqiv4ue8a6` (`role_id`),
   ADD KEY `FKfhg6g8mbl6gcwupy69tajpvjm` (`user_id`);
 
 --
--- Indexes for table `utilisateur`
+-- Index pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKbaw4yx3a33io4q601i88bqpkv` (`club_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT for table `club`
+-- AUTO_INCREMENT pour la table `club`
 --
 ALTER TABLE `club`
   MODIFY `club_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `competition`
+-- AUTO_INCREMENT pour la table `competition`
 --
 ALTER TABLE `competition`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `matches`
+-- AUTO_INCREMENT pour la table `matches`
 --
 ALTER TABLE `matches`
   MODIFY `match_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=182;
 
 --
--- AUTO_INCREMENT for table `member`
+-- AUTO_INCREMENT pour la table `member`
 --
 ALTER TABLE `member`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT for table `region`
+-- AUTO_INCREMENT pour la table `region`
 --
 ALTER TABLE `region`
   MODIFY `region_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
--- AUTO_INCREMENT for table `registration`
+-- AUTO_INCREMENT pour la table `registration`
 --
 ALTER TABLE `registration`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `roles`
+-- AUTO_INCREMENT pour la table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `round`
+-- AUTO_INCREMENT pour la table `round`
 --
 ALTER TABLE `round`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `sanction`
+-- AUTO_INCREMENT pour la table `sanction`
 --
 ALTER TABLE `sanction`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `score`
+-- AUTO_INCREMENT pour la table `score`
 --
 ALTER TABLE `score`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `utilisateur`
+-- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables déchargées
 --
 
 --
--- Constraints for table `club`
+-- Contraintes pour la table `club`
 --
 ALTER TABLE `club`
   ADD CONSTRAINT `FKamx0dxm0l2fexpj6enmdclaw7` FOREIGN KEY (`region_id`) REFERENCES `region` (`region_id`);
 
 --
--- Constraints for table `competition_matches`
---
-ALTER TABLE `competition_matches`
-  ADD CONSTRAINT `FK8pnsf6a6h9bm5r7kyg5o6xusa` FOREIGN KEY (`matches_match_id`) REFERENCES `matches` (`match_id`),
-  ADD CONSTRAINT `FKqgn3fc5m5hmwqurtt08eo68up` FOREIGN KEY (`competition_id`) REFERENCES `competition` (`id`);
-
---
--- Constraints for table `competition_participated_clubs`
+-- Contraintes pour la table `competition_participated_clubs`
 --
 ALTER TABLE `competition_participated_clubs`
   ADD CONSTRAINT `FKn1wvjkdiam7d8vudtthao9s35` FOREIGN KEY (`participated_clubs_club_id`) REFERENCES `club` (`club_id`),
   ADD CONSTRAINT `FKrs9s542i0a7nen8f9vfheehv9` FOREIGN KEY (`competitions_id`) REFERENCES `competition` (`id`);
 
 --
--- Constraints for table `competition_participated_members`
+-- Contraintes pour la table `competition_participated_members`
 --
 ALTER TABLE `competition_participated_members`
   ADD CONSTRAINT `FKriw5jwrl0i9bj57vdkp8us4o7` FOREIGN KEY (`competitions_id`) REFERENCES `competition` (`id`),
   ADD CONSTRAINT `FKt9g3gnyxv4kjkvpm2g578xavx` FOREIGN KEY (`participated_members_id`) REFERENCES `member` (`id`);
 
 --
--- Constraints for table `matches`
+-- Contraintes pour la table `matches`
 --
 ALTER TABLE `matches`
   ADD CONSTRAINT `FK5g9ub0a63rlx0ubh77i3gt2jr` FOREIGN KEY (`red_player_id`) REFERENCES `member` (`id`),
@@ -661,59 +673,59 @@ ALTER TABLE `matches`
   ADD CONSTRAINT `FKqdsihqr13n8mhhci86rvjnken` FOREIGN KEY (`competition_id`) REFERENCES `competition` (`id`);
 
 --
--- Constraints for table `member`
+-- Contraintes pour la table `member`
 --
 ALTER TABLE `member`
   ADD CONSTRAINT `FKlb5erj72ba5omm5wpkrfwvngr` FOREIGN KEY (`club_id`) REFERENCES `club` (`club_id`);
 
 --
--- Constraints for table `member_registrations`
+-- Contraintes pour la table `member_registrations`
 --
 ALTER TABLE `member_registrations`
   ADD CONSTRAINT `FKj4o3eplhvmfr97wratm8jrxxq` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`),
   ADD CONSTRAINT `FKnfeyrtsdmatb50f9uo7mx4b4o` FOREIGN KEY (`registrations_id`) REFERENCES `registration` (`id`);
 
 --
--- Constraints for table `registration`
+-- Contraintes pour la table `registration`
 --
 ALTER TABLE `registration`
   ADD CONSTRAINT `FK9fk3n3ncmwvguy8ex9y46ymud` FOREIGN KEY (`competition_id`) REFERENCES `competition` (`id`),
   ADD CONSTRAINT `FKgjv7ylejhs7by5b81rq3dlruo` FOREIGN KEY (`participant_id`) REFERENCES `member` (`id`);
 
 --
--- Constraints for table `registration_competitions`
+-- Contraintes pour la table `registration_competitions`
 --
 ALTER TABLE `registration_competitions`
   ADD CONSTRAINT `FKd0vfph3i287i74k240i3tor5k` FOREIGN KEY (`registrations_id`) REFERENCES `registration` (`id`),
   ADD CONSTRAINT `FKkxpngxeiiidronei15f8bg14n` FOREIGN KEY (`competitions_id`) REFERENCES `competition` (`id`);
 
 --
--- Constraints for table `round`
+-- Contraintes pour la table `round`
 --
 ALTER TABLE `round`
   ADD CONSTRAINT `FK3iae81a1e63i7clqi5fdkmwf3` FOREIGN KEY (`match_id`) REFERENCES `matches` (`match_id`);
 
 --
--- Constraints for table `sanction`
+-- Contraintes pour la table `sanction`
 --
 ALTER TABLE `sanction`
   ADD CONSTRAINT `FKb3cbe6mcw9t332wjc7e06kv09` FOREIGN KEY (`round_id`) REFERENCES `round` (`id`);
 
 --
--- Constraints for table `score`
+-- Contraintes pour la table `score`
 --
 ALTER TABLE `score`
   ADD CONSTRAINT `FKpp6i5qd5su7jye4dgrw2ot213` FOREIGN KEY (`round_id`) REFERENCES `round` (`id`);
 
 --
--- Constraints for table `user_roles`
+-- Contraintes pour la table `user_roles`
 --
 ALTER TABLE `user_roles`
   ADD CONSTRAINT `FKfhg6g8mbl6gcwupy69tajpvjm` FOREIGN KEY (`user_id`) REFERENCES `utilisateur` (`id`),
   ADD CONSTRAINT `FKh8ciramu9cc9q3qcqiv4ue8a6` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
 
 --
--- Constraints for table `utilisateur`
+-- Contraintes pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
   ADD CONSTRAINT `FKbaw4yx3a33io4q601i88bqpkv` FOREIGN KEY (`club_id`) REFERENCES `club` (`club_id`);
