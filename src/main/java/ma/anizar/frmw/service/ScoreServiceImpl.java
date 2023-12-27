@@ -1,12 +1,17 @@
 package ma.anizar.frmw.service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.Optional;
 import ma.anizar.frmw.model.Match;
+import ma.anizar.frmw.model.Round;
 import ma.anizar.frmw.model.Score;
 import ma.anizar.frmw.model.dto.MatchDTO;
 import ma.anizar.frmw.model.dto.ScoreDTO;
 import ma.anizar.frmw.model.enums.StatusMatch;
+import ma.anizar.frmw.model.enums.StatusRound;
 import ma.anizar.frmw.repository.MatchRepository;
+import ma.anizar.frmw.repository.RoundRepository;
 import ma.anizar.frmw.repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,27 +20,19 @@ import org.springframework.stereotype.Service;
 public class ScoreServiceImpl implements ScoreService {
 
   @Autowired
-  CachedDataService cachedDataService;
+  MatchRepository matchRepository;
 
   @Autowired
-  MatchRepository matchRepository;
+  RoundRepository roundRepository;
 
   @Autowired
   ScoreRepository scoreRepository;
 
-  static final int MATCH_DURATION = 10;
+  static final int ROUND_DURATION = 10;
 
   @Override
   public MatchDTO getMatchById(Long matchId) {
     Match matchToSave = matchRepository.findById(matchId).get();
-    if (
-      matchToSave.getEndTime() != null &&
-      matchToSave.getStatus().equals(StatusMatch.EN_COURS) &&
-      matchToSave.getEndTime().isBefore(LocalDateTime.now())
-    ) {
-      matchToSave.setStatus(StatusMatch.TERMINE);
-    }
-    matchRepository.save(matchToSave);
     return matchToSave.toDTO();
   }
 
@@ -49,35 +46,53 @@ public class ScoreServiceImpl implements ScoreService {
   }
 
   @Override
-  public MatchDTO startMatchById(Long matchId) {
+  public MatchDTO startNextRound(Long matchId) {
     Match matchToSave = matchRepository.findById(matchId).get();
-    matchToSave.setStartTime(LocalDateTime.now());
-    matchToSave.setEndTime(LocalDateTime.now().plusSeconds(MATCH_DURATION));
-    matchToSave.setStatus(StatusMatch.EN_COURS);
-//    matchToSave
-//      .getScores()
-//      .stream()
-//      .forEach(s -> {
-//        s.setRedScore(0);
-//        s.setBlueScore(0);
-//      });
-    matchRepository.save(matchToSave);
+
+    Optional<Round> round = matchToSave
+      .getRounds()
+      .stream()
+      .filter(r -> r.getStatus().equals(StatusRound.PROGRAMMED))
+      .sorted(Comparator.comparingInt(Round::getOrderRound))
+      .findFirst();
+    round.ifPresent(r -> {
+      r.setStatus(StatusRound.IN_PROGRESS);
+      r.setStartTime(LocalDateTime.now());
+      r.setEndTime(LocalDateTime.now().plusSeconds(ROUND_DURATION));
+      r
+        .getScores()
+        .stream()
+        .forEach(s -> {
+          s.setRedScore(0);
+          s.setBlueScore(0);
+        });
+      roundRepository.save(r);
+      matchToSave.setStatus(StatusMatch.IN_PROGRESS);
+      matchRepository.save(matchToSave);
+    });
+
     return matchToSave.toDTO();
   }
 
   @Override
   public MatchDTO restartMatchById(Long matchId) {
     Match matchToSave = matchRepository.findById(matchId).get();
-    matchToSave.setStartTime(null);
-    matchToSave.setEndTime(null);
-    matchToSave.setStatus(StatusMatch.PROGRAMME);
-//    matchToSave
-//      .getScores()
-//      .stream()
-//      .forEach(s -> {
-//        s.setRedScore(0);
-//        s.setBlueScore(0);
-//      });
+    matchToSave.setStatus(StatusMatch.PROGRAMMED);
+    matchToSave
+      .getRounds()
+      .stream()
+      .forEach(r -> {
+        r.setStartTime(null);
+        r.setEndTime(null);
+        r.setStatus(StatusRound.PROGRAMMED);
+        r
+          .getScores()
+          .stream()
+          .forEach(s -> {
+            s.setRedScore(0);
+            s.setBlueScore(0);
+          });
+      });
     matchRepository.save(matchToSave);
     return matchToSave.toDTO();
   }

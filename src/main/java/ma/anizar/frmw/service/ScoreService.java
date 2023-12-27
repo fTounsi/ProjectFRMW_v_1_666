@@ -6,7 +6,7 @@ import ma.anizar.frmw.model.dto.ScoreDTO;
 public interface ScoreService {
   MatchDTO getMatchById(Long matchId);
 
-  MatchDTO startMatchById(Long matchId);
+  MatchDTO startNextRound(Long matchId);
 
   MatchDTO restartMatchById(Long matchId);
 

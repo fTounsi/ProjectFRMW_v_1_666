@@ -1,17 +1,17 @@
 package ma.anizar.frmw.model.enums;
 
 public enum StatusMatch {
-    PROGRAMME("Programmé"),
-    EN_COURS("En cours"),
-    TERMINE("Terminé");
+  PROGRAMMED("Programmé"),
+  IN_PROGRESS("En cours"),
+  COMPLETED("Terminé");
 
-    private final String label;
+  private final String label;
 
-    StatusMatch(String label) {
-        this.label = label;
-    }
-    public String getLabel() {
-        return label;
-    }
+  StatusMatch(String label) {
+    this.label = label;
+  }
 
+  public String getLabel() {
+    return label;
+  }
 }

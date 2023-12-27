@@ -35,10 +35,12 @@ public class MatchRestController {
   }
 
   // Méthode GET pour demarer un match par son ID
-  @GetMapping("start/{matchId}")
-  public ResponseEntity<MatchDTO> startMatchById(@PathVariable Long matchId) {
+  @GetMapping("startNextRound/{matchId}")
+  public ResponseEntity<MatchDTO> startNextRound(@PathVariable Long matchId) {
+    System.out.println("API startNextRound " + matchId);
+
     // Utilisez le service pour récupérer les informations du match par son ID
-    MatchDTO match = scoreService.startMatchById(matchId);
+    MatchDTO match = scoreService.startNextRound(matchId);
 
     // Vérifiez si le match a été trouvé
     if (match != null) {
@@ -49,8 +51,10 @@ public class MatchRestController {
   }
 
   // Méthode GET pour demarer un match par son ID
-  @GetMapping("restart/{matchId}")
+  @GetMapping("/restart/{matchId}")
   public ResponseEntity<MatchDTO> endMatchById(@PathVariable Long matchId) {
+    System.out.println("API restartMatch " + matchId);
+
     // Utilisez le service pour récupérer les informations du match par son ID
     MatchDTO match = scoreService.restartMatchById(matchId);
 

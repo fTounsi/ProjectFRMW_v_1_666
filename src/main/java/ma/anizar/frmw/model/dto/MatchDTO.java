@@ -1,8 +1,6 @@
 package ma.anizar.frmw.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.*;
@@ -24,8 +22,6 @@ public class MatchDTO {
   private MemberDTO bluePlayer;
 
   private StatusMatch status;
-  private LocalDateTime startTime;
-  private LocalDateTime endTime;
 
   List<RoundDTO> rounds = new ArrayList();
 }

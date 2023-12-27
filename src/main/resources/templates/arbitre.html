@@ -166,6 +166,10 @@
       <i class="fas fa-exclamation-triangle"></i>
       <p>Chargement en Cours</p>
     </div>
+    <div id="ErroBox" class="confirmation-box">
+      <i class="fas fa-exclamation-triangle"></i>
+      <p id="MessageError">Chargement en Cours</p>
+    </div>
 
     <div class="container">
       <div class="header-block">
@@ -225,13 +229,14 @@
       var urlParams = new URLSearchParams(window.location.search);
 
       var matchId = urlParams.get("matchId");
-      var scoreId = urlParams.get("scoreId");
+      var arbitreName = urlParams.get("arbitreName");
 
       console.log("Value of matchId:", matchId);
-      console.log("Value of scoreId:", scoreId);
+      console.log("Value of arbitreName:", arbitreName);
 
       var newBlueScore = 0;
       var newRedScore = 0;
+      var currentScore;
 
       $(document).ready(function () {
         showOverlay();
@@ -252,6 +257,10 @@
                 "Erreur lors de la récupération des données de l'API:",
                 error
               );
+              showError(
+                "Erreur lors de la récupération des données de l'API:" +
+                  error.Message
+              );
             },
           });
         }
@@ -262,32 +271,63 @@
         }, 1000); // 60000 millisecondes = 60 secondes
 
         function updateInfoWithData(data) {
-          // console.log(arbitreName);
+          var curentRound = getCurrentRound(data);
+
+          currentScore = getCurrentScore(curentRound.scores);
           $(".red-block h2 ").html(
             data.redPlayer.firstName + " - " + data.redPlayer.lastName
           );
           $(".blue-block h2").html(
             data.bluePlayer.firstName + " - " + data.bluePlayer.lastName
           );
-          $(".status").html(data.status);
-          $("#competitionName").html(data.competitionName);
-          var time = differenceBetweenDates(data.endTime, new Date());
-          $(".button-blue").prop("disabled", data.status !== "EN_COURS");
-          $(".button-red").prop("disabled", data.status !== "EN_COURS");
+          $(".status").html(
+            curentRound.name +
+              " - " +
+              curentRound.status +
+              "/ MATCH " +
+              data.status
+          );
+          $("#competitionName").html(data.competition.name);
+          $("#countdown").html(
+            curentRound.status == "IN_PROGRESS"
+              ? "ROUND #" +
+                  curentRound.orderRound +
+                  " [ " +
+                  differenceBetweenDates(curentRound.endTime, new Date()) +
+                  " ]"
+              : "ROUND #" + curentRound.orderRound + " [ 00:00 ]"
+          );
 
-          $("#countdown").html(data.status == "EN_COURS" ? time : "00:00");
-          arbitreName = getArbitreNameById(data.scores, parseInt(scoreId));
+          var time = differenceBetweenDates(curentRound.endTime, new Date());
+          if (curentRound.status !== "IN_PROGRESS") {
+            $("#redScore").text("0");
+            $("#blueScore").text("0");
+          }
+          $(".button-blue").prop(
+            "disabled",
+            curentRound.status !== "IN_PROGRESS"
+          );
+
+          $(".button-red").prop(
+            "disabled",
+            curentRound.status !== "IN_PROGRESS"
+          );
+
           $("#arbitreName").html(arbitreName);
         }
-        function getArbitreNameById(array, targetId) {
-          var resultObject = array.find(function (obj) {
-            return obj.id === targetId;
-          });
-          return resultObject ? resultObject.arbitreName : null;
-        }
       });
-
-      function changeScore(color, value, clubName) {
+      function getCurrentScore(array) {
+        for (let i = 0; i < array.length; i++) {
+          const s = array[i];
+          if (s.arbitreName == arbitreName) {
+            return s;
+          }
+        }
+        showError(
+          "Arbitre Name Not Found , Merci de contacer l'administrateur "
+        );
+      }
+      function changeScore(color, value) {
         var scoreElement = $("#" + color + "Score");
         var currentScore = parseInt(scoreElement.text());
         var newScore = currentScore + value;
@@ -301,6 +341,7 @@
           updateScoreAPI(newBlueScore, newRedScore);
         }
       }
+
       function differenceBetweenDates(dateString1, dateString2) {
         const date1 = new Date(dateString1);
         const date2 = new Date(dateString2);
@@ -317,14 +358,51 @@
 
         return formattedDifference;
       }
+
       function pad(num) {
         return num < 10 ? `0${num}` : `${num}`;
+      }
+      function getCurrentRound(matchData) {
+        // Vérifie si les données du match sont présentes
+        if (!matchData || !matchData.rounds || matchData.rounds.length === 0) {
+          return null;
+        }
+
+        let currentRound = null;
+        let smallestOrderRound = Infinity;
+
+        // Parcourt tous les rounds du match
+        for (let i = 0; i < matchData.rounds.length; i++) {
+          const round = matchData.rounds[i];
+
+          // Vérifie si le round est en cours (curent=true)
+          if (round.curent === true) {
+            return round;
+          }
+
+          // Sinon, vérifie s'il a le statut PROGRAMMED et l'ordre le plus bas
+          if (
+            round.status === "PROGRAMMED" &&
+            round.orderRound < smallestOrderRound
+          ) {
+            currentRound = round;
+            smallestOrderRound = round.orderRound;
+          }
+        }
+
+        // Si aucun round en cours, retourne le round avec le statut PROGRAMMED et l'ordre le plus bas
+        if (currentRound) {
+          return currentRound;
+        }
+
+        // Si aucun round avec le statut PROGRAMMED, retourne le dernier round
+        return matchData.rounds[matchData.rounds.length - 1] || null;
       }
 
       function updateScoreAPI(blueScore, redScore) {
         var apiUrl = "http://localhost:8096/api/match/updateScore";
         var data = {
-          id: scoreId,
+          id: currentScore.id,
           blueScore: blueScore,
           redScore: redScore,
           match: {
@@ -354,6 +432,16 @@
       function hideOverlay() {
         $("#overlay").fadeOut();
         $("#confirmationBox").fadeOut();
+      }
+      function showError(Message) {
+        if (!$("#ErroBox").is(":visible")) {
+          $("#ErroBox").fadeIn();
+        }
+        if (!$("#overlay").is(":visible")) {
+          $("#overlay").fadeIn();
+        }
+
+        $("#MessageError").text(Message);
       }
     </script>
   </body>
