@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : database
--- Généré le : mer. 27 déc. 2023 à 20:02
+-- Généré le : sam. 30 déc. 2023 à 09:30
 -- Version du serveur : 10.6.4-MariaDB-1:10.6.4+maria~focal
 -- Version de PHP : 8.2.8
 
@@ -86,7 +86,7 @@ INSERT INTO `competition` (`id`, `description`, `ending_date`, `name`, `place`, 
 (1, 'The 15th World Wushu Championships بطولة العالم للووشو المقامة في شنغهاي ما بين 16 و 26 اكتوبر 2019 ؛ البطولة التي يشارك فيها أكثر من ثمانون منتخبا من كل أنحاء العالم في مختلف أسابيب الووشو إضافة الى مشاركة منتخب المغرب', '2023-12-01 00:00:00.000000', 'The 15th World Wushu Championships', 'Temara', '2023-11-26 00:00:00.000000', 'EN COURS', 'Sanda'),
 (2, 'Championnat National Sanda des Enfants et Adultes', '2023-12-03 00:00:00.000000', 'Championnat National Sanda des Enfants et Adultes', 'Casablanca', '2023-11-29 00:00:00.000000', 'EN COURS', 'Sanda'),
 (3, 'Passage de Grade Ceinture Noire', '2023-12-01 00:00:00.000000', 'Passage de Grade Ceinture Noire', 'Rabat', '2023-11-26 00:00:00.000000', 'EN COURS', 'Sanda'),
-(4, 'Championnat Africaine de Taolu Wushu ', '2023-12-01 00:00:00.000000', 'Championnat Africaine de Taolu Wushu ', 'Complexe Mly Abdellah, Rabat', '2023-11-26 00:00:00.000000', 'EN COURS', 'Sanda');
+(4, 'Championnat Africaine de Taolu Wushu ', NULL, 'Championnat Africaine de Taolu Wushu ', 'Complexe Mly Abdellah, Rabat', NULL, 'EN COURS', NULL);
 
 -- --------------------------------------------------------
 
@@ -105,10 +105,14 @@ CREATE TABLE `competition_participated_clubs` (
 
 INSERT INTO `competition_participated_clubs` (`competitions_id`, `participated_clubs_club_id`) VALUES
 (4, 1),
+(4, 2),
 (4, 3),
 (4, 4),
+(4, 5),
 (4, 6),
 (4, 8),
+(4, 9),
+(4, 10),
 (4, 11),
 (4, 1),
 (4, 2),
@@ -137,17 +141,18 @@ CREATE TABLE `competition_participated_members` (
 --
 
 INSERT INTO `competition_participated_members` (`competitions_id`, `participated_members_id`) VALUES
-(4, 14),
-(4, 24),
 (4, 25),
-(4, 12),
-(4, 11),
-(4, 13),
-(4, 9),
-(4, 18),
 (4, 20),
+(4, 18),
+(4, 9),
+(4, 1),
+(4, 4),
+(4, 19),
+(4, 24),
+(4, 17),
 (4, 22),
-(4, 19);
+(4, 26),
+(4, 14);
 
 -- --------------------------------------------------------
 
@@ -162,13 +167,6 @@ CREATE TABLE `matches` (
   `competition_id` bigint(20) DEFAULT NULL,
   `red_player_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `matches`
---
-
-INSERT INTO `matches` (`match_id`, `status`, `blue_player_id`, `competition_id`, `red_player_id`) VALUES
-(1, 0, 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -347,15 +345,6 @@ CREATE TABLE `round` (
   `match_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Déchargement des données de la table `round`
---
-
-INSERT INTO `round` (`id`, `name`, `order_round`, `status`, `start_time`, `end_time`, `match_id`) VALUES
-(1, 'ROUND #1', 1, 0, NULL, NULL, 1),
-(2, 'ROUND #2', 2, 0, NULL, NULL, 1),
-(3, 'ROUND #3', 3, 0, NULL, NULL, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -364,9 +353,9 @@ INSERT INTO `round` (`id`, `name`, `order_round`, `status`, `start_time`, `end_t
 
 CREATE TABLE `sanction` (
   `id` bigint(20) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
   `type_sanction` tinyint(4) DEFAULT NULL CHECK (`type_sanction` between 0 and 3),
-  `round_id` bigint(20) DEFAULT NULL
+  `round_id` bigint(20) DEFAULT NULL,
+  `player_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -382,27 +371,6 @@ CREATE TABLE `score` (
   `red_score` int(11) NOT NULL,
   `round_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `score`
---
-
-INSERT INTO `score` (`id`, `arbitre_name`, `blue_score`, `red_score`, `round_id`) VALUES
-(1, 'Arbitre1', 0, 0, 1),
-(2, 'Arbitre2', 0, 0, 1),
-(3, 'Arbitre3', 0, 0, 1),
-(4, 'Arbitre4', 0, 0, 1),
-(5, 'Arbitre5', 0, 0, 1),
-(6, 'Arbitre1', 0, 0, 2),
-(7, 'Arbitre2', 0, 0, 2),
-(8, 'Arbitre3', 0, 0, 2),
-(9, 'Arbitre4', 0, 0, 2),
-(10, 'Arbitre5', 0, 0, 2),
-(11, 'Arbitre1', 0, 0, 3),
-(12, 'Arbitre2', 0, 0, 3),
-(13, 'Arbitre3', 0, 0, 3),
-(14, 'Arbitre4', 0, 0, 3),
-(15, 'Arbitre5', 0, 0, 3);
 
 -- --------------------------------------------------------
 
@@ -547,7 +515,8 @@ ALTER TABLE `round`
 --
 ALTER TABLE `sanction`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `FKb3cbe6mcw9t332wjc7e06kv09` (`round_id`);
+  ADD KEY `FKb3cbe6mcw9t332wjc7e06kv09` (`round_id`),
+  ADD KEY `sanction_FK` (`player_id`);
 
 --
 -- Index pour la table `score`
@@ -590,7 +559,7 @@ ALTER TABLE `competition`
 -- AUTO_INCREMENT pour la table `matches`
 --
 ALTER TABLE `matches`
-  MODIFY `match_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=182;
+  MODIFY `match_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2240;
 
 --
 -- AUTO_INCREMENT pour la table `member`
@@ -620,19 +589,19 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT pour la table `round`
 --
 ALTER TABLE `round`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1876;
 
 --
 -- AUTO_INCREMENT pour la table `sanction`
 --
 ALTER TABLE `sanction`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
 
 --
 -- AUTO_INCREMENT pour la table `score`
 --
 ALTER TABLE `score`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9376;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateur`
@@ -709,7 +678,8 @@ ALTER TABLE `round`
 -- Contraintes pour la table `sanction`
 --
 ALTER TABLE `sanction`
-  ADD CONSTRAINT `FKb3cbe6mcw9t332wjc7e06kv09` FOREIGN KEY (`round_id`) REFERENCES `round` (`id`);
+  ADD CONSTRAINT `FKb3cbe6mcw9t332wjc7e06kv09` FOREIGN KEY (`round_id`) REFERENCES `round` (`id`),
+  ADD CONSTRAINT `sanction_FK` FOREIGN KEY (`player_id`) REFERENCES `member` (`id`);
 
 --
 -- Contraintes pour la table `score`
