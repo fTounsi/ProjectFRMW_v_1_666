@@ -2,17 +2,32 @@ package ma.anizar.frmw.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import lombok.AllArgsConstructor;
-import ma.anizar.frmw.model.*;
+import ma.anizar.frmw.model.Club;
+import ma.anizar.frmw.model.Competition;
+import ma.anizar.frmw.model.Match;
+import ma.anizar.frmw.model.Member;
+import ma.anizar.frmw.model.Round;
+import ma.anizar.frmw.model.Score;
 import ma.anizar.frmw.model.enums.StatusMatch;
+import ma.anizar.frmw.model.enums.StatusRound;
 import ma.anizar.frmw.repository.ClubRepository;
 import ma.anizar.frmw.repository.CompetitionRepository;
 import ma.anizar.frmw.repository.MatchRepository;
 import ma.anizar.frmw.service.CompetitionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -83,6 +98,8 @@ public class CompetitionController {
     model.addAttribute("listCandidats", competition.getParticipatedMembers());
     //model.addAttribute("selectedListClubs",competition.getParticipatedClubs());
     model.addAttribute("comp", competition);
+    model.addAttribute("matchList", competition.getMatches());
+
     return "detailCompetition";
   }
 
@@ -166,6 +183,7 @@ public class CompetitionController {
     Collections.shuffle(players);
 
     List<Match> matches = new ArrayList<>();
+
     for (int i = 0; i < players.size(); i += 2) {
       // Check if there's an odd player out
       if (i == players.size() - 1) {
@@ -174,7 +192,7 @@ public class CompetitionController {
         );
         break;
       }
-
+      System.out.println("------------------ MATCH " + i);
       Match pair = Match
         .builder()
         .bluePlayer(players.get(i))
@@ -182,26 +200,48 @@ public class CompetitionController {
         .status(StatusMatch.PROGRAMMED)
         .competition(competition)
         .build();
-      List<Score> scores = new ArrayList<>();
-      for (int j = 0; j < 5; j++) {
-        scores.add(
-          Score
-            .builder()
-            .arbitreName("Arbitre" + (j + 1))
-            .blueScore(0)
-            .redScore(0)
-            //                        .match(pair)
-            //.id(Long.valueOf(j))
-            //.match(Match.builder().match_id(Long.valueOf(123)).build())
-            .build()
-        );
+      List<Round> rounds = new ArrayList<>();
+      for (int index = 1; index < 4; index++) {
+        List<Score> scores = new ArrayList<>();
+        Round r = Round
+          .builder()
+          .startTime(null)
+          .endTime(null)
+          .status(StatusRound.PROGRAMMED)
+          .name("ROUND #" + index)
+          .orderRound(index)
+          .match(pair)
+          .build();
+        for (int indexS = 1; indexS < 6; indexS++) {
+          scores.add(
+            Score
+              .builder()
+              .arbitreName("Arbitre" + indexS)
+              .blueScore(0)
+              .redScore(0)
+              .round(r)
+              .build()
+          );
+        }
+        r.setScores(scores);
+        rounds.add(r);
       }
-      //            pair.setScores(scores);
-      //            matchRepository.save(pair);
+      pair.setRounds(rounds);
       matches.add(pair);
     }
     matchRepository.saveAll(matches);
     model.addAttribute("matches", matches);
-    return "versus";
+
+    //Club
+    List<Club> clubList = clubRepository.findAll();
+    model.addAttribute("listClubs", clubList);
+    //List<Member> memberList = memberRepository.findAll();
+
+    model.addAttribute("listCandidats", competition.getParticipatedMembers());
+    //model.addAttribute("selectedListClubs",competition.getParticipatedClubs());
+    model.addAttribute("comp", competition);
+    model.addAttribute("matchList", competition.getMatches());
+
+    return "detailCompetition";
   }
 }

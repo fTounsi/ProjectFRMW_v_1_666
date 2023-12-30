@@ -34,15 +34,10 @@ public class MatchRestController {
     }
   }
 
-  // Méthode GET pour demarer un match par son ID
   @GetMapping("startNextRound/{matchId}")
   public ResponseEntity<MatchDTO> startNextRound(@PathVariable Long matchId) {
-    System.out.println("API startNextRound " + matchId);
-
-    // Utilisez le service pour récupérer les informations du match par son ID
     MatchDTO match = scoreService.startNextRound(matchId);
 
-    // Vérifiez si le match a été trouvé
     if (match != null) {
       return new ResponseEntity<>(match, HttpStatus.OK);
     } else {
@@ -66,7 +61,6 @@ public class MatchRestController {
     }
   }
 
-  // Méthode POST pour mettre à jour le score d'un match
   @PostMapping("/updateScore")
   public ResponseEntity<String> updateScore(@RequestBody ScoreDTO score) {
     // Utilisez le service pour mettre à jour le score du match

@@ -1,8 +1,17 @@
 package ma.anizar.frmw.model;
 
-
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ma.anizar.frmw.model.enums.TypeSanction;
 
 @Entity
@@ -13,13 +22,16 @@ import ma.anizar.frmw.model.enums.TypeSanction;
 @Getter
 public class Sanction {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private TypeSanction typeSanction;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "round_id", referencedColumnName = "id")
-    private Round round;
+  private TypeSanction typeSanction;
+
+  @ManyToOne
+  @JoinColumn(name = "round_id", referencedColumnName = "id")
+  private Round round;
+
+  @ManyToOne(cascade = CascadeType.MERGE)
+  private Member player;
 }

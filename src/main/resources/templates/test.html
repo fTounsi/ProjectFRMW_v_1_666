@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Score Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <style>
+      /* Add your styles here */
+      .table-container {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px; /* Add margin between table containers */
+      }
+
+      .table-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .player-column {
+        display: flex;
+        margin-bottom: 10px;
+      }
+
+      .player-name {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      .round-column {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .round-score {
+        margin: 0;
+      }
+
+      .red-score {
+        color: red;
+      }
+
+      .blue-score {
+        color: blue;
+      }
+
+      .sanction {
+        margin: 0;
+        font-style: italic;
+        color: #ff0000; /* Red color for sanctions */
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      // Your JSON data
+      var jsonData = {
+        match_id: 1,
+        competition: {
+          name: "The 15th World Wushu Championships",
+        },
+        redPlayer: {
+          id: 2,
+          firstName: "Rami",
+          lastName: "Rez",
+        },
+        bluePlayer: {
+          id: 1,
+          firstName: "Amine",
+          lastName: "Moussaoui",
+        },
+        status: "COMPLETED",
+        rounds: [
+          {
+            id: 1,
+            name: "ROUND #1",
+            orderRound: 1,
+            status: "COMPLETED",
+            match: {
+              match_id: 1,
+            },
+            curent: false,
+            startTime: "2023-12-29T20:39:05.81127",
+            endTime: "2023-12-29T20:39:15.81127",
+            scores: [
+              {
+                id: 1,
+                arbitreName: "Arbitre1",
+                redScore: 0,
+                blueScore: 0,
+                round: {
+                  id: 1,
+                  orderRound: 0,
+                  curent: false,
+                },
+              },
+              {
+                id: 2,
+                arbitreName: "Arbitre2",
+                redScore: 0,
+                blueScore: 0,
+                round: {
+                  id: 1,
+                  orderRound: 0,
+                  curent: false,
+                },
+              },
+              {
+                id: 3,
+                arbitreName: "Arbitre3",
+                redScore: 0,
+                blueScore: 0,
+                round: {
+                  id: 1,
+                  orderRound: 0,
+                  curent: false,
+                },
+              },
+              {
+                id: 4,
+                arbitreName: "Arbitre4",
+                redScore: 0,
+                blueScore: 0,
+                round: {
+                  id: 1,
+                  orderRound: 0,
+                  curent: false,
+                },
+              },
+              {
+                id: 5,
+                arbitreName: "Arbitre5",
+                redScore: 0,
+                blueScore: 0,
+                round: {
+                  id: 1,
+                  orderRound: 0,
+                  curent: false,
+                },
+              },
+            ],
+            sanctions: [
+              {
+                typeSanction: "ADMONITION",
+                round: {
+                  id: 1,
+                  orderRound: 0,
+                  curent: false,
+                },
+                player: {
+                  id: 2,
+                },
+              },
+              {
+                typeSanction: "ADMONITION",
+                round: {
+                  id: 1,
+                  orderRound: 0,
+                  curent: false,
+                },
+                player: {
+                  id: 1,
+                },
+              },
+            ],
+          },
+          {
+            id: 2,
+            name: "ROUND #2",
+            orderRound: 2,
+            status: "COMPLETED",
+            match: {
+              match_id: 1,
+            },
+            curent: false,
+            startTime: "2023-12-29T20:39:18.507962",
+            endTime: "2023-12-29T20:39:28.507962",
+            scores: [
+              {
+                id: 6,
+                arbitreName: "Arbitre1",
+                redScore: 0,
+                blueScore: 0,
+                round: {
+                  id: 2,
+                  orderRound: 0,
+                  curent: false,
+                },
+              },
+              {
+                id: 7,
+                arbitreName: "Arbitre2",
+                redScore: 0,
+                blueScore: 0,
+                round: {
+                  id: 2,
+                  orderRound: 0,
+                  curent: false,
+                },
+              },
+              {
+                id: 8,
+                arbitreName: "Arbitre3",
+                redScore: 0,
+                blueScore: 0,
+                round: {
+                  id: 2,
+                  orderRound: 0,
+                  curent: false,
+                },
+              },
+              {
+                id: 9,
+                arbitreName: "Arbitre4",
+                redScore: 0,
+                blueScore: 0,
+                round: {
+                  id: 2,
+                  orderRound: 0,
+                  curent: false,
+                },
+              },
+              {
+                id: 10,
+                arbitreName: "Arbitre5",
+                redScore: 0,
+                blueScore: 0,
+                round: {
+                  id: 2,
+                  orderRound: 0,
+                  curent: false,
+                },
+              },
+            ],
+            sanctions: [
+              {
+                typeSanction: "WARNING",
+                round: {
+                  id: 2,
+                  orderRound: 0,
+                  curent: false,
+                },
+                player: {
+                  id: 2,
+                },
+              },
+              {
+                typeSanction: "WARNING",
+                round: {
+                  id: 2,
+                  orderRound: 0,
+                  curent: false,
+                },
+                player: {
+                  id: 1,
+                },
+              },
+            ],
+          },
+          {
+            id: 3,
+            name: "ROUND #3",
+            orderRound: 3,
+            status: "COMPLETED",
+            match: {
+              match_id: 1,
+            },
+            curent: false,
+            startTime: "2023-12-29T20:39:31.926399",
+            endTime: "2023-12-29T20:39:41.926399",
+            scores: [
+              {
+                id: 11,
+                arbitreName: "Arbitre1",
+                redScore: 0,
+                blueScore: 0,
+                round: {
+                  id: 3,
+                  orderRound: 0,
+                  curent: false,
+                },
+              },
+              {
+                id: 12,
+                arbitreName: "Arbitre2",
+                redScore: 0,
+                blueScore: 0,
+                round: {
+                  id: 3,
+                  orderRound: 0,
+                  curent: false,
+                },
+              },
+              {
+                id: 13,
+                arbitreName: "Arbitre3",
+                redScore: 0,
+                blueScore: 0,
+                round: {
+                  id: 3,
+                  orderRound: 0,
+                  curent: false,
+                },
+              },
+              {
+                id: 14,
+                arbitreName: "Arbitre4",
+                redScore: 0,
+                blueScore: 0,
+                round: {
+                  id: 3,
+                  orderRound: 0,
+                  curent: false,
+                },
+              },
+              {
+                id: 15,
+                arbitreName: "Arbitre5",
+                redScore: 0,
+                blueScore: 0,
+                round: {
+                  id: 3,
+                  orderRound: 0,
+                  curent: false,
+                },
+              },
+            ],
+            sanctions: [
+              {
+                typeSanction: "FORCIBLE_COUNTING",
+                round: {
+                  id: 3,
+                  orderRound: 0,
+                  curent: false,
+                },
+                player: {
+                  id: 2,
+                },
+              },
+              {
+                typeSanction: "FORCIBLE_COUNTING",
+                round: {
+                  id: 3,
+                  orderRound: 0,
+                  curent: false,
+                },
+                player: {
+                  id: 1,
+                },
+              },
+            ],
+          },
+        ],
+      };
+
+      // Function to generate HTML page
+      function generateScorePage(data) {
+        // Iterate through rounds
+        data.rounds.forEach(function (round) {
+          var $tableContainer = $('<div class="table-container"></div>');
+          $tableContainer.append(
+            '<div class="table-title">' + round.name + "</div>"
+          );
+
+          // Iterate through players (redPlayer and bluePlayer)
+          ["redPlayer", "bluePlayer"].forEach(function (player) {
+            var $playerColumn = $('<div class="player-column"></div>');
+            $playerColumn.append(
+              '<div class="player-name">' +
+                data[player].firstName +
+                " " +
+                data[player].lastName +
+                "</div>"
+            );
+            var $roundColumn = $('<div class="round-column"></div>');
+
+            // Iterate through scores
+            round.scores.forEach(function (score) {
+              var scoreValue =
+                player === "redPlayer" ? score.redScore : score.blueScore;
+              $roundColumn.append(
+                '<p class="round-score ' +
+                  (player === "redPlayer" ? "red-score" : "blue-score") +
+                  '">Round ' +
+                  round.orderRound +
+                  ": " +
+                  scoreValue +
+                  "</p>"
+              );
+
+              // Find and display sanctions for the current player in the current round
+              var playerSanctions = round.sanctions.filter(function (sanction) {
+                return sanction.player.id === data[player].id;
+              });
+
+              playerSanctions.forEach(function (sanction) {
+                $roundColumn.append(
+                  '<p class="sanction">' + sanction.typeSanction + "</p>"
+                );
+              });
+            });
+
+            $playerColumn.append($roundColumn);
+            $tableContainer.append($playerColumn);
+          });
+
+          // Append the table container to the body
+          $("body").append($tableContainer);
+        });
+      }
+
+      // Call the function with your JSON data
+      generateScorePage(jsonData);
+    </script>
+  </body>
+</html>

@@ -1,132 +1,159 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
->
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Player Matchups</title>
     <!--    <link rel="stylesheet" href="dist/css/styles.css">-->
     <style>
-        body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
 
-.return-button {
-    position: fixed; /* Use fixed to position relative to the viewport */
-    top: 20px;       /* Distance from the top of the viewport */
-    right: 20px;     /* Distance from the right of the viewport */
-    background-color: #28a745; /* Green background */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+      .return-button {
+        position: fixed; /* Use fixed to position relative to the viewport */
+        top: 20px; /* Distance from the top of the viewport */
+        right: 20px; /* Distance from the right of the viewport */
+        background-color: #28a745; /* Green background */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
 
-.return-button:hover {
-    background-color: #218838; /* Darker green on hover */
-}
+      .return-button:hover {
+        background-color: #218838; /* Darker green on hover */
+      }
 
-.match-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+      .match-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-.match {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
+      .match {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
 
-.player {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    border-radius: 10px;
-    margin: 5px;
-}
+      .player {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 5px;
+      }
 
-.blue {
-    background-color: #007bff;
-    color: white;
-}
+      .blue {
+        background-color: #007bff;
+        color: white;
+      }
 
-.red {
-    background-color: #dc3545;
-    color: white;
-}
+      .red {
+        background-color: #dc3545;
+        color: white;
+      }
 
-.player img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-right: 10px;
-}
+      .player img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
 
-.player-info {
-    text-align: left;
-}
+      .player-info {
+        text-align: left;
+      }
 
-.name, .club {
-    margin: 2px 0;
-}
+      .name,
+      .club {
+        margin: 2px 0;
+      }
 
-.vs {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #ffc107;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-    margin: 0 10px;
-}
-
+      .vs {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #ffc107;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0 10px;
+      }
     </style>
-
-</head>
-<body>
-<div class="match-container">
-    <button class="return-button">Return</button>
-    <!-- Example of one match, repeat this structure for each match -->
-    <div class="match" th:each="m:${matches}">
+  </head>
+  <body>
+    <div class="match-container">
+      <button class="return-button">Return</button>
+      <!-- Example of one match, repeat this structure for each match -->
+      <div class="match" th:each="m:${matches}">
         <div class="player blue">
-            <img width="30" class="img-circle elevation-2" th:src="@{/uploads/{filename}(filename=${m.bluePlayer.photoPath})}" alt="Blue Player" th:if="${m.bluePlayer.photoPath != null and !m.bluePlayer.photoPath.isEmpty()}"/>
-            <img width="30" class="img-circle elevation-2" th:src="@{/dist/img/defaultAvatar.png}" alt="Blue Player" th:if="${m.bluePlayer.photoPath == null or m.bluePlayer.photoPath.isEmpty()}"/>
-            <div class="player-info">
-                <p class="name" th:text="${m.bluePlayer.firstName}"></p>
-                <p class="club" th:text="${m.bluePlayer.club.name}"></p>
-            </div>
+          <img
+            width="30"
+            class="img-circle elevation-2"
+            th:src="@{/uploads/{filename}(filename=${m.bluePlayer.photoPath})}"
+            alt="Blue Player"
+            th:if="${m.bluePlayer.photoPath != null and !m.bluePlayer.photoPath.isEmpty()}"
+          />
+          <img
+            width="30"
+            class="img-circle elevation-2"
+            th:src="@{/dist/img/defaultAvatar.png}"
+            alt="Blue Player"
+            th:if="${m.bluePlayer.photoPath == null or m.bluePlayer.photoPath.isEmpty()}"
+          />
+          <div class="player-info">
+            <p class="name" th:text="${m.bluePlayer.firstName}"></p>
+            <p class="club" th:text="${m.bluePlayer.club.name}"></p>
+          </div>
         </div>
-        <div class="vs">Vs</div>
+        <div class="vs">
+          <a th:href="@{/match/dashbord(id=${m.matchId})}" target="_blank"
+            >VS</a
+          >
+        </div>
         <div class="player red">
-            <img width="30" class="img-circle elevation-2" th:src="@{/uploads/{filename}(filename=${m.redPlayer.photoPath})}" alt="Red Player" th:if="${m.redPlayer.photoPath != null and !m.redPlayer.photoPath.isEmpty()}"/>
-            <img width="30" class="img-circle elevation-2" th:src="@{/dist/img/defaultAvatar.png}" alt="Red Player" th:if="${m.redPlayer.photoPath == null or m.redPlayer.photoPath.isEmpty()}"/>
-            <div class="player-info">
-                <p class="name" th:text="${m.redPlayer.firstName}"></p>
-                <p class="club" th:text="${m.redPlayer.club.name}"></p>
-            </div>
+          <img
+            width="30"
+            class="img-circle elevation-2"
+            th:src="@{/uploads/{filename}(filename=${m.redPlayer.photoPath})}"
+            alt="Red Player"
+            th:if="${m.redPlayer.photoPath != null and !m.redPlayer.photoPath.isEmpty()}"
+          />
+          <img
+            width="30"
+            class="img-circle elevation-2"
+            th:src="@{/dist/img/defaultAvatar.png}"
+            alt="Red Player"
+            th:if="${m.redPlayer.photoPath == null or m.redPlayer.photoPath.isEmpty()}"
+          />
+          <div class="player-info">
+            <p class="name" th:text="${m.redPlayer.firstName}"></p>
+            <p class="club" th:text="${m.redPlayer.club.name}"></p>
+          </div>
         </div>
+      </div>
+      <!-- Repeat for other matches -->
     </div>
-    <!-- Repeat for other matches -->
-</div>
-<script>
-    document.querySelector('.return-button').addEventListener('click', function() {
-        window.history.back();
-    });
-</script>
-</body>
+    <script>
+      document
+        .querySelector(".return-button")
+        .addEventListener("click", function () {
+          window.history.back();
+        });
+    </script>
+  </body>
 </html>

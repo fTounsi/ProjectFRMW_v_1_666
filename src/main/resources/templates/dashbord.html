@@ -328,23 +328,45 @@
       }
 
       .Sanction button {
-        background-color: #4caf50;
+        background-color: #1b2937;
         border: none;
         color: #fff;
-        padding: 10px 20px;
+        padding: 15px 18px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
-        font-size: 12px;
+        font-size: 30px;
         cursor: pointer;
         margin: 5px;
         border-radius: 20px;
+        border: 2px solid #505050;
+      }
+      .Sanction button:hover {
+        background-color: #154b6f;
       }
       .Sanction button:disabled {
-        background-color: #ccc; /* Couleur de fond pour un bouton désactivé */
+        background-color: #adadad; /* Couleur de fond pour un bouton désactivé */
         border: 2px solid #ccc; /* Bordure pour un bouton désactivé */
         color: #666; /* Couleur du texte pour un bouton désactivé */
         cursor: not-allowed; /* Curseur non autorisé pour un bouton désactivé */
+      }
+      .round-score .s1 {
+        color: #ad1000;
+      }
+      .Sanction .s1 {
+        color: #ad1000;
+      }
+      .round-score .s2 {
+        color: #c9f006;
+      }
+      .Sanction .s2 {
+        color: #c9f006;
+      }
+      .Sanction .s3 {
+        color: #ffffff;
+      }
+      .Sanction .s4 {
+        color: #ffffff;
       }
       .curent {
         border: #666 2px solid;
@@ -379,17 +401,51 @@
               <!-- <i class="fas fa-trophy"></i> -->
             </div>
             <div class="Sanction">
-              <button>Senction <i class="fas fa-rocket"></i></button>
-              <button>Senction <i class="fas fa-flag-checkered"></i></button>
-              <button>Senction <i class="fas fa-warning"></i></button>
+              <button
+                title="Admonition (RED CARD)"
+                onclick="addSanction('red', 'ADMONITION')"
+              >
+                <i class="fas fa-rectangle-xmark fa-rotate-90 s1"></i>
+              </button>
+              <button
+                title="Warning (YELLOW CARD)"
+                onclick="addSanction('red', 'WARNING')"
+              >
+                <i class="fas fa-rectangle-xmark fa-rotate-90 s2"></i>
+              </button>
+              <button
+                title="Forcible Counting"
+                onclick="addSanction('red', 'FORCIBLE_COUNTING')"
+              >
+                <i class="fas fa-user-injured s3"></i>
+              </button>
+              <button title="OUT" onclick="addSanction('red', 'OUT_BOX')">
+                <i class="fa-solid fa-right-from-bracket s4"></i>
+              </button>
             </div>
             <div></div>
             <div class="Sanction">
-              <button disabled>Senction <i class="fas fa-rocket"></i></button>
-              <button disabled>
-                Senction <i class="fas fa-flag-checkered"></i>
+              <button
+                title="Admonition (RED CARD)"
+                onclick="addSanction('blue', 'ADMONITION')"
+              >
+                <i class="fas fa-rectangle-xmark fa-rotate-90 s1"></i>
               </button>
-              <button disabled>Senction <i class="fas fa-warning"></i></button>
+              <button
+                title="Warning (YELLOW CARD)"
+                onclick="addSanction('blue', 'WARNING')"
+              >
+                <i class="fas fa-rectangle-xmark fa-rotate-90 s2"></i>
+              </button>
+              <button
+                title="Forcible Counting"
+                onclick="addSanction('blue', 'FORCIBLE_COUNTING')"
+              >
+                <i class="fas fa-user-injured s3"></i>
+              </button>
+              <button title="OUT" onclick="addSanction('blue', 'OUT_BOX')">
+                <i class="fa-solid fa-right-from-bracket s4"></i>
+              </button>
             </div>
           </div>
           <div class="countdown" id="countdown">....</div>
@@ -440,7 +496,9 @@
       var urlParams = new URLSearchParams(window.location.search);
 
       var matchId = urlParams.get("id");
-
+      var curentRound;
+      var bluePlayer;
+      var redPlayer;
       console.log("Value of matchId:", matchId);
 
       $(document).ready(function () {
@@ -467,20 +525,20 @@
         // Fonction pour mettre à jour le tableau de bord avec des données
 
         function generateScorePage(data) {
-          console.log(data);
           $("#red-club").html(
             data.redPlayer.firstName + " " + data.redPlayer.lastName
           );
           $("#blue-club").html(
             data.bluePlayer.firstName + "  " + data.bluePlayer.lastName
           );
+          bluePlayer = data.bluePlayer;
+          redPlayer = data.redPlayer;
           var dashboardElement = document.getElementById("dashboard");
           var listeLiens = document.getElementById("listeLiens");
           listeLiens.innerHTML = "";
           dashboardElement.innerHTML = "";
 
-          var curentRound = getCurrentRound(data);
-
+          curentRound = getCurrentRound(data);
           $("#countdown").html(
             curentRound.status == "IN_PROGRESS"
               ? "ROUND #" +
@@ -498,6 +556,11 @@
             "disabled",
             curentRound.status !== "PROGRAMMED"
           );
+          $(".Sanction button").prop(
+            "disabled",
+            curentRound.status !== "IN_PROGRESS"
+          );
+
           $("#startMatch").text("Start " + curentRound.name);
           $("#restartMatch").prop(
             "disabled",
@@ -533,13 +596,32 @@
                       : round.scores.find(
                           (s) => s.arbitreName === score.arbitreName
                         ).blueScore;
+                  var CurentSanction =
+                    player === "redPlayer"
+                      ? round.sanctions.filter(
+                          (s) => s.player.id === redPlayer.id
+                        )
+                      : round.sanctions.filter(
+                          (s) => s.player.id === bluePlayer.id
+                        );
+                  var CurentSanctionHTML = "";
+                  /*<i class='fa-solid fa-skull-crossbones'></i> <i class='fa-solid fa-triangle-exclamation'></i>*/
+                  CurentSanction.forEach(function (curentS) {
+                    CurentSanctionHTML +=
+                      "<i class='" +
+                      getIconCssSanction(curentS.typeSanction) +
+                      "'></i> ";
+                  });
+
                   $roundColumn.append(
                     '<p class="round-score ' +
                       (player === "redPlayer" ? "red-score" : "blue-score") +
                       (round.curent === "true" ? " curent " : " ") +
                       '">' +
                       scoreValue +
-                      "</br> <i class='fa-solid fa-skull-crossbones'></i> <i class='fa-solid fa-triangle-exclamation'></i></p>"
+                      "</br> " +
+                      CurentSanctionHTML +
+                      "</p>"
                   );
                 }
               });
@@ -586,7 +668,21 @@
           updateDashboardFromAPI(matchId);
         }, 1000); // 1000 millisecondes = 1 secondes
       });
-
+      // Function to get CSS class for the sanction icon
+      function getIconCssSanction(typeSanction) {
+        switch (typeSanction) {
+          case "ADMONITION":
+            return "fas fa-rectangle-xmark fa-rotate-90 s1";
+          case "WARNING":
+            return "fas fa-rectangle-xmark fa-rotate-90 s2";
+          case "FORCIBLE_COUNTING":
+            return "fas fa-user-injured s3";
+          case "OUT_BOX":
+            return "fa-solid fa-right-from-bracket s4";
+          default:
+            return "";
+        }
+      }
       function getCurrentRound(matchData) {
         // Vérifie si les données du match sont présentes
         if (!matchData || !matchData.rounds || matchData.rounds.length === 0) {
@@ -713,6 +809,28 @@
           return str;
         }
         return str.charAt(0).toUpperCase();
+      }
+      function addSanction(colorPlayer, typeSanctionName) {
+        var apiUrl = "http://localhost:8096/api/sanction/";
+        var data = {
+          typeSanction: typeSanctionName,
+          round: {
+            id: curentRound.id,
+          },
+          player: {
+            id: colorPlayer == "blue" ? bluePlayer.id : redPlayer.id,
+          },
+        };
+        $.ajax({
+          url: apiUrl,
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(data),
+          success: function (response) {},
+          error: function (error) {
+            console.error("Erreur lors de la mise à jour du score:", error);
+          },
+        });
       }
     </script>
   </body>

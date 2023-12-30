@@ -1,17 +1,22 @@
 package ma.anizar.frmw.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
 import ma.anizar.frmw.model.Match;
+import ma.anizar.frmw.model.Member;
 import ma.anizar.frmw.model.Round;
+import ma.anizar.frmw.model.Sanction;
 import ma.anizar.frmw.model.Score;
 import ma.anizar.frmw.model.dto.MatchDTO;
+import ma.anizar.frmw.model.dto.SanctionDTO;
 import ma.anizar.frmw.model.dto.ScoreDTO;
 import ma.anizar.frmw.model.enums.StatusMatch;
 import ma.anizar.frmw.model.enums.StatusRound;
 import ma.anizar.frmw.repository.MatchRepository;
 import ma.anizar.frmw.repository.RoundRepository;
+import ma.anizar.frmw.repository.SanctionRepository;
 import ma.anizar.frmw.repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +32,9 @@ public class ScoreServiceImpl implements ScoreService {
 
   @Autowired
   ScoreRepository scoreRepository;
+
+  @Autowired
+  SanctionRepository sanctionRepository;
 
   static final int ROUND_DURATION = 10;
 
@@ -74,6 +82,7 @@ public class ScoreServiceImpl implements ScoreService {
     return matchToSave.toDTO();
   }
 
+  @jakarta.transaction.Transactional
   @Override
   public MatchDTO restartMatchById(Long matchId) {
     Match matchToSave = matchRepository.findById(matchId).get();
@@ -92,8 +101,26 @@ public class ScoreServiceImpl implements ScoreService {
             s.setRedScore(0);
             s.setBlueScore(0);
           });
+        r
+          .getSanctions()
+          .forEach(s -> {
+            sanctionRepository.delete(s);
+          });
+        r.setSanctions(new ArrayList<>());
       });
     matchRepository.save(matchToSave);
     return matchToSave.toDTO();
+  }
+
+  @Override
+  public boolean createSanction(SanctionDTO sanctionDto) {
+    Sanction sanction = Sanction
+      .builder()
+      .typeSanction(sanctionDto.getTypeSanction())
+      .round(Round.builder().id(sanctionDto.getRound().getId()).build())
+      .player(Member.builder().id(sanctionDto.getPlayer().getId()).build())
+      .build();
+    sanctionRepository.save(sanction);
+    return true;
   }
 }

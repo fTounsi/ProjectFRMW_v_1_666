@@ -1,11 +1,28 @@
 package ma.anizar.frmw.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.*;
-import ma.anizar.frmw.model.dto.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import ma.anizar.frmw.model.dto.CompetitionDTO;
+import ma.anizar.frmw.model.dto.MatchDTO;
+import ma.anizar.frmw.model.dto.MemberDTO;
+import ma.anizar.frmw.model.dto.RoundDTO;
+import ma.anizar.frmw.model.dto.SanctionDTO;
+import ma.anizar.frmw.model.dto.ScoreDTO;
 import ma.anizar.frmw.model.enums.StatusMatch;
 import ma.anizar.frmw.model.enums.StatusRound;
 
@@ -59,12 +76,16 @@ public class Match {
         r.sanctions
           .stream()
           .forEach(sanction -> {
-            SanctionDTO
-              .builder()
-              .idRound(r.getId())
-              .name(sanction.getName())
-              .typeSanction(sanction.getTypeSanction())
-              .build();
+            sanctionDTOs.add(
+              SanctionDTO
+                .builder()
+                .round(RoundDTO.builder().id(r.getId()).build())
+                .typeSanction(sanction.getTypeSanction())
+                .player(
+                  MemberDTO.builder().id(sanction.getPlayer().getId()).build()
+                )
+                .build()
+            );
           });
         roundDTO.setSanctions(sanctionDTOs);
         List<ScoreDTO> scoresDto = new ArrayList();
@@ -95,6 +116,7 @@ public class Match {
       .bluePlayer(
         MemberDTO
           .builder()
+          .id(this.bluePlayer.getId())
           .firstName(this.bluePlayer.getFirstName())
           .lastName(this.bluePlayer.getLastName())
           .build()
@@ -102,6 +124,7 @@ public class Match {
       .redPlayer(
         MemberDTO
           .builder()
+          .id(this.redPlayer.getId())
           .firstName(this.redPlayer.getFirstName())
           .lastName(this.redPlayer.getLastName())
           .build()
